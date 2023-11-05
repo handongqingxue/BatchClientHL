@@ -7,10 +7,15 @@
 <title>Insert title here</title>
 <style type="text/css">
 .up_div,
+.sweet_phase_div,
+.tra_in_op_div,
 .xfr_in_div{
 	width: 100%;
+	margin: 100px auto;
 }
 .up_div .tit_div,
+.sweet_phase_div .tit_div,
+.tra_in_op_div .tit_div,
 .xfr_in_div .tit_div{
 	width: 100%;
 	height: 50px;
@@ -18,6 +23,8 @@
 	text-align: center;
 }
 .up_div .root_out_div,
+.sweet_phase_div .root_out_div,
+.tra_in_op_div .root_out_div,
 .xfr_in_div .root_out_div{
 	width: 100px;
 	height: 50px;
@@ -25,6 +32,8 @@
 	border: 2px solid #000;
 }
 .up_div .root_in_div,
+.sweet_phase_div .root_in_div,
+.tra_in_op_div .root_in_div,
 .xfr_in_div .root_in_div{
 	width: 90px;
 	height: 43px;
@@ -36,6 +45,12 @@
 .up_div .sweet_to_tra_hor_div,
 .up_div .tra_to_fre_hor_div,
 .up_div .fre_to_comp_hor_div,
+
+.sweet_phase_div .root_to_egg_hor_div,
+
+.tra_in_op_div .root_to_tra_in_hor_div,
+.tra_in_op_div .tra_in_to_comp_hor_div,
+
 .xfr_in_div .root_to_xfr_in_hor_div,
 .xfr_in_div .xfr_in_to_comp_hor_div{
 	width:50px;
@@ -48,6 +63,12 @@
 .up_div .sweet_to_tra_ver_div,
 .up_div .tra_to_fre_ver_div,
 .up_div .fre_to_comp_ver_div,
+
+.sweet_phase_div .root_to_egg_ver_div,
+
+.tra_in_op_div .root_to_tra_in_ver_div,
+.tra_in_op_div .tra_in_to_comp_ver_div,
+
 .xfr_in_div .root_to_xfr_in_ver_div,
 .xfr_in_div .xfr_in_to_comp_ver_div{
 	width:2px;
@@ -60,6 +81,12 @@
 .up_div .t2_text_span,
 .up_div .t3_text_span,
 .up_div .t4_text_span,
+
+.sweet_phase_div .t1_text_span,
+
+.tra_in_op_div .t1_text_span,
+.tra_in_op_div .t2_text_span,
+
 .xfr_in_div .t1_text_span,
 .xfr_in_div .t2_text_span{
 	margin-top: -75px;
@@ -70,6 +97,12 @@
 .up_div .sweet_up1_state_text_span,
 .up_div .tra_state_text_span,
 .up_div .fre_state_text_span,
+
+.sweet_phase_div .t1_true_text_span,
+
+.tra_in_op_div .t1_true_text_span,
+.tra_in_op_div .tra_in_state_text_span,
+
 .xfr_in_div .t1_true_text_span,
 .xfr_in_div .xfr_in_state_text_span{
 	margin-top: -70px;
@@ -81,6 +114,13 @@
 	width: 200px;
 	height: 45px;
 	margin-left:252px;
+	text-align:center;
+	border: 2px solid #000;
+}
+.tra_in_op_div .tra_in_op1_div{
+	width: 250px;
+	height: 45px;
+	margin-left:227px;
 	text-align:center;
 	border: 2px solid #000;
 }
@@ -135,6 +175,32 @@
 	margin-left:227px;
 	text-align:center;
 	border: 2px solid #000;
+}
+.sweet_phase_div .root_to_egg_line1_div{
+	width: 500px;
+	height: 2px;
+	margin-left: 340px;
+	background-color: #000;
+}
+.sweet_phase_div .root_to_egg_line2_div{
+	width: 500px;
+	height: 2px;
+	margin-top: 5px;
+	margin-left: 340px;
+	background-color: #000;
+}
+.sweet_phase_div .egg_bef_ver_div{
+	width:2px;
+	height:20px;
+	margin-left: 350px;
+	background-color: #000;
+}
+.sweet_phase_div .sugar_bef_ver_div{
+	width:2px;
+	height:20px;
+	margin-top: -20px;
+	margin-left: 600px;
+	background-color: #000;
 }
 </style>
 </head>
@@ -203,6 +269,43 @@
 	<span class="fre_state_text_span">CLS_FRENCHVANILLA_UP:1.STATE=COMPLETE</span>
 </div>
 
+<div class="sweet_phase_div">
+	<div class="tit_div">sweet phase流程图</div>
+	<div class="root_out_div">
+		<div class="root_in_div">
+		</div>
+	</div>
+	<div class="root_to_egg_hor_div"></div>
+	<div class="root_to_egg_ver_div"></div>
+	<span class="t1_text_span">T1</span>
+	<span class="t1_true_text_span">True</span>
+	<div class="root_to_egg_line1_div"></div>
+	<div class="root_to_egg_line2_div"></div>
+	<div class="egg_bef_ver_div"></div>
+	<div class="sugar_bef_ver_div"></div>
+</div>
+
+<div class="tra_in_op_div">
+	<div class="tit_div">CLS_TRANSFER_IN_OP:1流程图</div>
+	<div class="root_out_div">
+		<div class="root_in_div">
+		</div>
+	</div>
+	<div class="root_to_tra_in_hor_div"></div>
+	<div class="root_to_tra_in_ver_div"></div>
+	<span class="t1_text_span">T1</span>
+	<span class="t1_true_text_span">True</span>
+	<div class="tra_in_op1_div">
+		<div class="name_div">
+			CLS_TRANSFER_IN_OP:1
+		</div>
+	</div>
+	<div class="tra_in_to_comp_hor_div"></div>
+	<div class="tra_in_to_comp_ver_div"></div>
+	<span class="t2_text_span">T2</span>
+	<span class="tra_in_state_text_span">CLS_TRANSFER_IN_OP:1.STATE=COMPLETE</span>
+</div>
+
 <div class="xfr_in_div">
 	<div class="tit_div">XFR_IN流程图</div>
 	<div class="root_out_div">
@@ -220,7 +323,7 @@
 	</div>
 	<div class="xfr_in_to_comp_hor_div"></div>
 	<div class="xfr_in_to_comp_ver_div"></div>
-	<span class="t2_text_span">T1</span>
+	<span class="t2_text_span">T2</span>
 	<span class="xfr_in_state_text_span">XFR_IN:1.STATE=COMPLETE</span>
 </div>
 </body>
