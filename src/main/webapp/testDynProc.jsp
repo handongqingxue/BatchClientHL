@@ -24,8 +24,8 @@ function initUpDivLoc(){
 	rootOutDiv.css("margin-left",convertPxToNum("700px",changeScale));
 	rootOutDiv.css("margin-top",convertPxToNum("100px",changeScale));
 	
-	var rootOutDivMarginLeft=convertPxToNum(rootOutDiv.css("margin-left"),1);
-	var rootOutDivMarginTop=convertPxToNum(rootOutDiv.css("margin-top"),1);
+	var rootOutDivMarginLeft=convertPxToNum(rootOutDiv.css("margin-left"),defaultScale);
+	var rootOutDivMarginTop=convertPxToNum(rootOutDiv.css("margin-top"),defaultScale);
 	var rootOutDivWidth=convertPxToNum(rootOutDiv.css("width"),1);
 	var rootOutDivHeight=convertPxToNum(rootOutDiv.css("height"),1);
 	
@@ -36,8 +36,8 @@ function initUpDivLoc(){
 	rootToT1HorDiv.css("margin-left",convertPxToNum("800px",changeScale)+"px");
 	rootToT1HorDiv.css("margin-top",convertPxToNum("400px",changeScale)+"px");
 	
-	var rootToT1HorDivMarginLeft=convertPxToNum(rootToT1HorDiv.css("margin-left"),1);
-	var rootToT1HorDivMarginTop=convertPxToNum(rootToT1HorDiv.css("margin-top"),1);
+	var rootToT1HorDivMarginLeft=convertPxToNum(rootToT1HorDiv.css("margin-left"),defaultScale);
+	var rootToT1HorDivMarginTop=convertPxToNum(rootToT1HorDiv.css("margin-top"),defaultScale);
 	//true左边的横线-end
 	
 	//true-start
@@ -45,16 +45,16 @@ function initUpDivLoc(){
 	t1TrueTextSpan.css("margin-left",rootToT1HorDivMarginLeft+40+"px");
 	t1TrueTextSpan.css("margin-top",rootToT1HorDivMarginTop-10+"px");
 	
-	var t1TrueTextSpanWidth=convertPxToNum(t1TrueTextSpan.css("width"),1);
-	var t1TrueTextSpanMarginLeft=convertPxToNum(t1TrueTextSpan.css("margin-left"),1);
-	var t1TrueTextSpanMarginTop=convertPxToNum(t1TrueTextSpan.css("margin-top"),1);
+	var t1TrueTextSpanWidth=convertPxToNum(t1TrueTextSpan.css("width"),defaultScale);
+	var t1TrueTextSpanMarginLeft=convertPxToNum(t1TrueTextSpan.css("margin-left"),defaultScale);
+	var t1TrueTextSpanMarginTop=convertPxToNum(t1TrueTextSpan.css("margin-top"),defaultScale);
 	//true-end
 	
 	//true左边的竖线-start
 	var rootToT1Ver1Div=$("#up_div #root_to_t1_ver1_div");
 	var rootToT1Ver1DivWidth=convertPxToNum(rootToT1Ver1Div.css("width"),1);
-	var rootToT1Ver1DivMarginLeft=changeByScale(t1TrueTextSpanMarginLeft-t1TrueTextSpanWidth/2,1);
-	var rootToT1Ver1DivMarginTop=changeByScale(rootOutDivMarginTop+rootOutDivHeight+4,1);
+	var rootToT1Ver1DivMarginLeft=changeByScale(t1TrueTextSpanMarginLeft-t1TrueTextSpanWidth/2,defaultScale);
+	var rootToT1Ver1DivMarginTop=changeByScale(rootOutDivMarginTop+rootOutDivHeight+4,defaultScale);
 	var rootToT1Ver1DivHeight=rootToT1HorDivMarginTop-rootOutDivMarginTop-rootOutDivHeight;
 	
 	rootToT1Ver1Div.css("margin-left",rootToT1Ver1DivMarginLeft+"px");
