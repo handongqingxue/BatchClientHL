@@ -17,8 +17,11 @@ public class MainController {
 		
 		String url = null;
 		String page = request.getParameter("page");
-		if("test".equals(page)) {//http://localhost:8080/BatchClientHL/main/goPage?page=test
-			url="/test";
+		if("testStaProc".equals(page)) {//http://localhost:8080/BatchClientHL/main/goPage?page=testStaProc
+			url="/testStaProc";
+		}
+		else if("testDynProc".equals(page)) {//http://localhost:8080/BatchClientHL/main/goPage?page=testDynProc
+			url="/testDynProc";
 		}
 		return url;
 	}

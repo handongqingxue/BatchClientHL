@@ -47,6 +47,7 @@
 .up_div .fre_to_comp_hor_div,
 
 .sweet_phase_div .root_to_egg_hor_div,
+.sweet_phase_div .egg_to_cre_hor_div,
 
 .tra_in_op_div .root_to_tra_in_hor_div,
 .tra_in_op_div .tra_in_to_comp_hor_div,
@@ -65,6 +66,7 @@
 .up_div .fre_to_comp_ver_div,
 
 .sweet_phase_div .root_to_egg_ver_div,
+.sweet_phase_div .egg_to_cre_ver_div,
 
 .tra_in_op_div .root_to_tra_in_ver_div,
 .tra_in_op_div .tra_in_to_comp_ver_div,
@@ -83,6 +85,7 @@
 .up_div .t4_text_span,
 
 .sweet_phase_div .t1_text_span,
+.sweet_phase_div .t2_text_span,
 
 .tra_in_op_div .t1_text_span,
 .tra_in_op_div .t2_text_span,
@@ -99,6 +102,7 @@
 .up_div .fre_state_text_span,
 
 .sweet_phase_div .t1_true_text_span,
+.sweet_phase_div .t2_true_text_span,
 
 .tra_in_op_div .t1_true_text_span,
 .tra_in_op_div .tra_in_state_text_span,
@@ -177,29 +181,81 @@
 	border: 2px solid #000;
 }
 .sweet_phase_div .root_to_egg_line1_div{
-	width: 500px;
+	width: 600px;
 	height: 2px;
 	margin-left: 340px;
 	background-color: #000;
 }
 .sweet_phase_div .root_to_egg_line2_div{
-	width: 500px;
+	width: 600px;
 	height: 2px;
 	margin-top: 5px;
 	margin-left: 340px;
 	background-color: #000;
 }
-.sweet_phase_div .egg_bef_ver_div{
+.sweet_phase_div .egg_bef_ver_div,
+.sweet_phase_div .egg_aft_ver_div{
 	width:2px;
 	height:20px;
 	margin-left: 350px;
 	background-color: #000;
 }
-.sweet_phase_div .sugar_bef_ver_div{
+.sweet_phase_div .sugar_bef_ver_div,
+.sweet_phase_div .sugar_aft_ver_div{
 	width:2px;
 	height:20px;
 	margin-top: -20px;
 	margin-left: 600px;
+	background-color: #000;
+}
+.sweet_phase_div .agi_bef_ver_div{
+	width:2px;
+	height:20px;
+	margin-top: -20px;
+	margin-left: 850px;
+	background-color: #000;
+}
+.sweet_phase_div .egg_div{
+	width: 150px;
+	height: 45px;
+	margin-left:277px;
+	text-align:center;
+	border: 2px solid #000;
+}
+.sweet_phase_div .sugar_div{
+	width: 150px;
+	height: 45px;
+	margin-top:-49px;
+	margin-left:520px;
+	text-align:center;
+	border: 2px solid #000;
+}
+.sweet_phase_div .agi_div{
+	width: 150px;
+	height: 45px;
+	margin-top:-49px;
+	margin-left:773px;
+	text-align:center;
+	border: 2px solid #000;
+}
+.sweet_phase_div .egg_to_comp_line1_div{
+	width: 273px;
+	height: 2px;
+	margin-left: 340px;
+	background-color: #000;
+}
+.sweet_phase_div .egg_to_comp_line2_div{
+	width: 273px;
+	height: 2px;
+	margin-top: 5px;
+	margin-left: 340px;
+	background-color: #000;
+}
+.sweet_phase_div .agi_aft_ver_div{
+	width:2px;
+	height:200px;
+	margin-top: -20px;
+	margin-left: 850px;
 	background-color: #000;
 }
 </style>
@@ -283,6 +339,43 @@
 	<div class="root_to_egg_line2_div"></div>
 	<div class="egg_bef_ver_div"></div>
 	<div class="sugar_bef_ver_div"></div>
+	<div class="agi_bef_ver_div"></div>
+	<div class="egg_div">
+		<div class="name_div">
+			ADD_EGG:1
+		</div>
+		<div class="amount_div">
+			200 KG
+		</div>
+	</div>
+	<div class="sugar_div">
+		<div class="name_div">
+			ADD_SUGAR:1
+		</div>
+		<div class="amount_div">
+			750 KG
+		</div>
+	</div>
+	<div class="agi_div">
+		<div class="name_div">
+			ADD_AGITATE:1
+		</div>
+		<div class="amount_div">
+			25 RPM
+		</div>
+	</div>
+	<div class="egg_aft_ver_div"></div>
+	<div class="sugar_aft_ver_div"></div>
+	<div class="egg_to_comp_line1_div"></div>
+	<div class="egg_to_comp_line2_div"></div>
+	<div class="egg_to_cre_hor_div"></div>
+	<div class="egg_to_cre_ver_div"></div>
+	
+	<span class="t2_text_span">T2</span>
+	<span class="t2_true_text_span">True</span>
+	
+	<div class="agi_aft_ver_div"></div>
+	
 </div>
 
 <div class="tra_in_op_div">
