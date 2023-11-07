@@ -124,7 +124,7 @@ function initT1StateTextSpan(){
 function initT1StateLeftVerDiv(){
 	var rootToT1VerDiv=$("#up_div #root_to_t1_ver_div");
 	
-	rootToT1VerDivWidth=convertPxToNum(rootToT1VerDiv.css("width"),1);
+	rootToT1VerDivWidth=convertPxToNum(rootToT1VerDiv.css("width"),defaultScale);
 	rootToT1VerDivMarginLeft=changeByScale(t1StateTextSpanMarginLeft-t1StateTextSpanWidth/2,defaultScale);
 	rootToT1VerDivMarginTop=changeByScale(rootOutDivMarginTop+rootOutDivHeight+4,defaultScale);
 	rootToT1VerDivHeight=rootToT1HorDivMarginTop-rootOutDivMarginTop-rootOutDivHeight;
@@ -140,7 +140,7 @@ function initT1StateLeftSpan(){
 	t1TextSpan.css("margin-left",rootOutDivMarginLeft+rootOutDivWidth/2-horDivWidth/2-30+"px");
 	t1TextSpan.css("margin-top",t1StateTextSpanMarginTop-15+"px");
 	
-	t1TextSpanMarginLeft=convertPxToNum(t1TextSpan.css("margin-left"),1);
+	t1TextSpanMarginLeft=convertPxToNum(t1TextSpan.css("margin-left"),defaultScale);
 }
 
 //T1State左边的竖线2
@@ -155,10 +155,10 @@ function initSweetDiv(){
 	sweetDiv.css("margin-left",convertPxToNum("600px",changeScale)+"px");
 	sweetDiv.css("margin-top",convertPxToNum("700px",changeScale)+"px");
 
-	sweetDivMarginLeft=convertPxToNum(sweetDiv.css("margin-left"),1);
-	sweetDivMarginTop=convertPxToNum(sweetDiv.css("margin-top"),1);
-	sweetDivWidth=convertPxToNum(sweetDiv.css("width"),1);
-	sweetDivHeight=convertPxToNum(sweetDiv.css("height"),1);
+	sweetDivMarginLeft=convertPxToNum(sweetDiv.css("margin-left"),defaultScale);
+	sweetDivMarginTop=convertPxToNum(sweetDiv.css("margin-top"),defaultScale);
+	sweetDivWidth=convertPxToNum(sweetDiv.css("width"),defaultScale);
+	sweetDivHeight=convertPxToNum(sweetDiv.css("height"),defaultScale);
 }
 
 //设置从T1到sweet框垂直线的高和距离上方的像素
@@ -176,8 +176,8 @@ function initT2StateLeftHorDiv(){
 	sweetToT2HorDiv.css("margin-top",convertPxToNum("980px",changeScale)+"px");
 	
 	sweetToT2HorDivWidth=convertPxToNum(sweetToT2HorDiv.css("width"),1);
-	sweetToT2HorDivMarginLeft=convertPxToNum(sweetToT2HorDiv.css("margin-left"),1);
-	sweetToT2HorDivMarginTop=convertPxToNum(sweetToT2HorDiv.css("margin-top"),1);
+	sweetToT2HorDivMarginLeft=convertPxToNum(sweetToT2HorDiv.css("margin-left"),defaultScale);
+	sweetToT2HorDivMarginTop=convertPxToNum(sweetToT2HorDiv.css("margin-top"),defaultScale);
 }
 
 //T2状态
@@ -195,7 +195,7 @@ function initT2StateTextSpan(){
 function initT2StateLeftVerDiv(){
 	var sweetToT2VerDiv=$("#up_div #sweet_to_t2_ver_div");
 	
-	var sweetToT2VerDivWidth=convertPxToNum(sweetToT2VerDiv.css("width"),1);
+	var sweetToT2VerDivWidth=convertPxToNum(sweetToT2VerDiv.css("width"),defaultScale);
 	var sweetToT2VerDivMarginLeft=rootToT1VerDivMarginLeft;
 	var sweetToT2VerDivMarginTop=changeByScale(sweetDivMarginTop+sweetDivHeight+4,defaultScale);
 	var sweetToT2VerDivHeight=sweetToT2HorDivMarginTop-sweetDivMarginTop-sweetDivHeight;
