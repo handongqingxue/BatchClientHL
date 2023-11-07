@@ -41,6 +41,14 @@ var sweetDivMarginTop;
 var sweetDivWidth;
 var sweetDivHeight;
 
+var sweetToT2HorDivWidth;
+var sweetToT2HorDivMarginLeft;
+var sweetToT2HorDivMarginTop;
+
+var t2StateTextSpanWidth;
+var t2StateTextSpanMarginLeft;
+var t2StateTextSpanMarginTop;
+
 $(function(){
 	initUpDivLoc();
 });
@@ -72,51 +80,19 @@ function initUpDivLoc(){
 
 	editT1StateLeftVerDiv();
 	
+	initT2StateLeftHorDiv();
+	
+	initT2StateTextSpan();
+	
+	initT2StateLeftVerDiv();
+	
+	initT2StateLeftSpan();
 	
 	
 	
 	
 	
 	
-	//T2状态左边的横线-start
-	var sweetToT2HorDiv=$("#up_div #sweet_to_t2_hor_div");
-	var sweetToT2HorDivWidth=horDivWidth;
-	sweetToT2HorDiv.css("width",sweetToT2HorDivWidth+"px");
-	sweetToT2HorDiv.css("margin-left",convertPxToNum("800px",changeScale)+"px");
-	sweetToT2HorDiv.css("margin-top",convertPxToNum("980px",changeScale)+"px");
-	
-	var sweetToT2HorDivWidth=convertPxToNum(sweetToT2HorDiv.css("width"),1);
-	var sweetToT2HorDivMarginLeft=convertPxToNum(sweetToT2HorDiv.css("margin-left"),1);
-	var sweetToT2HorDivMarginTop=convertPxToNum(sweetToT2HorDiv.css("margin-top"),1);
-	//T2状态左边的横线-end
-	
-	//T2状态-start
-	var t2StateTextSpan=$("#up_div #t2_state_text_span");
-	t2StateTextSpan.css("margin-left",rootToT1HorDivMarginLeft+horDivWidth+"px");
-	t2StateTextSpan.css("margin-top",sweetToT2HorDivMarginTop-10+"px");
-	
-	var t2StateTextSpanWidth=convertPxToNum(t2StateTextSpan.css("width"),defaultScale);
-	var t2StateTextSpanMarginLeft=convertPxToNum(t2StateTextSpan.css("margin-left"),defaultScale);
-	var t2StateTextSpanMarginTop=convertPxToNum(t2StateTextSpan.css("margin-top"),defaultScale);
-	//T2状态-end
-	
-	//T2状态左边的竖线-start
-	var sweetToT2VerDiv=$("#up_div #sweet_to_t2_ver_div");
-	var sweetToT2VerDivWidth=convertPxToNum(sweetToT2VerDiv.css("width"),1);
-	var sweetToT2VerDivMarginLeft=rootToT1VerDivMarginLeft;
-	var sweetToT2VerDivMarginTop=changeByScale(sweetDivMarginTop+sweetDivHeight+4,defaultScale);
-	var sweetToT2VerDivHeight=sweetToT2HorDivMarginTop-sweetDivMarginTop-sweetDivHeight;
-	
-	sweetToT2VerDiv.css("margin-left",sweetToT2VerDivMarginLeft+"px");
-	sweetToT2VerDiv.css("margin-top",sweetToT2VerDivMarginTop+"px");
-	sweetToT2VerDiv.css("height",sweetToT2VerDivHeight-4+"px");
-	//T2状态左边的竖线-end
-	
-	//T2状态左边的T2-start
-	var t2TextSpan=$("#up_div #t2_text_span");
-	t2TextSpan.css("margin-left",t1TextSpanMarginLeft+"px");
-	t2TextSpan.css("margin-top",t2StateTextSpanMarginTop-15+"px");
-	//T2状态左边的T2-end
 	
 	
 	//alert(sweetDivMarginLeft+sweetDivWidth/2-sweetToT2HorDivWidth/2-30+"px")
@@ -189,6 +165,51 @@ function initSweetDiv(){
 function editT1StateLeftVerDiv(){
 	t1ToSweetVerDiv.css("height",sweetDivMarginTop-rootToT1HorDivMarginTop+"px");//用sweet框距离上方的像素-从root框到T1框的水平线距离上方的像素
 	t1ToSweetVerDiv.css("margin-top",rootToT1HorDivMarginTop+"px");
+}
+
+//T2状态左边的横线
+function initT2StateLeftHorDiv(){
+	var sweetToT2HorDiv=$("#up_div #sweet_to_t2_hor_div");
+	var sweetToT2HorDivWidth=horDivWidth;
+	sweetToT2HorDiv.css("width",sweetToT2HorDivWidth+"px");
+	sweetToT2HorDiv.css("margin-left",convertPxToNum("800px",changeScale)+"px");
+	sweetToT2HorDiv.css("margin-top",convertPxToNum("980px",changeScale)+"px");
+	
+	sweetToT2HorDivWidth=convertPxToNum(sweetToT2HorDiv.css("width"),1);
+	sweetToT2HorDivMarginLeft=convertPxToNum(sweetToT2HorDiv.css("margin-left"),1);
+	sweetToT2HorDivMarginTop=convertPxToNum(sweetToT2HorDiv.css("margin-top"),1);
+}
+
+//T2状态
+function initT2StateTextSpan(){
+	var t2StateTextSpan=$("#up_div #t2_state_text_span");
+	t2StateTextSpan.css("margin-left",rootToT1HorDivMarginLeft+horDivWidth+"px");
+	t2StateTextSpan.css("margin-top",sweetToT2HorDivMarginTop-10+"px");
+	
+	t2StateTextSpanWidth=convertPxToNum(t2StateTextSpan.css("width"),defaultScale);
+	t2StateTextSpanMarginLeft=convertPxToNum(t2StateTextSpan.css("margin-left"),defaultScale);
+	t2StateTextSpanMarginTop=convertPxToNum(t2StateTextSpan.css("margin-top"),defaultScale);
+}
+
+//T2状态左边的竖线
+function initT2StateLeftVerDiv(){
+	var sweetToT2VerDiv=$("#up_div #sweet_to_t2_ver_div");
+	
+	var sweetToT2VerDivWidth=convertPxToNum(sweetToT2VerDiv.css("width"),1);
+	var sweetToT2VerDivMarginLeft=rootToT1VerDivMarginLeft;
+	var sweetToT2VerDivMarginTop=changeByScale(sweetDivMarginTop+sweetDivHeight+4,defaultScale);
+	var sweetToT2VerDivHeight=sweetToT2HorDivMarginTop-sweetDivMarginTop-sweetDivHeight;
+	
+	sweetToT2VerDiv.css("margin-left",sweetToT2VerDivMarginLeft+"px");
+	sweetToT2VerDiv.css("margin-top",sweetToT2VerDivMarginTop+"px");
+	sweetToT2VerDiv.css("height",sweetToT2VerDivHeight-4+"px");
+}
+
+//T2状态左边的T2
+function initT2StateLeftSpan(){
+	var t2TextSpan=$("#up_div #t2_text_span");
+	t2TextSpan.css("margin-left",t1TextSpanMarginLeft+"px");
+	t2TextSpan.css("margin-top",t2StateTextSpanMarginTop-15+"px");
 }
 
 function convertPxToNum(px,scale){
