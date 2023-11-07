@@ -36,6 +36,11 @@ var t1TextSpanMarginLeft;
 
 var t1ToSweetVerDiv;
 
+var sweetDivMarginLeft;
+var sweetDivMarginTop;
+var sweetDivWidth;
+var sweetDivHeight;
+
 $(function(){
 	initUpDivLoc();
 });
@@ -63,25 +68,14 @@ function initUpDivLoc(){
 	
 	initT1ToSweetVerDiv();
 	
-	
-	
-	
-	
-	//sweet-start
-	var sweetDiv=$("#up_div #sweet_div");
-	sweetDiv.css("margin-left",convertPxToNum("600px",changeScale)+"px");
-	sweetDiv.css("margin-top",convertPxToNum("700px",changeScale)+"px");
+	initSweetDiv();
 
-	var sweetDivMarginLeft=convertPxToNum(sweetDiv.css("margin-left"),1);
-	var sweetDivMarginTop=convertPxToNum(sweetDiv.css("margin-top"),1);
-	var sweetDivWidth=convertPxToNum(sweetDiv.css("width"),1);
-	var sweetDivHeight=convertPxToNum(sweetDiv.css("height"),1);
-	//sweet-end
+	editT1StateLeftVerDiv();
 	
-	//设置从T1到sweet框垂直线的高和距离上方的像素-start
-	t1ToSweetVerDiv.css("height",sweetDivMarginTop-rootToT1HorDivMarginTop+"px");//用sweet框距离上方的像素-从root框到T1框的水平线距离上方的像素
-	t1ToSweetVerDiv.css("margin-top",rootToT1HorDivMarginTop+"px");
-	//设置从T1到sweet框垂直线的高和距离上方的像素-end
+	
+	
+	
+	
 	
 	
 	//T2状态左边的横线-start
@@ -177,6 +171,24 @@ function initT1StateLeftSpan(){
 function initT1ToSweetVerDiv(){
 	t1ToSweetVerDiv=$("#up_div #t1_to_sweet_ver_div");
 	t1ToSweetVerDiv.css("margin-left",rootToT1VerDivMarginLeft+"px");
+}
+
+//SweetDiv
+function initSweetDiv(){
+	var sweetDiv=$("#up_div #sweet_div");
+	sweetDiv.css("margin-left",convertPxToNum("600px",changeScale)+"px");
+	sweetDiv.css("margin-top",convertPxToNum("700px",changeScale)+"px");
+
+	sweetDivMarginLeft=convertPxToNum(sweetDiv.css("margin-left"),1);
+	sweetDivMarginTop=convertPxToNum(sweetDiv.css("margin-top"),1);
+	sweetDivWidth=convertPxToNum(sweetDiv.css("width"),1);
+	sweetDivHeight=convertPxToNum(sweetDiv.css("height"),1);
+}
+
+//设置从T1到sweet框垂直线的高和距离上方的像素
+function editT1StateLeftVerDiv(){
+	t1ToSweetVerDiv.css("height",sweetDivMarginTop-rootToT1HorDivMarginTop+"px");//用sweet框距离上方的像素-从root框到T1框的水平线距离上方的像素
+	t1ToSweetVerDiv.css("margin-top",rootToT1HorDivMarginTop+"px");
 }
 
 function convertPxToNum(px,scale){
