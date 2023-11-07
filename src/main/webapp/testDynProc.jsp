@@ -14,6 +14,13 @@ var path='<%=basePath %>';
 var defaultScale=1;
 var changeScale=0.3;
 var horDivWidth=40;
+var horVerJoinSpace=10;
+
+var stepHorConnDivHeight=2;
+var stepVerConnDivWidth=2;
+var stepVerConnDivHeight=20;
+var stepDivWidth=200;
+var stepDivHeight=45;
 
 var rootOutDivMarginLeft;
 var rootOutDivMarginTop;
@@ -48,6 +55,28 @@ var sweetToT2HorDivMarginTop;
 var t2StateTextSpanWidth;
 var t2StateTextSpanMarginLeft;
 var t2StateTextSpanMarginTop;
+
+var sweetToT2VerDivWidth;
+var sweetToT2VerDivHeight;
+var sweetToT2VerDivMarginLeft;
+var sweetToT2VerDivMarginTop;
+
+var traInDivMarginLeft;
+var traInDivMarginTop;
+
+var traOutDivMarginLeft;
+var traOutDivMarginTop;
+
+var t2ToTraVerConn1DivMarginLeft;
+var t2ToTraVerConn1DivMarginTop;
+
+var t2ToTraVerConn2DivMarginLeft;
+var t2ToTraVerConn2DivMarginTop;
+
+var t2ToTraHorConn1DivWidth;
+
+var t2ToTraHorConn2DivMarginLeft;
+var t2ToTraHorConn2DivMarginTop;
 
 $(function(){
 	initUpDivLoc();
@@ -88,12 +117,19 @@ function initUpDivLoc(){
 	
 	initT2StateLeftSpan();
 	
+	initT2ToTraVerDiv();
 	
+	initT2ToTraHorConnDiv();
 	
+	initTraInDiv();
 	
+	initTraOutDiv();
 	
+	initT2ToTraVerConnDiv();
 	
+	editT2ToTraHorConnDiv();
 	
+	editT2ToTraVerDiv();
 	
 	//alert(sweetDivMarginLeft+sweetDivWidth/2-sweetToT2HorDivWidth/2-30+"px")
 }
@@ -152,6 +188,8 @@ function initT1ToSweetVerDiv(){
 //SweetDiv
 function initSweetDiv(){
 	var sweetDiv=$("#up_div #sweet_div");
+	sweetDiv.css("width",stepDivWidth+"px");
+	sweetDiv.css("height",stepDivHeight+"px");
 	sweetDiv.css("margin-left",convertPxToNum("600px",changeScale)+"px");
 	sweetDiv.css("margin-top",convertPxToNum("700px",changeScale)+"px");
 
@@ -170,10 +208,14 @@ function editT1StateLeftVerDiv(){
 //T2状态左边的横线
 function initT2StateLeftHorDiv(){
 	var sweetToT2HorDiv=$("#up_div #sweet_to_t2_hor_div");
+	
 	var sweetToT2HorDivWidth=horDivWidth;
+	sweetToT2HorDivMarginLeft=convertPxToNum("800px",changeScale);
+	sweetToT2HorDivMarginTop=convertPxToNum("980px",changeScale);
+	
 	sweetToT2HorDiv.css("width",sweetToT2HorDivWidth+"px");
-	sweetToT2HorDiv.css("margin-left",convertPxToNum("800px",changeScale)+"px");
-	sweetToT2HorDiv.css("margin-top",convertPxToNum("980px",changeScale)+"px");
+	sweetToT2HorDiv.css("margin-left",sweetToT2HorDivMarginLeft+"px");
+	sweetToT2HorDiv.css("margin-top",sweetToT2HorDivMarginTop+"px");
 	
 	sweetToT2HorDivWidth=convertPxToNum(sweetToT2HorDiv.css("width"),1);
 	sweetToT2HorDivMarginLeft=convertPxToNum(sweetToT2HorDiv.css("margin-left"),defaultScale);
@@ -195,10 +237,10 @@ function initT2StateTextSpan(){
 function initT2StateLeftVerDiv(){
 	var sweetToT2VerDiv=$("#up_div #sweet_to_t2_ver_div");
 	
-	var sweetToT2VerDivWidth=convertPxToNum(sweetToT2VerDiv.css("width"),defaultScale);
-	var sweetToT2VerDivMarginLeft=rootToT1VerDivMarginLeft;
-	var sweetToT2VerDivMarginTop=changeByScale(sweetDivMarginTop+sweetDivHeight+4,defaultScale);
-	var sweetToT2VerDivHeight=sweetToT2HorDivMarginTop-sweetDivMarginTop-sweetDivHeight;
+	sweetToT2VerDivWidth=convertPxToNum(sweetToT2VerDiv.css("width"),defaultScale);
+	sweetToT2VerDivMarginLeft=rootToT1VerDivMarginLeft;
+	sweetToT2VerDivMarginTop=changeByScale(sweetDivMarginTop+sweetDivHeight+4,defaultScale);
+	sweetToT2VerDivHeight=sweetToT2HorDivMarginTop-sweetDivMarginTop-sweetDivHeight;
 	
 	sweetToT2VerDiv.css("margin-left",sweetToT2VerDivMarginLeft+"px");
 	sweetToT2VerDiv.css("margin-top",sweetToT2VerDivMarginTop+"px");
@@ -210,6 +252,96 @@ function initT2StateLeftSpan(){
 	var t2TextSpan=$("#up_div #t2_text_span");
 	t2TextSpan.css("margin-left",t1TextSpanMarginLeft+"px");
 	t2TextSpan.css("margin-top",t2StateTextSpanMarginTop-15+"px");
+}
+
+function initT2ToTraVerDiv(){
+	var t2ToTraVerDiv=$("#up_div #t2_to_tra_ver_div");
+	t2ToTraVerDiv.css("width",stepVerConnDivWidth+"px");
+	
+}
+
+function initT2ToTraHorConnDiv(){
+	var t2ToTraHorConn1Div=$("#up_div #t2_to_tra_hor_conn1_div");
+	t2ToTraHorConn1Div.css("height",stepHorConnDivHeight+"px");
+	
+	var t2ToTraHorConn2Div=$("#up_div #t2_to_tra_hor_conn2_div");
+	t2ToTraHorConn2Div.css("height",stepHorConnDivHeight+"px");
+}
+
+function initTraInDiv(){
+	var traInDiv=$("#up_div #tra_in_div");
+	traInDiv.css("width",stepDivWidth+"px");
+	traInDiv.css("height",stepDivHeight+"px");
+	
+	traInDivMarginLeft=convertPxToNum("200px",changeScale);
+	traInDivMarginTop=convertPxToNum("1300px",changeScale);
+	
+	traInDiv.css("margin-left",traInDivMarginLeft+"px");
+	traInDiv.css("margin-top",traInDivMarginTop+"px");
+}
+
+function initTraOutDiv(){
+	var traOutDiv=$("#up_div #tra_out_div");
+	traOutDiv.css("width",stepDivWidth+"px");
+	traOutDiv.css("height",stepDivHeight+"px");
+	
+	traOutDivMarginLeft=convertPxToNum("1000px",changeScale);
+	traOutDivMarginTop=convertPxToNum("1300px",changeScale);
+	
+	traOutDiv.css("margin-left",traOutDivMarginLeft+"px");
+	traOutDiv.css("margin-top",traOutDivMarginTop+"px");
+}
+
+function initT2ToTraVerConnDiv(){
+	var t2ToTraVerConn1Div=$("#up_div #t2_to_tra_ver_conn1_div");
+	t2ToTraVerConn1Div.css("width",stepVerConnDivWidth+"px");
+	t2ToTraVerConn1Div.css("height",stepVerConnDivHeight+"px");
+	
+	t2ToTraVerConn1DivMarginLeft=traInDivMarginLeft+stepDivWidth/2;
+	t2ToTraVerConn1DivMarginTop=traInDivMarginTop-stepVerConnDivHeight;
+	
+	t2ToTraVerConn1Div.css("margin-left",t2ToTraVerConn1DivMarginLeft+"px");
+	t2ToTraVerConn1Div.css("margin-top",t2ToTraVerConn1DivMarginTop+"px");
+	
+	var t2ToTraVerConn2Div=$("#up_div #t2_to_tra_ver_conn2_div");
+	t2ToTraVerConn2Div.css("width",stepVerConnDivWidth+"px");
+	t2ToTraVerConn2Div.css("height",stepVerConnDivHeight+"px");
+	
+	t2ToTraVerConn2DivMarginLeft=traOutDivMarginLeft+stepDivWidth/2;
+	t2ToTraVerConn2DivMarginTop=traOutDivMarginTop-stepVerConnDivHeight;
+	
+	t2ToTraVerConn2Div.css("margin-left",t2ToTraVerConn2DivMarginLeft+"px");
+	t2ToTraVerConn2Div.css("margin-top",t2ToTraVerConn2DivMarginTop+"px");
+}
+
+function editT2ToTraHorConnDiv(){
+	var t2ToTraHorConn1Div=$("#up_div #t2_to_tra_hor_conn1_div");
+	
+	t2ToTraHorConn1DivWidth=t2ToTraVerConn2DivMarginLeft-t2ToTraVerConn1DivMarginLeft+horVerJoinSpace*2;
+	t2ToTraHorConn1DivMarginLeft=t2ToTraVerConn1DivMarginLeft-horVerJoinSpace;
+	
+	t2ToTraHorConn1Div.css("width",t2ToTraHorConn1DivWidth+"px");
+	t2ToTraHorConn1Div.css("height",stepHorConnDivHeight+"px");
+	t2ToTraHorConn1Div.css("margin-left",t2ToTraHorConn1DivMarginLeft+"px");
+	t2ToTraHorConn1Div.css("margin-top",t2ToTraVerConn1DivMarginTop+"px");
+	
+	var t2ToTraHorConn2Div=$("#up_div #t2_to_tra_hor_conn2_div");
+	
+	t2ToTraHorConn2DivMarginLeft=t2ToTraHorConn1DivMarginLeft;
+	t2ToTraHorConn2DivMarginTop=t2ToTraVerConn1DivMarginTop-horVerJoinSpace;
+	
+	t2ToTraHorConn2Div.css("width",t2ToTraHorConn1DivWidth+"px");
+	t2ToTraHorConn2Div.css("height",stepHorConnDivHeight+"px");
+	t2ToTraHorConn2Div.css("margin-left",t2ToTraHorConn2DivMarginLeft+"px");
+	t2ToTraHorConn2Div.css("margin-top",t2ToTraHorConn2DivMarginTop+"px");
+}
+
+function editT2ToTraVerDiv(){
+	var t2ToTraVerDiv=$("#up_div #t2_to_tra_ver_div");
+	
+	t2ToTraVerDiv.css("height",t2ToTraHorConn2DivMarginTop-sweetToT2VerDivMarginTop+"px");
+	t2ToTraVerDiv.css("margin-left",sweetToT2VerDivMarginLeft+"px");
+	t2ToTraVerDiv.css("margin-top",sweetToT2VerDivMarginTop+"px");
 }
 
 function convertPxToNum(px,scale){
@@ -270,16 +402,22 @@ function changeByScale(num,scale){
 	position: absolute;
 }
 .up_div .t1_to_sweet_ver_div,
-.up_div .sweet_to_t2_ver_div{
+.up_div .sweet_to_t2_ver_div,
+.up_div .t2_to_tra_ver_div{
 	width: 2px;
 	background-color: #000;
 	position: absolute;
 }
-.up_div .sweet_div{
-	width: 200px;
-	height: 45px;
+.up_div .sweet_div,
+.up_div .tra_in_div,
+.up_div .tra_out_div{
 	text-align:center;
 	border: 2px solid #000;
+	position: absolute;
+}
+.up_div .t2_to_tra_hor_conn_div,
+.up_div .t2_to_tra_ver_conn_div{
+	background-color: #000;
 	position: absolute;
 }
 </style>
@@ -292,11 +430,13 @@ function changeByScale(num,scale){
 			<div class="root_in_div">
 			</div>
 		</div>
+		
 		<div class="root_to_t1_hor_div" id="root_to_t1_hor_div"></div>
 		<span class="t1_text_span" id="t1_text_span">T1</span>
 		<span class="t1_true_text_span" id="t1_true_text_span">True</span>
 		<div class="root_to_t1_ver_div" id="root_to_t1_ver_div"></div>
 		<div class="t1_to_sweet_ver_div" id="t1_to_sweet_ver_div"></div>
+		
 		<div class="sweet_div" id="sweet_div">
 			<div class="name_div">
 				CLS_SWEETCREAM_UP:1
@@ -305,11 +445,37 @@ function changeByScale(num,scale){
 				WP_MIXER1
 			</div>
 		</div>
+		
 		<div class="sweet_to_t2_hor_div" id="sweet_to_t2_hor_div"></div>
 		<span class="t2_text_span" id="t2_text_span">T2</span>
 		<span class="t2_state_text_span" id="t2_state_text_span">CLS_SWEETCREAM_UP:1.STATE = COMPLETE</span>
 		<div class="sweet_to_t2_ver_div" id="sweet_to_t2_ver_div"></div>
-		<div class="t2_to_tra_div" id="t2_to_tra_div"></div>
+		
+		<div class="t2_to_tra_ver_div" id="t2_to_tra_ver_div"></div>
+		
+		<div class="t2_to_tra_hor_conn_div" id="t2_to_tra_hor_conn1_div"></div>
+		<div class="t2_to_tra_hor_conn_div" id="t2_to_tra_hor_conn2_div"></div>
+		
+		<div class="t2_to_tra_ver_conn_div" id="t2_to_tra_ver_conn1_div"></div>
+		<div class="t2_to_tra_ver_conn_div" id="t2_to_tra_ver_conn2_div"></div>
+		
+		<div class="tra_in_div" id="tra_in_div">
+			<div class="name_div">
+				CLS_TRANSFER_IN_UP:1
+			</div>
+			<div class="unitName_div">
+				WP_FREEZER1
+			</div>
+		</div>
+		
+		<div class="tra_out_div" id="tra_out_div">
+			<div class="name_div">
+				CLS_TRANSFER_OUT_UP:1
+			</div>
+			<div class="unitName_div">
+				WP_MIXER1
+			</div>
+		</div>
 	</div>
 </div>
 </body>
