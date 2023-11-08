@@ -575,6 +575,14 @@ function convertPxToNum(px,scale){
 function changeByScale(num,scale){
 	return num*scale;
 }
+
+function initRecipeHeader(){
+	$.post(path+"batch/initRecipeHeader",
+		function(){
+		
+		}
+	,"json");
+}
 </script>
 <title>Insert title here</title>
 <style type="text/css">
@@ -740,6 +748,9 @@ function changeByScale(num,scale){
 		<span class="t4_state_text_span" id="t4_state_text_span">CLS_FRENCHVANILLA_UP:1.STATE = COMPLETE</span>
 		<div class="fre_to_t4_ver_div" id="fre_to_t4_ver_div"></div>
 	</div>
+</div>
+<div>
+<input type="button" value="初始化配方" onclick="initRecipeHeader()"/>
 </div>
 </body>
 </html>
