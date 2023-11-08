@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batchClientHL.dao.RecipeHeaderMapper">
+	<insert id="addFromList" parameterType="com.batchClientHL.entity.RecipeHeader">
+		insert into RecipeHeader (RecipeID,Identifier,Version,CreatedDt,Author,ProductCode,ProductName,ProductDsc,
+		ApproveUser,ApproveDt) values
+		<foreach collection="rhList" item="rh" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<choose>
+					<when test="rh.recipeID!=null">
+						#{rh.recipeID},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rh.identifier!=null">
+						#{rh.identifier},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rh.version!=null">
+						#{rh.version},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rh.createdDt!=null">
+						#{rh.createdDt},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rh.author!=null">
+						#{rh.author},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rh.productCode!=null">
+						#{rh.productCode},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rh.productName!=null">
+						#{rh.productName},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rh.productDsc!=null">
+						#{rh.productDsc},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rh.approveUser!=null">
+						#{rh.approveUser},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rh.approveDt!=null">
+						#{rh.approveDt},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+			</trim>
+		</foreach>
+	</insert>
+</mapper>
