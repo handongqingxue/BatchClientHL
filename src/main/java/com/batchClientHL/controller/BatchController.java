@@ -21,6 +21,8 @@ public class BatchController {
 	public static final String MODULE_NAME="batch";
 	@Autowired
 	private RecipeHeaderService recipeHeaderService;
+	@Autowired
+	private ProcedureDataService procedureDataService;
 	
 	@RequestMapping(value="/initRecipeHeader")
 	@ResponseBody
@@ -29,7 +31,7 @@ public class BatchController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 
 		try {
-			JSONObject recipeListJO = APIUtil.getItemJO("RecipeList");
+			JSONObject recipeListJO = APIUtil.getItemJO(APIUtil.RECIPE_LIST);
 			String recipeListData = recipeListJO.getString("data");
 			Map<String, Object> resultMap = APIUtil.convertItemDataToEntity(APIUtil.RECIPE_LIST,recipeListData);
 			List<RecipeHeader> recipeHeaderList = (List<RecipeHeader>)resultMap.get("recipeHeaderList");
@@ -40,6 +42,29 @@ public class BatchController {
 			e.printStackTrace();
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "添加配方信息失败");
+		}
+		finally {
+			return jsonMap;
+		}
+	}
+	
+	@RequestMapping(value="/initProcedureData")
+	@ResponseBody
+	public Map<String, Object> initProcedureData(String procedureID) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		try {	
+			JSONObject procedureIDDataJO = APIUtil.getItemJO(APIUtil.PROCEDURE_ID_DATA.replaceAll("ProcedureID", procedureID));
+			String procedureIDData = procedureIDDataJO.getString("data");
+			Map<String, Object> resultMap = APIUtil.convertItemDataToEntity(APIUtil.PROCEDURE_ID_DATA,procedureIDData);
+			List<ProcedureData> procedureDataList = (List<ProcedureData>)resultMap.get("procedureDataList");
+			procedureDataService.addFromList(procedureDataList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "添加过程信息失败");
 		}
 		finally {
 			return jsonMap;

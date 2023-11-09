@@ -2,6 +2,17 @@ package com.batchClientHL.entity;
 
 public class ProcedureData {
 
+	public static final int PARENT_STEP=0;
+	public static final int INITIAL_STEP=1;
+	public static final int TERMINAL_STEP=2;
+	public static final int REGULAR_STEP=3;
+	public static final int TRANSITION=4;
+	public static final int LINK=5;
+	public static final int OR_DIVERGENCE=6;
+	public static final int OR_CONVERGENCE=7;
+	public static final int AND_DIVERGENCE=8;
+	public static final int AND_CONVERGENCE=9;
+	
 	private Integer ID;
 	public Integer getID() {
 		return ID;

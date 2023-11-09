@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batchClientHL.dao.ProcedureDataMapper">
+	<insert id="addFromList" parameterType="com.batchClientHL.entity.ProcedureData">
+		insert into ProcedureData (RecpID,RecpName,BoundUnitID,ElemID,ElemName,ElemType,RecipeLink,RawXCord,
+		RawYCord,ParmList,ConditionExp,PrevElemID,NextElemID,PrevElemIDList,NextElemIDList,Remark) values
+		<foreach collection="pdList" item="pd" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<choose>
+					<when test="pd.recpID!=null">
+						#{pd.recpID},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.recpName!=null">
+						#{pd.recpName},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.boundUnitID!=null">
+						#{pd.boundUnitID},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.elemID!=null">
+						#{pd.elemID},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.elemName!=null">
+						#{pd.elemName},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.elemType!=null">
+						#{pd.elemType},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.recipeLink!=null">
+						#{pd.recipeLink},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.rawXCord!=null">
+						#{pd.rawXCord},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.rawYCord!=null">
+						#{pd.rawYCord},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.parmList!=null">
+						#{pd.parmList},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.conditionExp!=null">
+						#{pd.conditionExp},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.prevElemID!=null">
+						#{pd.prevElemID},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.nextElemID!=null">
+						#{pd.nextElemID},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.prevElemIDList!=null">
+						#{pd.prevElemIDList},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.nextElemIDList!=null">
+						#{pd.nextElemIDList},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="pd.remark!=null">
+						#{pd.remark},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+			</trim>
+		</foreach>
+	</insert>
+</mapper>
