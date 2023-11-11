@@ -195,24 +195,24 @@ public class APIUtil {
 		for (int i = 0; i < recipeElemArr.length; i++) {
 			String recipeElem=recipeElemArr[i];
 			
-			int nextTStartLoc=recipeElem.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
-			String elemTypeStr=recipeElem.substring(0, nextTStartLoc);
+			int nextTStartLoc=getLocBySpaceSign(recipeElem,BatchView.SINGLE_T_SPACE_SIGN);
+			String elemTypeStr=substringByEndLoc(recipeElem,nextTStartLoc);
 			Integer elemType=Integer.valueOf(elemTypeStr);
 			System.out.println("elemType==="+elemType);
-			String otherAttrs = recipeElem.substring(nextTStartLoc+BatchView.SINGLE_T_SPACE_SIGN.length(), recipeElem.length());
+			String otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,recipeElem);
 			System.out.println("otherAttrs==="+otherAttrs);
 			switch (elemType) {
 			case ProcedureData.PARENT_STEP:
-				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
-				String elemID = otherAttrs.substring(0, nextTStartLoc);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
+				String elemID = substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("elemID==="+elemID);
-				otherAttrs = otherAttrs.substring(nextTStartLoc+BatchView.SINGLE_T_SPACE_SIGN.length(), otherAttrs.length());
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
 				System.out.println("otherAttrs==="+otherAttrs);
 				
 				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
-				String recipeLink = otherAttrs.substring(0, nextTStartLoc);
+				String recipeLink = substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("recipeLink==="+recipeLink);
-				otherAttrs = otherAttrs.substring(nextTStartLoc+BatchView.SINGLE_T_SPACE_SIGN.length(), otherAttrs.length());
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
 				System.out.println("otherAttrs==="+otherAttrs);
 				
 				procedureData=new ProcedureData();
@@ -296,5 +296,17 @@ public class APIUtil {
 		
 		
 		return procedureDataList;
+	}
+	
+	public static int getLocBySpaceSign(String str, String spaceSign) {
+		return str.indexOf(spaceSign);
+	}
+	
+	public static String substringByEndLoc(String str, int endLoc) {
+		return str.substring(0, endLoc);
+	}
+	
+	public static String getOtherAttrsStr(int startLoc, String spaceSign,String attrsStr) {
+		return attrsStr.substring(startLoc+spaceSign.length(), attrsStr.length());
 	}
 }
