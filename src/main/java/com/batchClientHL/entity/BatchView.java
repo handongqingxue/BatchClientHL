@@ -29,8 +29,10 @@ public class BatchView {
 	 * 行与行之间的分隔符(虽然文档里写着是crlf,但java端解析就成了\r\n)
 	 */
 	public static final String CRLF_SPACE_SIGN="\\r\\n";
+	public static final String SINGLE_CRLF_SPACE_SIGN="\r\n";
 	
 	public static final String T_SPACE_SIGN="\\t";
+	public static final String SINGLE_T_SPACE_SIGN="\t";
 	
 	/**
 	 * Can't pass in null Dispatch object

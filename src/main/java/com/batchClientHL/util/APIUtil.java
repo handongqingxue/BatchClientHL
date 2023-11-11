@@ -165,9 +165,10 @@ public class APIUtil {
 		List<ProcedureData> procedureDataList=new ArrayList<ProcedureData>();
 		
 		ProcedureData procedureData=null;
-		String[] procArr = procData.split(BatchView.CRLF_SPACE_SIGN);
-		Integer SVRSignal=Integer.valueOf(procArr[0]);
-		String dataList=procArr[1];
+		
+		int SVRSignalStartLoc=procData.indexOf(BatchView.SINGLE_CRLF_SPACE_SIGN);
+		Integer SVRSignal=Integer.valueOf(procData.substring(0, SVRSignalStartLoc));
+		String dataList=procData.substring(SVRSignalStartLoc+2, procData.length());
 		String[] dataArr = dataList.split(BatchView.CRLF_SPACE_SIGN);
 		String recpAbstr = dataArr[0];
 		String recpDesc = dataArr[1];
@@ -185,33 +186,57 @@ public class APIUtil {
 		String boundUnit = dataArr[10];
 		
 		StringBuilder recipeElemListSB=new StringBuilder();
-		for (int i = 11; i < docDimArr.length; i++) {
+		for (int i = 11; i < dataArr.length; i++) {
 			recipeElemListSB.append(dataArr[i]);
+			recipeElemListSB.append(BatchView.SINGLE_CRLF_SPACE_SIGN);
 		}
 		String recipeElemList = recipeElemListSB.toString();
 		String[] recipeElemArr = recipeElemList.split(BatchView.CRLF_SPACE_SIGN);
 		for (int i = 0; i < recipeElemArr.length; i++) {
-			String recipeElem = recipeElemArr[i];
-			String[] recipeElemAttrArr = recipeElem.split(BatchView.T_SPACE_SIGN);
-			Integer elemType=Integer.valueOf(recipeElemAttrArr[0]);
-			String elemID=recipeElemAttrArr[1];
-			String parmList=recipeElemAttrArr[3];
+			String recipeElem=recipeElemArr[i];
 			
-			procedureData=new ProcedureData();
-			procedureData.setRecpID(recpID);
-			procedureData.setElemID(elemID);
-			procedureData.setElemType(elemType);
-			procedureData.setParmList(parmList);
-			
+			int nextTStartLoc=getLocBySpaceSign(recipeElem,BatchView.SINGLE_T_SPACE_SIGN);
+			String elemTypeStr=substringByEndLoc(recipeElem,nextTStartLoc);
+			Integer elemType=Integer.valueOf(elemTypeStr);
+			System.out.println("elemType==="+elemType);
+			String otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,recipeElem);
+			System.out.println("otherAttrs==="+otherAttrs);
 			switch (elemType) {
 			case ProcedureData.PARENT_STEP:
-				String recipeLink=recipeElemAttrArr[2];
-				procedureData.setRecipeLink(recipeLink);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
+				String elemID = substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("elemID==="+elemID);
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
+				System.out.println("otherAttrs==="+otherAttrs);
+				
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				String recipeLink = substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("recipeLink==="+recipeLink);
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
+				System.out.println("otherAttrs==="+otherAttrs);
+				
+				procedureData=new ProcedureData();
+				procedureData.setElemType(elemType);
+				//procedureData.setElemID(elemID);;
+				
+				//String recipeLink=recipeElemAttrArr[2];
+				//String parmList=recipeElemAttrArr[3];
+				//procedureData.setRecipeLink(recipeLink);
+				//procedureData.setParmList(parmList);
 				break;
+				/*
 			case ProcedureData.INITIAL_STEP:
+				procedureData.setRecpID(recpID);
+				
+				recipeElem = recipeElemArr[i];
+				String[] recipeElemAttrArr = recipeElem.split(BatchView.T_SPACE_SIGN);
+				String elemID=recipeElemAttrArr[1];
 				Integer drawXCordIni=Integer.valueOf(recipeElemAttrArr[2]);
 				Integer drawYCordIni=Integer.valueOf(recipeElemAttrArr[3]);
-				
+
+				procedureData=new ProcedureData();
+				procedureData.setElemType(elemType);
+				procedureData.setElemID(elemID);
 				procedureData.setRawXCord(drawXCordIni);
 				procedureData.setRawYCord(drawYCordIni);
 				break;
@@ -263,6 +288,7 @@ public class APIUtil {
 				procedureData.setNextElemIDList(nextElemIDListCon);
 				procedureData.setPrevElemIDList(prevElemIDListCon);
 				break;
+			*/
 			}
 			
 			procedureDataList.add(procedureData);
@@ -270,5 +296,17 @@ public class APIUtil {
 		
 		
 		return procedureDataList;
+	}
+	
+	public static int getLocBySpaceSign(String str, String spaceSign) {
+		return str.indexOf(spaceSign);
+	}
+	
+	public static String substringByEndLoc(String str, int endLoc) {
+		return str.substring(0, endLoc);
+	}
+	
+	public static String getOtherAttrsStr(int startLoc, String spaceSign,String attrsStr) {
+		return attrsStr.substring(startLoc+spaceSign.length(), attrsStr.length());
 	}
 }
