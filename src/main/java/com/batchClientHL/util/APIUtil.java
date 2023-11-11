@@ -198,6 +198,7 @@ public class APIUtil {
 			String parmList=recipeElemAttrArr[3];
 			
 			procedureData=new ProcedureData();
+			procedureData.setRecpID(recpID);
 			procedureData.setElemID(elemID);
 			procedureData.setElemType(elemType);
 			procedureData.setParmList(parmList);
