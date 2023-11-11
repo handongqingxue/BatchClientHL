@@ -165,9 +165,10 @@ public class APIUtil {
 		List<ProcedureData> procedureDataList=new ArrayList<ProcedureData>();
 		
 		ProcedureData procedureData=null;
-		String[] procArr = procData.split(BatchView.CRLF_SPACE_SIGN);
-		Integer SVRSignal=Integer.valueOf(procArr[0]);
-		String dataList=procArr[1];
+		
+		int SVRSignalStartLoc=procData.indexOf(BatchView.SINGLE_CRLF_SPACE_SIGN);
+		Integer SVRSignal=Integer.valueOf(procData.substring(0, SVRSignalStartLoc));
+		String dataList=procData.substring(SVRSignalStartLoc+2, procData.length());
 		String[] dataArr = dataList.split(BatchView.CRLF_SPACE_SIGN);
 		String recpAbstr = dataArr[0];
 		String recpDesc = dataArr[1];
@@ -185,32 +186,57 @@ public class APIUtil {
 		String boundUnit = dataArr[10];
 		
 		StringBuilder recipeElemListSB=new StringBuilder();
-		for (int i = 11; i < docDimArr.length; i++) {
+		for (int i = 11; i < dataArr.length; i++) {
 			recipeElemListSB.append(dataArr[i]);
+			recipeElemListSB.append(BatchView.SINGLE_CRLF_SPACE_SIGN);
 		}
 		String recipeElemList = recipeElemListSB.toString();
 		String[] recipeElemArr = recipeElemList.split(BatchView.CRLF_SPACE_SIGN);
 		for (int i = 0; i < recipeElemArr.length; i++) {
-			String recipeElem = recipeElemArr[i];
-			String[] recipeElemAttrArr = recipeElem.split(BatchView.T_SPACE_SIGN);
-			Integer elemType=Integer.valueOf(recipeElemAttrArr[0]);
-			String elemID=recipeElemAttrArr[1];
-			String parmList=recipeElemAttrArr[3];
+			String recipeElem=recipeElemArr[i];
 			
-			procedureData=new ProcedureData();
-			procedureData.setElemID(elemID);
-			procedureData.setElemType(elemType);
-			procedureData.setParmList(parmList);
-			
+			int nextTStartLoc=recipeElem.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+			String elemTypeStr=recipeElem.substring(0, nextTStartLoc);
+			Integer elemType=Integer.valueOf(elemTypeStr);
+			System.out.println("elemType==="+elemType);
+			String otherAttrs = recipeElem.substring(nextTStartLoc+BatchView.SINGLE_T_SPACE_SIGN.length(), recipeElem.length());
+			System.out.println("otherAttrs==="+otherAttrs);
 			switch (elemType) {
 			case ProcedureData.PARENT_STEP:
-				String recipeLink=recipeElemAttrArr[2];
-				procedureData.setRecipeLink(recipeLink);
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				String elemID = otherAttrs.substring(0, nextTStartLoc);
+				System.out.println("elemID==="+elemID);
+				otherAttrs = otherAttrs.substring(nextTStartLoc+BatchView.SINGLE_T_SPACE_SIGN.length(), otherAttrs.length());
+				System.out.println("otherAttrs==="+otherAttrs);
+				
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				String recipeLink = otherAttrs.substring(0, nextTStartLoc);
+				System.out.println("recipeLink==="+recipeLink);
+				otherAttrs = otherAttrs.substring(nextTStartLoc+BatchView.SINGLE_T_SPACE_SIGN.length(), otherAttrs.length());
+				System.out.println("otherAttrs==="+otherAttrs);
+				
+				procedureData=new ProcedureData();
+				procedureData.setElemType(elemType);
+				//procedureData.setElemID(elemID);;
+				
+				//String recipeLink=recipeElemAttrArr[2];
+				//String parmList=recipeElemAttrArr[3];
+				//procedureData.setRecipeLink(recipeLink);
+				//procedureData.setParmList(parmList);
 				break;
+				/*
 			case ProcedureData.INITIAL_STEP:
+				procedureData.setRecpID(recpID);
+				
+				recipeElem = recipeElemArr[i];
+				String[] recipeElemAttrArr = recipeElem.split(BatchView.T_SPACE_SIGN);
+				String elemID=recipeElemAttrArr[1];
 				Integer drawXCordIni=Integer.valueOf(recipeElemAttrArr[2]);
 				Integer drawYCordIni=Integer.valueOf(recipeElemAttrArr[3]);
-				
+
+				procedureData=new ProcedureData();
+				procedureData.setElemType(elemType);
+				procedureData.setElemID(elemID);
 				procedureData.setRawXCord(drawXCordIni);
 				procedureData.setRawYCord(drawYCordIni);
 				break;
@@ -262,6 +288,7 @@ public class APIUtil {
 				procedureData.setNextElemIDList(nextElemIDListCon);
 				procedureData.setPrevElemIDList(prevElemIDListCon);
 				break;
+			*/
 			}
 			
 			procedureDataList.add(procedureData);
