@@ -62,17 +62,17 @@ public class ProcedureData {
 	public void setRecipeLink(String recipeLink) {
 		RecipeLink = recipeLink;
 	}
-	public Integer getRawXCord() {
-		return rawXCord;
+	public Integer getDrawXCord() {
+		return drawXCord;
 	}
-	public void setRawXCord(Integer rawXCord) {
-		this.rawXCord = rawXCord;
+	public void setDrawXCord(Integer drawXCord) {
+		this.drawXCord = drawXCord;
 	}
-	public Integer getRawYCord() {
-		return rawYCord;
+	public Integer getDrawYCord() {
+		return drawYCord;
 	}
-	public void setRawYCord(Integer rawYCord) {
-		this.rawYCord = rawYCord;
+	public void setDrawYCord(Integer drawYCord) {
+		this.drawYCord = drawYCord;
 	}
 	public String getParmList() {
 		return ParmList;
@@ -123,8 +123,8 @@ public class ProcedureData {
 	private String ElemName;
 	private Integer ElemType;
 	private String RecipeLink;
-	private Integer rawXCord;
-	private Integer rawYCord;
+	private Integer drawXCord;
+	private Integer drawYCord;
 	private String ParmList;
 	private String ConditionExp;
 	private String PrevElemID;

@@ -204,94 +204,156 @@ public class APIUtil {
 			switch (elemType) {
 			case ProcedureData.PARENT_STEP:
 				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
-				String elemID = substringByEndLoc(otherAttrs,nextTStartLoc);
-				System.out.println("elemID==="+elemID);
+				String elemIDPar = substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("elemIDPar==="+elemIDPar);
 				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
 				System.out.println("otherAttrs==="+otherAttrs);
 				
 				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
-				String recipeLink = substringByEndLoc(otherAttrs,nextTStartLoc);
-				System.out.println("recipeLink==="+recipeLink);
+				String recipeLinkPar = substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("recipeLinkPar==="+recipeLinkPar);
 				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
 				System.out.println("otherAttrs==="+otherAttrs);
 				
 				procedureData=new ProcedureData();
-				procedureData.setElemType(elemType);
-				//procedureData.setElemID(elemID);;
-				
-				//String recipeLink=recipeElemAttrArr[2];
-				//String parmList=recipeElemAttrArr[3];
-				//procedureData.setRecipeLink(recipeLink);
-				//procedureData.setParmList(parmList);
-				break;
-				/*
-			case ProcedureData.INITIAL_STEP:
 				procedureData.setRecpID(recpID);
+				procedureData.setElemType(elemType);
+				procedureData.setElemID(elemIDPar);;
+				procedureData.setRecipeLink(recipeLinkPar);
 				
-				recipeElem = recipeElemArr[i];
-				String[] recipeElemAttrArr = recipeElem.split(BatchView.T_SPACE_SIGN);
-				String elemID=recipeElemAttrArr[1];
-				Integer drawXCordIni=Integer.valueOf(recipeElemAttrArr[2]);
-				Integer drawYCordIni=Integer.valueOf(recipeElemAttrArr[3]);
+				//String parmList=recipeElemAttrArr[3];
+				//procedureData.setParmList(parmList);
+				
+				procedureDataList.add(procedureData);
+				break;
+			case ProcedureData.INITIAL_STEP:
+			case ProcedureData.TERMINAL_STEP:
+				String[] otherAttrsArrIni = otherAttrs.split(BatchView.T_SPACE_SIGN);
+				String elemIDIni=otherAttrsArrIni[0];
+				Integer drawXCordIni=Integer.valueOf(otherAttrsArrIni[1]);
+				Integer drawYCordIni=Integer.valueOf(otherAttrsArrIni[2]);
 
 				procedureData=new ProcedureData();
+				procedureData.setRecpID(recpID);
 				procedureData.setElemType(elemType);
-				procedureData.setElemID(elemID);
-				procedureData.setRawXCord(drawXCordIni);
-				procedureData.setRawYCord(drawYCordIni);
-				break;
-			case ProcedureData.TERMINAL_STEP:
-				Integer drawXCordTer=Integer.valueOf(recipeElemAttrArr[2]);
-				Integer drawYCordTer=Integer.valueOf(recipeElemAttrArr[3]);
+				procedureData.setElemID(elemIDIni);
+				procedureData.setDrawXCord(drawXCordIni);
+				procedureData.setDrawYCord(drawYCordIni);
 				
-				procedureData.setRawXCord(drawXCordTer);
-				procedureData.setRawYCord(drawYCordTer);
+				procedureDataList.add(procedureData);
 				break;
 			case ProcedureData.REGULAR_STEP:
-				Integer drawXCordReg=Integer.valueOf(recipeElemAttrArr[2]);
-				Integer drawYCordReg=Integer.valueOf(recipeElemAttrArr[3]);
-				String stepName=recipeElemAttrArr[4];
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
+				String elemIDReg = substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("elemIDReg==="+elemIDReg);
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
+				System.out.println("otherAttrs==="+otherAttrs);
 				
-				procedureData.setRawXCord(drawXCordReg);
-				procedureData.setRawYCord(drawYCordReg);
-				procedureData.setElemName(stepName);
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				Integer drawXCordReg=Integer.valueOf(substringByEndLoc(otherAttrs,nextTStartLoc));
+				System.out.println("drawXCordReg==="+drawXCordReg);
+				
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				Integer drawYCordReg=Integer.valueOf(substringByEndLoc(otherAttrs,nextTStartLoc));
+				System.out.println("drawYCordReg==="+drawYCordReg);
+				
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				String stepNameReg=substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("stepNameReg==="+stepNameReg);
+
+				procedureData=new ProcedureData();
+				procedureData.setRecpID(recpID);
+				procedureData.setElemType(elemType);
+				procedureData.setElemID(elemIDReg);
+				procedureData.setDrawXCord(drawXCordReg);
+				procedureData.setDrawYCord(drawYCordReg);
+				procedureData.setElemName(stepNameReg);
+				
+				procedureDataList.add(procedureData);
 				break;
 			case ProcedureData.TRANSITION:
-				Integer drawXCordTra=Integer.valueOf(recipeElemAttrArr[2]);
-				Integer drawYCordTra=Integer.valueOf(recipeElemAttrArr[3]);
-				String conditionExpression=recipeElemAttrArr[4];
+				String[] otherAttrsArrTra = otherAttrs.split(BatchView.T_SPACE_SIGN);
+				String elemIDTra=otherAttrsArrTra[0];
+				Integer drawXCordTra=Integer.valueOf(otherAttrsArrTra[1]);
+				Integer drawYCordTra=Integer.valueOf(otherAttrsArrTra[2]);
+				String conditionExpressionTra=otherAttrsArrTra[3];
 
-				procedureData.setRawXCord(drawXCordTra);
-				procedureData.setRawYCord(drawYCordTra);
-				procedureData.setConditionExp(conditionExpression);
+				procedureData=new ProcedureData();
+				procedureData.setRecpID(recpID);
+				procedureData.setElemType(elemType);
+				procedureData.setElemID(elemIDTra);
+				procedureData.setDrawXCord(drawXCordTra);
+				procedureData.setDrawYCord(drawYCordTra);
+				procedureData.setConditionExp(conditionExpressionTra);
+				
+				procedureDataList.add(procedureData);
 				break;
 			case ProcedureData.LINK:
-				Integer drawXCordLink=Integer.valueOf(recipeElemAttrArr[2]);
-				Integer drawYCordLink=Integer.valueOf(recipeElemAttrArr[3]);
+				String[] otherAttrsArrLink = otherAttrs.split(BatchView.T_SPACE_SIGN);
+				String elemIDLink=otherAttrsArrLink[0];
+				String prevElemIDLink=otherAttrsArrLink[1];
+				String nextElemIDLink=otherAttrsArrLink[2];
 
-				procedureData.setRawXCord(drawXCordLink);
-				procedureData.setRawYCord(drawYCordLink);
+				procedureData=new ProcedureData();
+				procedureData.setRecpID(recpID);
+				procedureData.setElemType(elemType);
+				procedureData.setElemID(elemIDLink);
+				procedureData.setPrevElemID(prevElemIDLink);
+				procedureData.setNextElemID(nextElemIDLink);
+				
+				procedureDataList.add(procedureData);
 				break;
 			case ProcedureData.OR_DIVERGENCE:
 			case ProcedureData.AND_DIVERGENCE:
-				String prevElemIDListDiv = recipeElemAttrArr[2];
-				String nextElemIDListDiv = recipeElemAttrArr[3];
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
+				String elemIDDiv = substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("elemIDDiv==="+elemIDDiv);
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
+				System.out.println("otherAttrs==="+otherAttrs);
 				
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				String prevElemIDListDiv=substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("prevElemIDListDiv==="+prevElemIDListDiv);
+				
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				String nextElemIDListDiv=substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("nextElemIDListDiv==="+nextElemIDListDiv);
+				
+				procedureData=new ProcedureData();
+				procedureData.setRecpID(recpID);
+				procedureData.setElemType(elemType);
+				procedureData.setElemID(elemIDDiv);
 				procedureData.setPrevElemIDList(prevElemIDListDiv);
 				procedureData.setNextElemIDList(nextElemIDListDiv);
+				
+				procedureDataList.add(procedureData);
 				break;
 			case ProcedureData.OR_CONVERGENCE:
 			case ProcedureData.AND_CONVERGENCE:
-				String nextElemIDListCon = recipeElemAttrArr[2];
-				String prevElemIDListCon = recipeElemAttrArr[3];
-
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
+				String elemIDCon = substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("elemIDCon==="+elemIDCon);
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
+				System.out.println("otherAttrs==="+otherAttrs);
+				
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				String nextElemIDListCon=substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("nextElemIDListCon==="+nextElemIDListCon);
+				
+				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				String prevElemIDListCon=substringByEndLoc(otherAttrs,nextTStartLoc);
+				System.out.println("prevElemIDListCon==="+prevElemIDListCon);
+				
+				procedureData=new ProcedureData();
+				procedureData.setRecpID(recpID);
+				procedureData.setElemType(elemType);
+				procedureData.setElemID(elemIDCon);
 				procedureData.setNextElemIDList(nextElemIDListCon);
 				procedureData.setPrevElemIDList(prevElemIDListCon);
+				
+				procedureDataList.add(procedureData);
 				break;
-			*/
 			}
-			
-			procedureDataList.add(procedureData);
 		}
 		
 		
