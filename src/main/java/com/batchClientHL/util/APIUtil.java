@@ -133,10 +133,10 @@ public class APIUtil {
 		List<RecipeHeader> recipeHeaderList=new ArrayList<RecipeHeader>();
 		
 		RecipeHeader recipeHeader=null;
-		String[] itemsArr = itemData.split(BatchView.CRLF_SPACE_SIGN);
+		String[] itemsArr = itemData.split(BatchView.DOUBLE_CRLF_SPACE_SIGN);
 		for (int i = 0; i < itemsArr.length; i++) {
 			String items = itemsArr[i];
-			String[] itemArr = items.split(BatchView.T_SPACE_SIGN);
+			String[] itemArr = items.split(BatchView.DOUBLE_T_SPACE_SIGN);
 			String recipeID = itemArr[2];
 			String recipeVersion = itemArr[6];
 			String recipeVersTime = itemArr[7];
@@ -169,7 +169,7 @@ public class APIUtil {
 		int SVRSignalStartLoc=procData.indexOf(BatchView.SINGLE_CRLF_SPACE_SIGN);
 		Integer SVRSignal=Integer.valueOf(procData.substring(0, SVRSignalStartLoc));
 		String dataList=procData.substring(SVRSignalStartLoc+2, procData.length());
-		String[] dataArr = dataList.split(BatchView.CRLF_SPACE_SIGN);
+		String[] dataArr = dataList.split(BatchView.DOUBLE_CRLF_SPACE_SIGN);
 		String recpAbstr = dataArr[0];
 		String recpDesc = dataArr[1];
 		String recpID = dataArr[2];
@@ -178,7 +178,7 @@ public class APIUtil {
 		String recpAuthor = dataArr[5];
 		String recpDate = dataArr[6];
 		String docDim = dataArr[7];
-		String[] docDimArr = docDim.split(BatchView.T_SPACE_SIGN);
+		String[] docDimArr = docDim.split(BatchView.DOUBLE_T_SPACE_SIGN);
 		Integer Xdim=Integer.valueOf(docDimArr[0]);
 		Integer Ydim=Integer.valueOf(docDimArr[1]);
 		String areaName = dataArr[8];
@@ -191,7 +191,7 @@ public class APIUtil {
 			recipeElemListSB.append(BatchView.SINGLE_CRLF_SPACE_SIGN);
 		}
 		String recipeElemList = recipeElemListSB.toString();
-		String[] recipeElemArr = recipeElemList.split(BatchView.CRLF_SPACE_SIGN);
+		String[] recipeElemArr = recipeElemList.split(BatchView.DOUBLE_CRLF_SPACE_SIGN);
 		for (int i = 0; i < recipeElemArr.length; i++) {
 			String recipeElem=recipeElemArr[i];
 			
@@ -228,7 +228,7 @@ public class APIUtil {
 				break;
 			case ProcedureData.INITIAL_STEP:
 			case ProcedureData.TERMINAL_STEP:
-				String[] otherAttrsArrIni = otherAttrs.split(BatchView.T_SPACE_SIGN);
+				String[] otherAttrsArrIni = otherAttrs.split(BatchView.DOUBLE_T_SPACE_SIGN);
 				String elemIDIni=otherAttrsArrIni[0];
 				Integer drawXCordIni=Integer.valueOf(otherAttrsArrIni[1]);
 				Integer drawYCordIni=Integer.valueOf(otherAttrsArrIni[2]);
@@ -276,7 +276,7 @@ public class APIUtil {
 				procedureDataList.add(procedureData);
 				break;
 			case ProcedureData.TRANSITION:
-				String[] otherAttrsArrTra = otherAttrs.split(BatchView.T_SPACE_SIGN);
+				String[] otherAttrsArrTra = otherAttrs.split(BatchView.DOUBLE_T_SPACE_SIGN);
 				String elemIDTra=otherAttrsArrTra[0];
 				Integer drawXCordTra=Integer.valueOf(otherAttrsArrTra[1]);
 				Integer drawYCordTra=Integer.valueOf(otherAttrsArrTra[2]);
@@ -293,7 +293,7 @@ public class APIUtil {
 				procedureDataList.add(procedureData);
 				break;
 			case ProcedureData.LINK:
-				String[] otherAttrsArrLink = otherAttrs.split(BatchView.T_SPACE_SIGN);
+				String[] otherAttrsArrLink = otherAttrs.split(BatchView.DOUBLE_T_SPACE_SIGN);
 				String elemIDLink=otherAttrsArrLink[0];
 				String prevElemIDLink=otherAttrsArrLink[1];
 				String nextElemIDLink=otherAttrsArrLink[2];
@@ -318,11 +318,7 @@ public class APIUtil {
 				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				String prevElemIDListDiv=substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("prevElemIDListDiv==="+prevElemIDListDiv);
-				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
-				System.out.println("otherAttrs==="+otherAttrs);
-				
-				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
-				String nextElemIDListDiv=substringByEndLoc(otherAttrs,nextTStartLoc);
+				String nextElemIDListDiv = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs).replaceAll(BatchView.SINGLE_T_SPACE_SIGN, BatchView.DOUBLE_T_SPACE_SIGN);
 				System.out.println("nextElemIDListDiv==="+nextElemIDListDiv);
 				
 				procedureData=new ProcedureData();
@@ -345,11 +341,7 @@ public class APIUtil {
 				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				String nextElemIDListCon=substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("nextElemIDListCon==="+nextElemIDListCon);
-				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
-				System.out.println("otherAttrs==="+otherAttrs);
-				
-				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
-				String prevElemIDListCon=substringByEndLoc(otherAttrs,nextTStartLoc);
+				String prevElemIDListCon = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs).replaceAll(BatchView.SINGLE_T_SPACE_SIGN, BatchView.DOUBLE_T_SPACE_SIGN);
 				System.out.println("prevElemIDListCon==="+prevElemIDListCon);
 				
 				procedureData=new ProcedureData();
