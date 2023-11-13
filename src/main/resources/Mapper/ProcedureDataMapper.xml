@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.batchClientHL.dao.ProcedureDataMapper">
 	<insert id="addFromList" parameterType="com.batchClientHL.entity.ProcedureData">
-		insert into ProcedureData (RecpID,RecpName,BoundUnitID,ElemID,ElemName,ElemType,RecipeLink,RawXCord,
-		RawYCord,ParmList,ConditionExp,PrevElemID,NextElemID,PrevElemIDList,NextElemIDList,Remark) values
+		insert into ProcedureData (RecpID,RecpName,BoundUnitID,ElemID,ElemName,ElemType,RecipeLink,DrawXCord,
+		DrawYCord,ParmList,ConditionExp,PrevElemID,NextElemID,PrevElemIDList,NextElemIDList,Remark) values
 		<foreach collection="pdList" item="pd" separator=",">
 			<trim prefix="(" suffix=")" suffixOverrides=",">
 				<choose>
@@ -65,16 +65,16 @@
 					</otherwise>
 				</choose>
 				<choose>
-					<when test="pd.rawXCord!=null">
-						#{pd.rawXCord},
+					<when test="pd.drawXCord!=null">
+						#{pd.drawXCord},
 					</when>
 					<otherwise>
 						'',
 					</otherwise>
 				</choose>
 				<choose>
-					<when test="pd.rawYCord!=null">
-						#{pd.rawYCord},
+					<when test="pd.drawYCord!=null">
+						#{pd.drawYCord},
 					</when>
 					<otherwise>
 						'',

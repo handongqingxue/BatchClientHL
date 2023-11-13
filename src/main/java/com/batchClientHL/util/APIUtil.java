@@ -209,7 +209,7 @@ public class APIUtil {
 				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
 				System.out.println("otherAttrs==="+otherAttrs);
 				
-				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				String recipeLinkPar = substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("recipeLinkPar==="+recipeLinkPar);
 				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
@@ -249,15 +249,19 @@ public class APIUtil {
 				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
 				System.out.println("otherAttrs==="+otherAttrs);
 				
-				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				Integer drawXCordReg=Integer.valueOf(substringByEndLoc(otherAttrs,nextTStartLoc));
 				System.out.println("drawXCordReg==="+drawXCordReg);
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
+				System.out.println("otherAttrs==="+otherAttrs);
 				
-				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				Integer drawYCordReg=Integer.valueOf(substringByEndLoc(otherAttrs,nextTStartLoc));
 				System.out.println("drawYCordReg==="+drawYCordReg);
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
+				System.out.println("otherAttrs==="+otherAttrs);
 				
-				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				String stepNameReg=substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("stepNameReg==="+stepNameReg);
 
@@ -311,11 +315,13 @@ public class APIUtil {
 				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
 				System.out.println("otherAttrs==="+otherAttrs);
 				
-				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				String prevElemIDListDiv=substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("prevElemIDListDiv==="+prevElemIDListDiv);
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
+				System.out.println("otherAttrs==="+otherAttrs);
 				
-				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				String nextElemIDListDiv=substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("nextElemIDListDiv==="+nextElemIDListDiv);
 				
@@ -336,11 +342,13 @@ public class APIUtil {
 				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
 				System.out.println("otherAttrs==="+otherAttrs);
 				
-				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				String nextElemIDListCon=substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("nextElemIDListCon==="+nextElemIDListCon);
+				otherAttrs = getOtherAttrsStr(nextTStartLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrs);
+				System.out.println("otherAttrs==="+otherAttrs);
 				
-				nextTStartLoc=otherAttrs.indexOf(BatchView.SINGLE_T_SPACE_SIGN);
+				nextTStartLoc=getLocBySpaceSign(otherAttrs,BatchView.SINGLE_T_SPACE_SIGN);
 				String prevElemIDListCon=substringByEndLoc(otherAttrs,nextTStartLoc);
 				System.out.println("prevElemIDListCon==="+prevElemIDListCon);
 				

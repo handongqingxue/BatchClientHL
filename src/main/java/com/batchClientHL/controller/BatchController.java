@@ -55,7 +55,8 @@ public class BatchController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {	
-			JSONObject procedureIDDataJO = APIUtil.getItemJO(APIUtil.PROCEDURE_ID_DATA.replaceAll("ProcedureID", procedureID));
+			procedureID=APIUtil.PROCEDURE_ID_DATA.replaceAll("ProcedureID", procedureID.replaceAll("t",BatchView.SINGLE_T_SPACE_SIGN));
+			JSONObject procedureIDDataJO = APIUtil.getItemJO(procedureID);
 			String procedureIDData = procedureIDDataJO.getString("data");
 			Map<String, Object> resultMap = APIUtil.convertItemDataToEntity(APIUtil.PROCEDURE_ID_DATA,procedureIDData);
 			List<ProcedureData> procedureDataList = (List<ProcedureData>)resultMap.get("procedureDataList");
