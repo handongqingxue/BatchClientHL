@@ -9,4 +9,6 @@ import com.batchClientHL.entity.*;
 public interface ProcedureDataMapper {
 
 	int addFromList(@Param("pdList") List<ProcedureData> pdList);
+
+	List<ProcedureData> getListByRecpID(@Param("recpID") String recpID);
 }

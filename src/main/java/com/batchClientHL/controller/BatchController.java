@@ -71,4 +71,17 @@ public class BatchController {
 			return jsonMap;
 		}
 	}
+	
+	@RequestMapping(value="/getDrawProSFCData")
+	@ResponseBody
+	public Map<String, Object> getDrawProSFCData(String recpID) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		Map<String,Object> drawSFCMap=procedureDataService.getDrawSFCMapByRecpID(recpID);
+
+		jsonMap.put("drawSFCMap", drawSFCMap);
+		
+		return jsonMap;
+	}
 }

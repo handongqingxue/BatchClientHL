@@ -139,4 +139,7 @@
 			</trim>
 		</foreach>
 	</insert>
+	<select id="getListByRecpID" resultType="com.batchClientHL.entity.ProcedureData">
+		select * from ProcedureData where RecpID=#{recpID}
+	</select>
 </mapper>

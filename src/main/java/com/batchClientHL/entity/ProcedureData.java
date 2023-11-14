@@ -13,6 +13,12 @@ public class ProcedureData {
 	public static final int AND_DIVERGENCE=8;
 	public static final int AND_CONVERGENCE=9;
 	
+	public static final String PARENT_STEP_TEXT="parentStep";
+	public static final String INITIAL_STEP_TEXT="initialStep";
+	public static final String TERMINAL_STEP_TEXT="terminalStep";
+	public static final String REGULAR_STEP_TEXT="regularStep";
+	public static final String TRANSITION_TEXT="transition";
+	
 	private Integer ID;
 	public Integer getID() {
 		return ID;
