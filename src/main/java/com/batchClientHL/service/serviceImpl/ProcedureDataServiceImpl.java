@@ -36,6 +36,7 @@ public class ProcedureDataServiceImpl implements ProcedureDataService {
 			switch (elemType) {
 			case ProcedureData.INITIAL_STEP:
 				ProcedureData initStepProData = new ProcedureData();
+				initStepProData.setElemType(elemType);
 				initStepProData.setElemID(elemID);
 				initStepProData.setDrawXCord(proData.getDrawXCord());
 				initStepProData.setDrawYCord(proData.getDrawYCord());
@@ -54,6 +55,7 @@ public class ProcedureDataServiceImpl implements ProcedureDataService {
 				}
 				
 				ProcedureData regStepProData = new ProcedureData();
+				regStepProData.setElemType(elemType);
 				regStepProData.setElemID(elemID);
 				regStepProData.setDrawXCord(proData.getDrawXCord());
 				regStepProData.setDrawYCord(proData.getDrawYCord());
@@ -73,6 +75,7 @@ public class ProcedureDataServiceImpl implements ProcedureDataService {
 				}
 				
 				ProcedureData traProData = new ProcedureData();
+				traProData.setElemType(elemType);
 				traProData.setElemID(elemID);
 				traProData.setDrawXCord(proData.getDrawXCord());
 				traProData.setDrawYCord(proData.getDrawYCord());
@@ -83,11 +86,32 @@ public class ProcedureDataServiceImpl implements ProcedureDataService {
 				break;
 			case ProcedureData.TERMINAL_STEP:
 				ProcedureData terStepProData = new ProcedureData();
+				terStepProData.setElemType(elemType);
 				terStepProData.setElemID(elemID);
 				terStepProData.setDrawXCord(proData.getDrawXCord());
 				terStepProData.setDrawYCord(proData.getDrawYCord());
 				
 				drawSFCMap.put(ProcedureData.TERMINAL_STEP_TEXT, terStepProData);
+				break;
+			case ProcedureData.LINK:
+				List<ProcedureData> linkProDataList=null;
+				Object linkProDataListObj = drawSFCMap.get(ProcedureData.LINK_TEXT);
+				if(linkProDataListObj==null) {
+					linkProDataList = new ArrayList<ProcedureData>();
+					drawSFCMap.put(ProcedureData.LINK_TEXT, linkProDataList);
+				}
+				else {
+					linkProDataList = (List<ProcedureData>)linkProDataListObj;
+				}
+				
+				ProcedureData linkProData = new ProcedureData();
+				linkProData.setElemType(elemType);
+				linkProData.setElemID(elemID);
+				linkProData.setPrevElemID(proData.getPrevElemID());
+				linkProData.setNextElemID(proData.getNextElemID());
+				
+				linkProDataList.add(linkProData);
+				
 				break;
 				/*
 			case value:

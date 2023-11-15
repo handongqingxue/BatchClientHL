@@ -23,11 +23,18 @@ public class MainController {
 		//http://localhost:8080/BatchClientHL/main/goPage?page=testDynProc
 		//http://localhost:8080/BatchClientHL/main/goPage?page=testDrawProSFC
 		if("testDrawProSFC".equals(page)) {
+
+			request.setAttribute("initialStep", ProcedureData.INITIAL_STEP);
+			request.setAttribute("regularStep", ProcedureData.REGULAR_STEP);
+			request.setAttribute("transition", ProcedureData.TRANSITION);
+			request.setAttribute("terminalStep", ProcedureData.TERMINAL_STEP);
+			request.setAttribute("link", ProcedureData.LINK);
 			
 			request.setAttribute("initialStepText", ProcedureData.INITIAL_STEP_TEXT);
 			request.setAttribute("regularStepText", ProcedureData.REGULAR_STEP_TEXT);
 			request.setAttribute("transitionText", ProcedureData.TRANSITION_TEXT);
 			request.setAttribute("terminalStepText", ProcedureData.TERMINAL_STEP_TEXT);
+			request.setAttribute("linkText", ProcedureData.LINK_TEXT);
 			
 			url="/"+page;
 		}
