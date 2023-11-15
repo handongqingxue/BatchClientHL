@@ -107,10 +107,17 @@ function drawRegularStep(){
 		contentDiv.append(regularStepStr);
 	
 		var regStepDiv=$("#reg_step_div"+elemID);
+		
+		var drawXCordScale=drawXCord*changeScale;
+		var drawYCordScale=drawYCord*changeScale;
+		
+		regularStep.drawXCordScale=drawXCordScale;
+		regularStep.drawYCordScale=drawYCordScale;
+		
 		regStepDiv.css("width",stepDivWidth+"px");
 		regStepDiv.css("height",stepDivHeight+"px");
-		regStepDiv.css("margin-left",drawXCord*changeScale+"px");
-		regStepDiv.css("margin-top",drawYCord*changeScale+"px");
+		regStepDiv.css("margin-left",drawXCordScale+"px");
+		regStepDiv.css("margin-top",drawYCordScale+"px");
 	}
 	
 }
@@ -195,8 +202,16 @@ function drawTerminalStep(){
 	contentDiv.append(terStepStr);
 	
 	var terStepDiv=$("#ter_step_div");
-	terStepDiv.css("margin-left",terminalStep.drawXCord*changeScale);
-	terStepDiv.css("margin-top",terminalStep.drawYCord*changeScale);
+	
+	var drawXCordScale=terminalStep.drawXCord*changeScale;
+	var drawYCordScale=terminalStep.drawYCord*changeScale;
+	
+	terStepDiv.css("margin-left",drawXCordScale);
+	terStepDiv.css("margin-top",drawYCordScale);
+	
+	terminalStep.drawXCordScale=drawXCordScale;
+	terminalStep.drawYCordScale=drawYCordScale;
+	
 	terStepDiv.css("width",traCrossHorDivWidth+"px");
 	terStepDiv.css("height",traCrossHorDivHeight+"px");
 }
@@ -216,23 +231,80 @@ function drawLink(){
 		//console.log("prevElemType="+prevElemType+",nextElemType="+nextElemType);
 
 		var contentDiv=$("#up_div #content_div");
-		var linkDivStr="<div class=\"link_div\" id=\"link_div"+elemID+"\">";
-		contentDiv.append(linkDivStr);
-		
-		var linkDiv=$("#link_div"+elemID);
-		var linkDivHeight;
-		var linkDivMarginLeft;
-		var linkDivMarginTop;
-		
-		linkDiv.css("width",linkDivWidth+"px");
 
 		if(prevElemType==initialStepInt&&nextElemType==transitionInt){
+			var linkDivStr="<div class=\"link_div\" id=\"link_div"+elemID+"\">";
+			contentDiv.append(linkDivStr);
+			
+			var linkDiv=$("#link_div"+elemID);
+			
 			var transition=getTraFromListByID(nextElemID);
 			console.log(transition);
-			linkDivMarginLeft=initStepDivMarginLeft+initStepDivWidth/2;
-			linkDivMarginTop=initStepDivMarginTop+initStepDivHeight;
-			linkDivHeight=transition.crossVerDivMarginTop-linkDivMarginTop;
+			var linkDivMarginLeft=initStepDivMarginLeft+initStepDivWidth/2;
+			var linkDivMarginTop=initStepDivMarginTop+initStepDivHeight;
+			var linkDivHeight=transition.crossVerDivMarginTop-linkDivMarginTop;
 			
+			link.height=linkDivHeight;
+			link.marginLeft=linkDivMarginLeft;
+			link.marginTop=linkDivMarginTop;
+
+			linkDiv.css("width",linkDivWidth+"px");
+			linkDiv.css("height",linkDivHeight+"px");
+			linkDiv.css("margin-left",linkDivMarginLeft+"px");
+			linkDiv.css("margin-top",linkDivMarginTop+"px");
+		}
+		else if(prevElemType==transitionInt&&nextElemType==regularStepInt){
+			var linkDivStr="<div class=\"link_div\" id=\"link_div"+elemID+"\">";
+			contentDiv.append(linkDivStr);
+			
+			var linkDiv=$("#link_div"+elemID);
+				
+			var transition=getTraFromListByID(prevElemID);
+			var regularStep=getRegFromListByID(nextElemID);
+			console.log(transition);
+			console.log(regularStep);
+			
+			var linkDivMarginLeft=transition.crossVerDivMarginLeft;
+			var linkDivMarginTop=transition.crossVerDivMarginTop+40;
+			var linkDivHeight=regularStep.drawYCordScale-linkDivMarginTop;
+			
+			linkDiv.css("width",linkDivWidth+"px");
+			linkDiv.css("height",linkDivHeight+"px");
+			linkDiv.css("margin-left",linkDivMarginLeft+"px");
+			linkDiv.css("margin-top",linkDivMarginTop+"px");
+		}
+		else if(prevElemType==regularStepInt&&nextElemType==transitionInt){
+			var linkDivStr="<div class=\"link_div\" id=\"link_div"+elemID+"\">";
+			contentDiv.append(linkDivStr);
+			
+			var linkDiv=$("#link_div"+elemID);
+
+			var regularStep=getRegFromListByID(prevElemID);
+			var transition=getTraFromListByID(nextElemID);
+
+			var linkDivMarginLeft=transition.crossHorDivMarginLeft+traCrossHorDivWidth/2;
+			var linkDivMarginTop=regularStep.drawYCordScale+stepDivHeight;
+			var linkDivHeight=transition.crossVerDivMarginTop-regularStep.drawYCordScale-stepDivHeight;
+			
+			linkDiv.css("width",linkDivWidth+"px");
+			linkDiv.css("height",linkDivHeight+"px");
+			linkDiv.css("margin-left",linkDivMarginLeft+"px");
+			linkDiv.css("margin-top",linkDivMarginTop+"px");
+		}
+		else if(prevElemType==transitionInt&&nextElemType==terminalStepInt){
+			var linkDivStr="<div class=\"link_div\" id=\"link_div"+elemID+"\">";
+			contentDiv.append(linkDivStr);
+			
+			var linkDiv=$("#link_div"+elemID);
+			
+			var transition=getTraFromListByID(prevElemID);
+			
+			var linkDivMarginLeft=terminalStep.drawXCordScale+traCrossHorDivWidth/2;
+			alert(traCrossHorDivWidth)
+			var linkDivMarginTop=transition.crossVerDivMarginTop+40;
+			var linkDivHeight=terminalStep.drawYCordScale-linkDivMarginTop;
+			
+			linkDiv.css("width",linkDivWidth+"px");
 			linkDiv.css("height",linkDivHeight+"px");
 			linkDiv.css("margin-left",linkDivMarginLeft+"px");
 			linkDiv.css("margin-top",linkDivMarginTop+"px");
@@ -247,6 +319,22 @@ function getTraFromListByID(elemID){
 		var transition=transitionList[i];
 		if(transition.elemID==elemID){
 			procedureData=transition;
+			got=true;
+			break;
+		}
+	}
+	if(!got)
+		procedureData={};
+	return procedureData;
+}
+
+function getRegFromListByID(elemID){
+	var got=false;
+	var procedureData=null;
+	for(var i=0;i<regularStepList.length;i++){
+		var regularStep=regularStepList[i];
+		if(regularStep.elemID==elemID){
+			procedureData=regularStep;
 			got=true;
 			break;
 		}
