@@ -113,6 +113,26 @@ public class ProcedureDataServiceImpl implements ProcedureDataService {
 				linkProDataList.add(linkProData);
 				
 				break;
+			case ProcedureData.AND_DIVERGENCE:
+				List<ProcedureData> andDivProDataList=null;
+				Object andDivProDataListObj = drawSFCMap.get(ProcedureData.AND_DIVERGENCE_TEXT);
+				if(andDivProDataListObj==null) {
+					andDivProDataList = new ArrayList<ProcedureData>();
+					drawSFCMap.put(ProcedureData.AND_DIVERGENCE_TEXT, andDivProDataList);
+				}
+				else {
+					andDivProDataList = (List<ProcedureData>)andDivProDataListObj;
+				}
+				
+				ProcedureData andDivProData = new ProcedureData();
+				andDivProData.setElemType(elemType);
+				andDivProData.setElemID(elemID);
+				andDivProData.setPrevElemIDList(proData.getPrevElemIDList());
+				andDivProData.setNextElemIDList(proData.getNextElemIDList());
+				
+				andDivProDataList.add(andDivProData);
+				
+				break;
 				/*
 			case value:
 				

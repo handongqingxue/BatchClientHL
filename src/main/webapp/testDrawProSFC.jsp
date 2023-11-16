@@ -17,12 +17,17 @@ var regularStepInt=Number('${requestScope.regularStep}');
 var transitionInt=Number('${requestScope.transition}');
 var terminalStepInt=Number('${requestScope.terminalStep}');
 var linkInt=Number('${requestScope.link}');
+var andDivergenceInt=Number('${requestScope.andDivergence}');
 
 var initialStepText='${requestScope.initialStepText}';
 var regularStepText='${requestScope.regularStepText}';
 var transitionText='${requestScope.transitionText}';
 var terminalStepText='${requestScope.terminalStepText}';
 var linkText='${requestScope.linkText}';
+var andDivergenceText='${requestScope.andDivergenceText}';
+
+var singleTSpaceSign='${requestScope.singleTSpaceSign}';
+var tSign='${requestScope.tSign}';
 
 var drawSFCMap;
 var defaultScale=1;
@@ -61,6 +66,7 @@ function getDrawProSFCData(){
 			drawTransition();
 			drawTerminalStep();
 			drawLink();
+			drawAndDivergence();
 		}
 	,"json");
 }
@@ -300,7 +306,6 @@ function drawLink(){
 			var transition=getTraFromListByID(prevElemID);
 			
 			var linkDivMarginLeft=terminalStep.drawXCordScale+traCrossHorDivWidth/2;
-			alert(traCrossHorDivWidth)
 			var linkDivMarginTop=transition.crossVerDivMarginTop+40;
 			var linkDivHeight=terminalStep.drawYCordScale-linkDivMarginTop;
 			
@@ -308,6 +313,97 @@ function drawLink(){
 			linkDiv.css("height",linkDivHeight+"px");
 			linkDiv.css("margin-left",linkDivMarginLeft+"px");
 			linkDiv.css("margin-top",linkDivMarginTop+"px");
+		}
+	}
+}
+
+function drawAndDivergence(){
+	var andDivergenceList=drawSFCMap[andDivergenceText];
+	for(var i=0;i<andDivergenceList.length;i++){
+		var andDivergence=andDivergenceList[i];
+		var elemType=andDivergence.elemType;
+		var elemID=andDivergence.elemID;
+		
+		var prevElemIDListStr=andDivergence.prevElemIDList;
+		var prevElemIDListArr=prevElemIDListStr.split(tSign);
+		var prevElemIDListArrLength=prevElemIDListArr.length;
+		
+		var nextElemIDListStr=andDivergence.nextElemIDList;
+		var nextElemIDListArr=nextElemIDListStr.split(tSign);
+		var nextElemIDListArrLength=nextElemIDListArr.length;
+		console.log("elemType="+elemType+",elemID="+elemID+",prevElemIDListStr="+prevElemIDListStr+",nextElemIDListStr="+nextElemIDListStr);
+		
+		var andDivergenceDiv;
+		var andDivergenceHorDiv;
+		var prevElemCrossVerDivMarginTop;
+		if(prevElemIDListArrLength==1){
+			var contentDiv=$("#up_div #content_div");
+			var andDivergenceDivStr="<div class=\"and_divergence_div\" id=\"and_divergence_div"+elemID+"\">";
+			contentDiv.append(andDivergenceDivStr);
+			
+			andDivergenceDiv=$("#and_divergence_div"+elemID);
+			
+			var prevElem=getTraFromListByID(prevElemIDListStr);
+			console.log(prevElem);
+			prevElemCrossVerDivMarginTop=prevElem.crossVerDivMarginTop;
+			var andDivergenceMarginTop=prevElemCrossVerDivMarginTop+40;
+			var andDivergenceMarginLeft=prevElem.crossHorDivMarginLeft+20;
+			
+			andDivergenceDiv.css("width",linkDivWidth+"px");
+			andDivergenceDiv.css("margin-top",andDivergenceMarginTop+"px");
+			andDivergenceDiv.css("margin-left",andDivergenceMarginLeft+"px");
+			
+			andDivergence.marginTop=andDivergenceMarginTop;
+			andDivergence.marginLeft=andDivergenceMarginLeft;
+
+			var andDivergenceHorDivStr="<div class=\"and_divergence_hor_div\" id=\"and_divergence_hor_div"+elemID+"\">";
+			contentDiv.append(andDivergenceHorDivStr);
+			
+			andDivergenceHorDiv=$("#and_divergence_hor_div"+elemID);
+			andDivergenceHorDiv.css("height","2px");
+		}
+		
+		var andDivergenceHorDivWidthStartX;
+		var andDivergenceHorDivWidthEndX;
+		var andDivergenceHorDivMarginLeft;
+		var andDivergenceHorDivMarginTop;
+		for (var j = 0; j < nextElemIDListArrLength; j++) {
+			var nextElemID=nextElemIDListArr[j];
+			console.log(nextElemID);
+			var nextReg=getRegFromListByID(nextElemID);
+			console.log(nextReg);
+			
+			var contentDiv=$("#up_div #content_div");
+			var preLinkDivStr="<div class=\"pre_link_div\" id=\"pre_link_div"+nextElemID+"\">";
+			contentDiv.append(preLinkDivStr);
+			
+			var preLinkDiv=$("#pre_link_div"+nextElemID);
+			
+			var preLinkDivMarginTop=nextReg.drawYCordScale-20;
+			var preLinkDivMarginLeft=nextReg.drawXCordScale+stepDivWidth/2;
+			
+			preLinkDiv.css("width",linkDivWidth+"px");
+			preLinkDiv.css("height","20px");
+			preLinkDiv.css("margin-top",preLinkDivMarginTop+"px");
+			preLinkDiv.css("margin-left",preLinkDivMarginLeft+"px");
+
+			if(j==0){
+				andDivergenceHorDivWidthStartX=preLinkDivMarginLeft;
+				andDivergenceHorDivMarginLeft=preLinkDivMarginLeft;;
+				andDivergenceHorDivMarginTop=preLinkDivMarginTop;
+
+			}
+			else if(j==nextElemIDListArrLength-1){
+				andDivergenceHorDivWidthEndX=preLinkDivMarginLeft;
+			}
+		}
+		
+		if(prevElemIDListArrLength==1){
+			andDivergenceHorDiv.css("width",andDivergenceHorDivWidthEndX-andDivergenceHorDivWidthStartX+"px");
+			andDivergenceHorDiv.css("margin-left",andDivergenceHorDivMarginLeft+"px");
+			andDivergenceHorDiv.css("margin-top",andDivergenceHorDivMarginTop+"px");
+			
+			andDivergenceDiv.css("height",andDivergenceHorDivMarginTop-prevElemCrossVerDivMarginTop-40+"10px");
 		}
 	}
 }
@@ -443,7 +539,10 @@ function convertNumToPx(num){
 	position: absolute;
 }
 .up_div .link_div,
-.up_div .tra_cross_hor_div{
+.up_div .tra_cross_hor_div,
+.up_div .and_divergence_div,
+.up_div .and_divergence_hor_div,
+.up_div .pre_link_div{
 	background-color: #000;
 	position: absolute;
 }

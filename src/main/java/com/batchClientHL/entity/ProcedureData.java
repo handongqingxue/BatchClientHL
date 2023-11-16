@@ -19,6 +19,7 @@ public class ProcedureData {
 	public static final String REGULAR_STEP_TEXT="regularStep";
 	public static final String TRANSITION_TEXT="transition";
 	public static final String LINK_TEXT="link";
+	public static final String AND_DIVERGENCE_TEXT="andDivergence";
 	
 	private Integer ID;
 	public Integer getID() {
