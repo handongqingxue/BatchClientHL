@@ -133,6 +133,26 @@ public class ProcedureDataServiceImpl implements ProcedureDataService {
 				andDivProDataList.add(andDivProData);
 				
 				break;
+			case ProcedureData.AND_CONVERGENCE:
+				List<ProcedureData> andConvProDataList=null;
+				Object andConvProDataListObj = drawSFCMap.get(ProcedureData.AND_CONVERGENCE_TEXT);
+				if(andConvProDataListObj==null) {
+					andConvProDataList = new ArrayList<ProcedureData>();
+					drawSFCMap.put(ProcedureData.AND_CONVERGENCE_TEXT, andConvProDataList);
+				}
+				else {
+					andConvProDataList = (List<ProcedureData>)andConvProDataListObj;
+				}
+				
+				ProcedureData andConvProData = new ProcedureData();
+				andConvProData.setElemType(elemType);
+				andConvProData.setElemID(elemID);
+				andConvProData.setPrevElemIDList(proData.getPrevElemIDList());
+				andConvProData.setNextElemIDList(proData.getNextElemIDList());
+				
+				andConvProDataList.add(andConvProData);
+				
+				break;
 				/*
 			case value:
 				

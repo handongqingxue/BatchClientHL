@@ -20,6 +20,7 @@ public class ProcedureData {
 	public static final String TRANSITION_TEXT="transition";
 	public static final String LINK_TEXT="link";
 	public static final String AND_DIVERGENCE_TEXT="andDivergence";
+	public static final String AND_CONVERGENCE_TEXT="andConvergence";
 	
 	private Integer ID;
 	public Integer getID() {

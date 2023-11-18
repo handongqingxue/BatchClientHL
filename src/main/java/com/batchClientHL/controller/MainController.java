@@ -30,6 +30,7 @@ public class MainController {
 			request.setAttribute("terminalStep", ProcedureData.TERMINAL_STEP);
 			request.setAttribute("link", ProcedureData.LINK);
 			request.setAttribute("andDivergence", ProcedureData.AND_DIVERGENCE);
+			request.setAttribute("andConvergence", ProcedureData.AND_CONVERGENCE);
 			
 			request.setAttribute("initialStepText", ProcedureData.INITIAL_STEP_TEXT);
 			request.setAttribute("regularStepText", ProcedureData.REGULAR_STEP_TEXT);
@@ -37,6 +38,7 @@ public class MainController {
 			request.setAttribute("terminalStepText", ProcedureData.TERMINAL_STEP_TEXT);
 			request.setAttribute("linkText", ProcedureData.LINK_TEXT);
 			request.setAttribute("andDivergenceText", ProcedureData.AND_DIVERGENCE_TEXT);
+			request.setAttribute("andConvergenceText", ProcedureData.AND_CONVERGENCE_TEXT);
 			
 			request.setAttribute("singleTSpaceSign", BatchView.SINGLE_T_SPACE_SIGN);
 			request.setAttribute("tSign", BatchView.T_SIGN);

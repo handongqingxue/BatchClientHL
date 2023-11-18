@@ -18,6 +18,7 @@ var transitionInt=Number('${requestScope.transition}');
 var terminalStepInt=Number('${requestScope.terminalStep}');
 var linkInt=Number('${requestScope.link}');
 var andDivergenceInt=Number('${requestScope.andDivergence}');
+var andConvergenceInt=Number('${requestScope.andConvergence}');
 
 var initialStepText='${requestScope.initialStepText}';
 var regularStepText='${requestScope.regularStepText}';
@@ -25,6 +26,7 @@ var transitionText='${requestScope.transitionText}';
 var terminalStepText='${requestScope.terminalStepText}';
 var linkText='${requestScope.linkText}';
 var andDivergenceText='${requestScope.andDivergenceText}';
+var andConvergenceText='${requestScope.andConvergenceText}';
 
 var singleTSpaceSign='${requestScope.singleTSpaceSign}';
 var tSign='${requestScope.tSign}';
@@ -67,6 +69,7 @@ function getDrawProSFCData(){
 			drawTerminalStep();
 			drawLink();
 			drawAndDivergence();
+			drawAndConvergence();
 		}
 	,"json");
 }
@@ -331,7 +334,7 @@ function drawAndDivergence(){
 		var nextElemIDListStr=andDivergence.nextElemIDList;
 		var nextElemIDListArr=nextElemIDListStr.split(tSign);
 		var nextElemIDListArrLength=nextElemIDListArr.length;
-		console.log("elemType="+elemType+",elemID="+elemID+",prevElemIDListStr="+prevElemIDListStr+",nextElemIDListStr="+nextElemIDListStr);
+		//console.log("elemType="+elemType+",elemID="+elemID+",prevElemIDListStr="+prevElemIDListStr+",nextElemIDListStr="+nextElemIDListStr);
 		
 		var andDivergenceDiv;
 		var andDivergenceHorDiv;
@@ -344,7 +347,7 @@ function drawAndDivergence(){
 			andDivergenceDiv=$("#and_divergence_div"+elemID);
 			
 			var prevElem=getTraFromListByID(prevElemIDListStr);
-			console.log(prevElem);
+			//console.log(prevElem);
 			prevElemCrossVerDivMarginTop=prevElem.crossVerDivMarginTop;
 			var andDivergenceMarginTop=prevElemCrossVerDivMarginTop+40;
 			var andDivergenceMarginLeft=prevElem.crossHorDivMarginLeft+20;
@@ -363,38 +366,39 @@ function drawAndDivergence(){
 			andDivergenceHorDiv.css("height","2px");
 		}
 		
+		
 		var andDivergenceHorDivWidthStartX;
 		var andDivergenceHorDivWidthEndX;
 		var andDivergenceHorDivMarginLeft;
 		var andDivergenceHorDivMarginTop;
 		for (var j = 0; j < nextElemIDListArrLength; j++) {
 			var nextElemID=nextElemIDListArr[j];
-			console.log(nextElemID);
+			//console.log(nextElemID);
 			var nextReg=getRegFromListByID(nextElemID);
-			console.log(nextReg);
+			//console.log(nextReg);
 			
+			var nextLinkDivMarginTop=nextReg.drawYCordScale-20;
+			var nextLinkDivMarginLeft=nextReg.drawXCordScale+stepDivWidth/2;
+
 			var contentDiv=$("#up_div #content_div");
-			var preLinkDivStr="<div class=\"pre_link_div\" id=\"pre_link_div"+nextElemID+"\">";
-			contentDiv.append(preLinkDivStr);
+			var nextLinkDivStr="<div class=\"next_link_div\" id=\"next_link_div"+nextElemID+"\">";
+			contentDiv.append(nextLinkDivStr);
 			
-			var preLinkDiv=$("#pre_link_div"+nextElemID);
+			var nextLinkDiv=$("#next_link_div"+nextElemID);
 			
-			var preLinkDivMarginTop=nextReg.drawYCordScale-20;
-			var preLinkDivMarginLeft=nextReg.drawXCordScale+stepDivWidth/2;
-			
-			preLinkDiv.css("width",linkDivWidth+"px");
-			preLinkDiv.css("height","20px");
-			preLinkDiv.css("margin-top",preLinkDivMarginTop+"px");
-			preLinkDiv.css("margin-left",preLinkDivMarginLeft+"px");
+			nextLinkDiv.css("width",linkDivWidth+"px");
+			nextLinkDiv.css("height","20px");
+			nextLinkDiv.css("margin-top",nextLinkDivMarginTop+"px");
+			nextLinkDiv.css("margin-left",nextLinkDivMarginLeft+"px");
 
 			if(j==0){
-				andDivergenceHorDivWidthStartX=preLinkDivMarginLeft;
-				andDivergenceHorDivMarginLeft=preLinkDivMarginLeft;;
-				andDivergenceHorDivMarginTop=preLinkDivMarginTop;
+				andDivergenceHorDivWidthStartX=nextLinkDivMarginLeft;
+				andDivergenceHorDivMarginLeft=nextLinkDivMarginLeft;;
+				andDivergenceHorDivMarginTop=nextLinkDivMarginTop;
 
 			}
 			else if(j==nextElemIDListArrLength-1){
-				andDivergenceHorDivWidthEndX=preLinkDivMarginLeft;
+				andDivergenceHorDivWidthEndX=nextLinkDivMarginLeft;
 			}
 		}
 		
@@ -403,7 +407,102 @@ function drawAndDivergence(){
 			andDivergenceHorDiv.css("margin-left",andDivergenceHorDivMarginLeft+"px");
 			andDivergenceHorDiv.css("margin-top",andDivergenceHorDivMarginTop+"px");
 			
-			andDivergenceDiv.css("height",andDivergenceHorDivMarginTop-prevElemCrossVerDivMarginTop-40+"10px");
+			andDivergenceDiv.css("height",andDivergenceHorDivMarginTop-prevElemCrossVerDivMarginTop-40+"px");
+		}
+	}
+}
+
+function drawAndConvergence(){
+	var andConvergenceList=drawSFCMap[andConvergenceText];
+	for(var i=0;i<andConvergenceList.length;i++){
+		var andConvergence=andConvergenceList[i];
+		var elemType=andConvergence.elemType;
+		var elemID=andConvergence.elemID;
+		
+		var nextElemIDListStr=andConvergence.nextElemIDList;
+		var nextElemIDListArr=nextElemIDListStr.split(tSign);
+		var nextElemIDListArrLength=nextElemIDListArr.length;
+		
+		var prevElemIDListStr=andConvergence.prevElemIDList;
+		var prevElemIDListArr=prevElemIDListStr.split(tSign);
+		var prevElemIDListArrLength=prevElemIDListArr.length;
+		console.log("elemType="+elemType+",elemID="+elemID+",nextElemIDListStr="+nextElemIDListStr+",prevElemIDListStr="+prevElemIDListStr);
+
+		var andConvergenceDiv;
+		var andConvergenceHorDiv;
+		var nextElemCrossVerDivMarginTop;
+		var nextElem;
+		if(nextElemIDListArrLength==1){
+			var contentDiv=$("#up_div #content_div");
+			var andConvergenceDivStr="<div class=\"and_convergence_div\" id=\"and_convergence_div"+elemID+"\">";
+			contentDiv.append(andConvergenceDivStr);
+			
+			andConvergenceDiv=$("#and_convergence_div"+elemID);
+			
+			nextElem=getTraFromListByID(nextElemIDListStr);
+			console.log(nextElem);
+			nextElemCrossVerDivMarginTop=nextElem.crossVerDivMarginTop;
+			var andConvergenceMarginTop=nextElemCrossVerDivMarginTop-40;
+			var andConvergenceMarginLeft=nextElem.crossHorDivMarginLeft+20;
+			
+			andConvergenceDiv.css("width",linkDivWidth+"px");
+			andConvergenceDiv.css("height","40px");
+			andConvergenceDiv.css("margin-top",andConvergenceMarginTop+"px");
+			andConvergenceDiv.css("margin-left",andConvergenceMarginLeft+"px");
+			
+			andConvergence.marginTop=andConvergenceMarginTop;
+			andConvergence.marginLeft=andConvergenceMarginLeft;
+		}
+		
+		var andConvergenceHorDivWidthStartX;
+		var andConvergenceHorDivWidthEndX;
+		var andConvergenceHorDivMarginLeft;
+		var andConvergenceHorDivMarginTop;
+
+		var andConvergenceHorDivStr="<div class=\"and_convergence_hor_div\" id=\"and_convergence_hor_div"+elemID+"\">";
+		contentDiv.append(andConvergenceHorDivStr);
+		
+		andConvergenceHorDiv=$("#and_convergence_hor_div"+elemID);
+		andConvergenceHorDiv.css("height","2px");
+		
+		for (var j = 0; j < prevElemIDListArrLength; j++) {
+			var prevElemID=prevElemIDListArr[j];
+			console.log(prevElemID);
+			var prevReg=getRegFromListByID(prevElemID);
+			console.log(prevReg);
+			
+			var prevLinkDivMarginTop=prevReg.drawYCordScale-20;
+			var prevLinkDivMarginLeft=prevReg.drawXCordScale+stepDivWidth/2;
+
+			var contentDiv=$("#up_div #content_div");
+			var prevLinkDivStr="<div class=\"prev_link_div\" id=\"prev_link_div"+prevElemID+"\">";
+			contentDiv.append(prevLinkDivStr);
+			
+			var prevLinkDiv=$("#prev_link_div"+prevElemID);
+			
+			prevLinkDiv.css("width",linkDivWidth+"px");
+			prevLinkDiv.css("height","20px");
+			prevLinkDiv.css("margin-top",prevLinkDivMarginTop+stepDivHeight+20+"px");
+			prevLinkDiv.css("margin-left",prevLinkDivMarginLeft+"px");
+
+			if(j==0){
+				andConvergenceHorDivWidthStartX=prevLinkDivMarginLeft;
+				andConvergenceHorDivMarginLeft=prevLinkDivMarginLeft;;
+				andConvergenceHorDivMarginTop=prevLinkDivMarginTop;
+
+			}
+			else if(j==prevElemIDListArrLength-1){
+				andConvergenceHorDivWidthEndX=prevLinkDivMarginLeft;
+			}
+		}
+		
+		if(nextElemIDListArrLength==1){
+			andConvergenceHorDiv.css("width",andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+"px");
+			andConvergenceHorDiv.css("margin-left",andConvergenceHorDivMarginLeft+"px");
+			andConvergenceHorDiv.css("margin-top",andConvergenceHorDivMarginTop+"px");
+			
+			//nextElem.crossVerDivMarginTop-andConvergence.marginTop
+			andConvergenceHorDiv.css("height","2px");
 		}
 	}
 }
@@ -541,8 +640,11 @@ function convertNumToPx(num){
 .up_div .link_div,
 .up_div .tra_cross_hor_div,
 .up_div .and_divergence_div,
+.up_div .and_convergence_div,
 .up_div .and_divergence_hor_div,
-.up_div .pre_link_div{
+.up_div .and_convergence_hor_div,
+.up_div .prev_link_div,
+.up_div .next_link_div{
 	background-color: #000;
 	position: absolute;
 }
