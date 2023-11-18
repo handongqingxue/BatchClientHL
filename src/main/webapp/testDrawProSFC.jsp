@@ -147,9 +147,9 @@ function drawRegularStep(){
 		regularStep.drawYCordScale=drawYCordScale;
 		
 		regStepDiv.css("width",convertNumToPx(stepDivWidth));
-		regStepDiv.css("height",stepDivHeight+"px");
-		regStepDiv.css("margin-left",drawXCordScale+"px");
-		regStepDiv.css("margin-top",drawYCordScale+"px");
+		regStepDiv.css("height",convertNumToPx(stepDivHeight));
+		regStepDiv.css("margin-left",convertNumToPx(drawXCordScale));
+		regStepDiv.css("margin-top",convertNumToPx(drawYCordScale));
 	}
 	
 }
@@ -170,10 +170,10 @@ function drawTransition(){
 		contentDiv.append(traCrossHorDivStr);
 
 		var traCrossHorDiv=$("#tra_cross_hor_div"+elemID);
-		traCrossHorDiv.css("width",traCrossHorDivWidth+"px");
-		traCrossHorDiv.css("height",traCrossHorDivHeight+"px");
-		traCrossHorDiv.css("margin-left",drawXCordScale+"px");//坐标不是以英文字符为准，是以横线坐标为准
-		traCrossHorDiv.css("margin-top",drawYCordScale+"px");
+		traCrossHorDiv.css("width",convertNumToPx(traCrossHorDivWidth));
+		traCrossHorDiv.css("height",convertNumToPx(traCrossHorDivHeight));
+		traCrossHorDiv.css("margin-left",convertNumToPx(drawXCordScale));//坐标不是以英文字符为准，是以横线坐标为准
+		traCrossHorDiv.css("margin-top",convertNumToPx(drawYCordScale));
 		
 		transition.crossHorDivMarginLeft=drawXCordScale;
 		transition.crossHorDivMarginTop=drawYCordScale;
@@ -186,10 +186,10 @@ function drawTransition(){
 		var crossVerDivMarginLeft=drawXCordScale+traCrossHorDivWidth/2;
 		var crossVerDivMarginTop=drawYCordScale-traCrossVerDivHeight/2;
 
-		traCrossVerDiv.css("width",traCrossVerDivWidth+"px");
-		traCrossVerDiv.css("height",traCrossVerDivHeight+"px");
-		traCrossVerDiv.css("margin-left",crossVerDivMarginLeft+"px");
-		traCrossVerDiv.css("margin-top",crossVerDivMarginTop+"px");
+		traCrossVerDiv.css("width",convertNumToPx(traCrossVerDivWidth));
+		traCrossVerDiv.css("height",convertNumToPx(traCrossVerDivHeight));
+		traCrossVerDiv.css("margin-left",convertNumToPx(crossVerDivMarginLeft));
+		traCrossVerDiv.css("margin-top",convertNumToPx(crossVerDivMarginTop));
 
 		transition.crossVerDivMarginLeft=crossVerDivMarginLeft;
 		transition.crossVerDivMarginTop=crossVerDivMarginTop;
@@ -204,8 +204,8 @@ function drawTransition(){
 		var terTextSpanMarginTop=drawYCordScale+terTextSpanMarginTopSpace;//文字稍微往上一点
 		
 		var terTextSpan=$("#ter_text_span"+elemID);
-		terTextSpan.css("margin-left",terTextSpanMarginLeft+"px");
-		terTextSpan.css("margin-top",terTextSpanMarginTop+"px");
+		terTextSpan.css("margin-left",convertNumToPx(terTextSpanMarginLeft));
+		terTextSpan.css("margin-top",convertNumToPx(terTextSpanMarginTop));
 		
 		transition.terTextSpanMarginLeft=terTextSpanMarginLeft;
 		transition.terTextSpanMarginTop=terTextSpanMarginTop;
@@ -220,8 +220,8 @@ function drawTransition(){
 		var tTextSpanMarginTop=terTextSpanMarginTop+tTextSpanMarginTopSpace;
 		
 		var tTextSpan=$("#t_text_span"+elemID);
-		tTextSpan.css("margin-left",tTextSpanMarginLeft+"px");
-		tTextSpan.css("margin-top",tTextSpanMarginTop+"px");
+		tTextSpan.css("margin-left",convertNumToPx(tTextSpanMarginLeft));
+		tTextSpan.css("margin-top",convertNumToPx(tTextSpanMarginTop));
 		
 		transition.tTextSpanMarginLeft=tTextSpanMarginLeft;
 		transition.tTextSpanMarginTop=tTextSpanMarginTop;
@@ -248,8 +248,8 @@ function drawTerminalStep(){
 		
 		var terStepDiv=$("#ter_step_div"+i);
 		
-		terStepDiv.css("width",terStepDivWidth-marginLeftSpace*2+"px");
-		terStepDiv.css("height",terStepDivHeight+"px");
+		terStepDiv.css("width",convertNumToPx(terStepDivWidth-marginLeftSpace*2));
+		terStepDiv.css("height",convertNumToPx(terStepDivHeight));
 		
 		terStepDiv.css("margin-left",drawXCordScale+marginLeftSpace);
 		terStepDiv.css("margin-top",drawYCordScale+marginTopSpace);
@@ -292,10 +292,10 @@ function drawLink(){
 			link.marginLeft=linkDivMarginLeft;
 			link.marginTop=linkDivMarginTop;
 
-			linkDiv.css("width",linkDivWidth+"px");
-			linkDiv.css("height",linkDivHeight+"px");
-			linkDiv.css("margin-left",linkDivMarginLeft+"px");
-			linkDiv.css("margin-top",linkDivMarginTop+"px");
+			linkDiv.css("width",convertNumToPx(linkDivWidth));
+			linkDiv.css("height",convertNumToPx(linkDivHeight));
+			linkDiv.css("margin-left",convertNumToPx(linkDivMarginLeft));
+			linkDiv.css("margin-top",convertNumToPx(linkDivMarginTop));
 		}
 		else if(prevElemType==transitionInt&&nextElemType==regularStepInt){//上一个元素是状态变更、下一个元素是常规步序
 			var linkDivStr="<div class=\"link_div\" id=\"link_div"+elemID+"\">";
@@ -312,10 +312,10 @@ function drawLink(){
 			var linkDivMarginTop=transition.crossVerDivMarginTop+traCrossVerDivHeight;//状态变更的十字架竖线距离上方的像素+十字架竖线的高度
 			var linkDivHeight=regularStep.drawYCordScale-linkDivMarginTop;
 			
-			linkDiv.css("width",linkDivWidth+"px");
-			linkDiv.css("height",linkDivHeight+"px");
-			linkDiv.css("margin-left",linkDivMarginLeft+"px");
-			linkDiv.css("margin-top",linkDivMarginTop+"px");
+			linkDiv.css("width",convertNumToPx(linkDivWidth));
+			linkDiv.css("height",convertNumToPx(linkDivHeight));
+			linkDiv.css("margin-left",convertNumToPx(linkDivMarginLeft));
+			linkDiv.css("margin-top",convertNumToPx(linkDivMarginTop));
 		}
 		else if(prevElemType==regularStepInt&&nextElemType==transitionInt){//上一个元素是常规步序、下一个元素是状态变更
 			var linkDivStr="<div class=\"link_div\" id=\"link_div"+elemID+"\">";
@@ -330,10 +330,10 @@ function drawLink(){
 			var linkDivMarginTop=regularStep.drawYCordScale+stepDivHeight;//常规步序距离上方的像素+步序框的高度
 			var linkDivHeight=transition.crossVerDivMarginTop-linkDivMarginTop;
 			
-			linkDiv.css("width",linkDivWidth+"px");
-			linkDiv.css("height",linkDivHeight+"px");
-			linkDiv.css("margin-left",linkDivMarginLeft+"px");
-			linkDiv.css("margin-top",linkDivMarginTop+"px");
+			linkDiv.css("width",convertNumToPx(linkDivWidth));
+			linkDiv.css("height",convertNumToPx(linkDivHeight));
+			linkDiv.css("margin-left",convertNumToPx(linkDivMarginLeft));
+			linkDiv.css("margin-top",convertNumToPx(linkDivMarginTop));
 		}
 		else if(prevElemType==transitionInt&&nextElemType==terminalStepInt){//上一个元素是状态变更、下一个元素是终点步序
 			var linkDivStr="<div class=\"link_div\" id=\"link_div"+elemID+"\">";
@@ -347,10 +347,10 @@ function drawLink(){
 			var linkDivMarginTop=transition.crossVerDivMarginTop+traCrossVerDivHeight;
 			var linkDivHeight=terminalStep.drawYCordScale-linkDivMarginTop;
 			
-			linkDiv.css("width",linkDivWidth+"px");
-			linkDiv.css("height",linkDivHeight+"px");
-			linkDiv.css("margin-left",linkDivMarginLeft+"px");
-			linkDiv.css("margin-top",linkDivMarginTop+"px");
+			linkDiv.css("width",convertNumToPx(linkDivWidth));
+			linkDiv.css("height",convertNumToPx(linkDivHeight));
+			linkDiv.css("margin-left",convertNumToPx(linkDivMarginLeft));
+			linkDiv.css("margin-top",convertNumToPx(linkDivMarginTop));
 		}
 	}
 }
@@ -389,9 +389,9 @@ function drawAndDivergence(){
 			var andDivergenceMarginTop=prevElemCrossVerDivMarginTop+traCrossVerDivHeight;
 			var andDivergenceMarginLeft=prevElem.crossHorDivMarginLeft+traCrossHorDivWidth/2;
 			
-			andDivergenceVerDiv.css("width",linkDivWidth+"px");
-			andDivergenceVerDiv.css("margin-top",andDivergenceMarginTop+"px");
-			andDivergenceVerDiv.css("margin-left",andDivergenceMarginLeft+"px");
+			andDivergenceVerDiv.css("width",convertNumToPx(linkDivWidth));
+			andDivergenceVerDiv.css("margin-top",convertNumToPx(andDivergenceMarginTop));
+			andDivergenceVerDiv.css("margin-left",convertNumToPx(andDivergenceMarginLeft));
 			
 			andDivergence.marginTop=andDivergenceMarginTop;
 			andDivergence.marginLeft=andDivergenceMarginLeft;
@@ -400,13 +400,13 @@ function drawAndDivergence(){
 			contentDiv.append(andDivergenceHorDiv1Str);
 			
 			andDivergenceHorDiv1=$("#and_divergence_hor_div1"+elemID);
-			andDivergenceHorDiv1.css("height",traCrossHorDivHeight+"px");
+			andDivergenceHorDiv1.css("height",convertNumToPx(traCrossHorDivHeight));
 
 			var andDivergenceHorDiv2Str="<div class=\"and_divergence_hor_div\" id=\"and_divergence_hor_div2"+elemID+"\">";
 			contentDiv.append(andDivergenceHorDiv2Str);
 			
 			andDivergenceHorDiv2=$("#and_divergence_hor_div2"+elemID);
-			andDivergenceHorDiv2.css("height",traCrossHorDivHeight+"px");
+			andDivergenceHorDiv2.css("height",convertNumToPx(traCrossHorDivHeight));
 		}
 		
 		
@@ -429,10 +429,10 @@ function drawAndDivergence(){
 			
 			var nextLinkDiv=$("#next_link_div"+nextElemID);
 			
-			nextLinkDiv.css("width",linkDivWidth+"px");
-			nextLinkDiv.css("height",traCrossVerDivHeight/2+"px");
-			nextLinkDiv.css("margin-top",nextLinkDivMarginTop+"px");
-			nextLinkDiv.css("margin-left",nextLinkDivMarginLeft+"px");
+			nextLinkDiv.css("width",convertNumToPx(linkDivWidth));
+			nextLinkDiv.css("height",convertNumToPx(traCrossVerDivHeight/2));
+			nextLinkDiv.css("margin-top",convertNumToPx(nextLinkDivMarginTop));
+			nextLinkDiv.css("margin-left",convertNumToPx(nextLinkDivMarginLeft));
 
 			if(j==0){
 				andDivergenceHorDivWidthStartX=nextLinkDivMarginLeft;
@@ -446,15 +446,15 @@ function drawAndDivergence(){
 		}
 		
 		if(prevElemIDListArrLength==1){
-			andDivergenceHorDiv1.css("width",andDivergenceHorDivWidthEndX-andDivergenceHorDivWidthStartX+andDivHorDivEndSpace*2+"px");
-			andDivergenceHorDiv1.css("margin-left",andDivergenceHorDivMarginLeft+andDivHorDivStartSpace+"px");
-			andDivergenceHorDiv1.css("margin-top",andDivergenceHorDivMarginTop+"px");
+			andDivergenceHorDiv1.css("width",convertNumToPx(andDivergenceHorDivWidthEndX-andDivergenceHorDivWidthStartX+andDivHorDivEndSpace*2));
+			andDivergenceHorDiv1.css("margin-left",convertNumToPx(andDivergenceHorDivMarginLeft+andDivHorDivStartSpace));
+			andDivergenceHorDiv1.css("margin-top",convertNumToPx(andDivergenceHorDivMarginTop));
 			
-			andDivergenceHorDiv2.css("width",andDivergenceHorDivWidthEndX-andDivergenceHorDivWidthStartX+andDivHorDivEndSpace*2+"px");
-			andDivergenceHorDiv2.css("margin-left",andDivergenceHorDivMarginLeft+andDivHorDivStartSpace+"px");
-			andDivergenceHorDiv2.css("margin-top",andDivergenceHorDivMarginTop+andDivHorDivUpSpace+"px");
+			andDivergenceHorDiv2.css("width",convertNumToPx(andDivergenceHorDivWidthEndX-andDivergenceHorDivWidthStartX+andDivHorDivEndSpace*2));
+			andDivergenceHorDiv2.css("margin-left",convertNumToPx(andDivergenceHorDivMarginLeft+andDivHorDivStartSpace));
+			andDivergenceHorDiv2.css("margin-top",convertNumToPx(andDivergenceHorDivMarginTop+andDivHorDivUpSpace));
 			
-			andDivergenceVerDiv.css("height",andDivergenceHorDivMarginTop-prevElemCrossVerDivMarginTop-traCrossVerDivHeight+andDivHorDivUpSpace+"px");
+			andDivergenceVerDiv.css("height",convertNumToPx(andDivergenceHorDivMarginTop-prevElemCrossVerDivMarginTop-traCrossVerDivHeight+andDivHorDivUpSpace));
 		}
 	}
 }
@@ -490,8 +490,8 @@ function drawAndConvergence(){
 			console.log(nextElem);
 			var andConvergenceMarginLeft=nextElem.crossHorDivMarginLeft+traCrossHorDivWidth/2;
 			
-			andConvergenceDiv.css("width",linkDivWidth+"px");
-			andConvergenceDiv.css("margin-left",andConvergenceMarginLeft+"px");
+			andConvergenceDiv.css("width",convertNumToPx(linkDivWidth));
+			andConvergenceDiv.css("margin-left",convertNumToPx(andConvergenceMarginLeft));
 			
 			andConvergence.marginLeft=andConvergenceMarginLeft;
 		}
@@ -505,13 +505,13 @@ function drawAndConvergence(){
 		contentDiv.append(andConvergenceHorDiv1Str);
 		
 		andConvergenceHorDiv1=$("#and_convergence_hor_div1"+elemID);
-		andConvergenceHorDiv1.css("height",traCrossHorDivHeight+"px");
+		andConvergenceHorDiv1.css("height",convertNumToPx(traCrossHorDivHeight));
 
 		var andConvergenceHorDiv2Str="<div class=\"and_convergence_hor_div\" id=\"and_convergence_hor_div2"+elemID+"\">";
 		contentDiv.append(andConvergenceHorDiv2Str);
 		
 		andConvergenceHorDiv2=$("#and_convergence_hor_div2"+elemID);
-		andConvergenceHorDiv2.css("height",traCrossHorDivHeight+"px");
+		andConvergenceHorDiv2.css("height",convertNumToPx(traCrossHorDivHeight));
 		
 		for (var j = 0; j < prevElemIDListArrLength; j++) {
 			var prevElemID=prevElemIDListArr[j];
@@ -528,10 +528,10 @@ function drawAndConvergence(){
 			
 			var prevLinkDiv=$("#prev_link_div"+prevElemID);
 			
-			prevLinkDiv.css("width",linkDivWidth+"px");
-			prevLinkDiv.css("height",traCrossVerDivHeight/2+"px");
-			prevLinkDiv.css("margin-top",prevLinkDivMarginTop+"px");
-			prevLinkDiv.css("margin-left",prevLinkDivMarginLeft+"px");
+			prevLinkDiv.css("width",convertNumToPx(linkDivWidth));
+			prevLinkDiv.css("height",convertNumToPx(traCrossVerDivHeight/2));
+			prevLinkDiv.css("margin-top",convertNumToPx(prevLinkDivMarginTop));
+			prevLinkDiv.css("margin-left",convertNumToPx(prevLinkDivMarginLeft));
 
 			if(j==0){
 				andConvergenceHorDivWidthStartX=prevLinkDivMarginLeft;
@@ -546,16 +546,16 @@ function drawAndConvergence(){
 		
 		if(nextElemIDListArrLength==1){
 			var andConvergenceHorDiv2MarginTop=andConvergenceHorDivMarginTop-andConvHorDivUpSpace;
-			andConvergenceHorDiv1.css("width",andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2+"px");
-			andConvergenceHorDiv1.css("margin-left",andConvergenceHorDivMarginLeft+andDivHorDivStartSpace+"px");
-			andConvergenceHorDiv1.css("margin-top",andConvergenceHorDivMarginTop+"px");
+			andConvergenceHorDiv1.css("width",convertNumToPx(andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2));
+			andConvergenceHorDiv1.css("margin-left",convertNumToPx(andConvergenceHorDivMarginLeft+andDivHorDivStartSpace));
+			andConvergenceHorDiv1.css("margin-top",convertNumToPx(andConvergenceHorDivMarginTop));
 			
-			andConvergenceHorDiv2.css("width",andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2+"px");
-			andConvergenceHorDiv2.css("margin-left",andConvergenceHorDivMarginLeft+andConvHorDivStartSpace+"px");
-			andConvergenceHorDiv2.css("margin-top",andConvergenceHorDiv2MarginTop+"px");
+			andConvergenceHorDiv2.css("width",convertNumToPx(andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2));
+			andConvergenceHorDiv2.css("margin-left",convertNumToPx(andConvergenceHorDivMarginLeft+andConvHorDivStartSpace));
+			andConvergenceHorDiv2.css("margin-top",convertNumToPx(andConvergenceHorDiv2MarginTop));
 			
-			andConvergenceDiv.css("margin-top",andConvergenceHorDiv2MarginTop+"px");
-			andConvergenceDiv.css("height",nextElem.crossVerDivMarginTop-andConvergenceHorDiv2MarginTop+"px");
+			andConvergenceDiv.css("margin-top",convertNumToPx(andConvergenceHorDiv2MarginTop));
+			andConvergenceDiv.css("height",convertNumToPx(nextElem.crossVerDivMarginTop-andConvergenceHorDiv2MarginTop));
 		}
 	}
 }
