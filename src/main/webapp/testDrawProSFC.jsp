@@ -65,6 +65,10 @@ var andDivHorDivStartSpace=-10;
 var andDivHorDivEndSpace=10;
 var andDivHorDivUpSpace=-10;
 
+var andConvHorDivStartSpace=-10;
+var andConvHorDivEndSpace=10;
+var andConvHorDivUpSpace=-10;
+
 var initialStep;//初始步序对象
 var regularStepList;//常规步序对象集合
 var transitionList;//状态改变步序对象集合
@@ -142,7 +146,7 @@ function drawRegularStep(){
 		regularStep.drawXCordScale=drawXCordScale;
 		regularStep.drawYCordScale=drawYCordScale;
 		
-		regStepDiv.css("width",stepDivWidth+"px");
+		regStepDiv.css("width",convertNumToPx(stepDivWidth));
 		regStepDiv.css("height",stepDivHeight+"px");
 		regStepDiv.css("margin-left",drawXCordScale+"px");
 		regStepDiv.css("margin-top",drawYCordScale+"px");
@@ -484,16 +488,11 @@ function drawAndConvergence(){
 			
 			nextElem=getTraFromListByID(nextElemIDListStr);
 			console.log(nextElem);
-			nextElemCrossVerDivMarginTop=nextElem.crossVerDivMarginTop;
-			var andConvergenceMarginTop=nextElemCrossVerDivMarginTop-40;
-			var andConvergenceMarginLeft=nextElem.crossHorDivMarginLeft+20;
+			var andConvergenceMarginLeft=nextElem.crossHorDivMarginLeft+traCrossHorDivWidth/2;
 			
 			andConvergenceDiv.css("width",linkDivWidth+"px");
-			andConvergenceDiv.css("height","40px");
-			andConvergenceDiv.css("margin-top",andConvergenceMarginTop+"px");
 			andConvergenceDiv.css("margin-left",andConvergenceMarginLeft+"px");
 			
-			andConvergence.marginTop=andConvergenceMarginTop;
 			andConvergence.marginLeft=andConvergenceMarginLeft;
 		}
 		
@@ -502,11 +501,17 @@ function drawAndConvergence(){
 		var andConvergenceHorDivMarginLeft;
 		var andConvergenceHorDivMarginTop;
 
-		var andConvergenceHorDivStr="<div class=\"and_convergence_hor_div\" id=\"and_convergence_hor_div"+elemID+"\">";
-		contentDiv.append(andConvergenceHorDivStr);
+		var andConvergenceHorDiv1Str="<div class=\"and_convergence_hor_div\" id=\"and_convergence_hor_div1"+elemID+"\">";
+		contentDiv.append(andConvergenceHorDiv1Str);
 		
-		andConvergenceHorDiv=$("#and_convergence_hor_div"+elemID);
-		andConvergenceHorDiv.css("height","2px");
+		andConvergenceHorDiv1=$("#and_convergence_hor_div1"+elemID);
+		andConvergenceHorDiv1.css("height",traCrossHorDivHeight+"px");
+
+		var andConvergenceHorDiv2Str="<div class=\"and_convergence_hor_div\" id=\"and_convergence_hor_div2"+elemID+"\">";
+		contentDiv.append(andConvergenceHorDiv2Str);
+		
+		andConvergenceHorDiv2=$("#and_convergence_hor_div2"+elemID);
+		andConvergenceHorDiv2.css("height",traCrossHorDivHeight+"px");
 		
 		for (var j = 0; j < prevElemIDListArrLength; j++) {
 			var prevElemID=prevElemIDListArr[j];
@@ -514,7 +519,7 @@ function drawAndConvergence(){
 			var prevReg=getRegFromListByID(prevElemID);
 			console.log(prevReg);
 			
-			var prevLinkDivMarginTop=prevReg.drawYCordScale-20;
+			var prevLinkDivMarginTop=prevReg.drawYCordScale+stepDivHeight;
 			var prevLinkDivMarginLeft=prevReg.drawXCordScale+stepDivWidth/2;
 
 			var contentDiv=$("#up_div #content_div");
@@ -524,14 +529,14 @@ function drawAndConvergence(){
 			var prevLinkDiv=$("#prev_link_div"+prevElemID);
 			
 			prevLinkDiv.css("width",linkDivWidth+"px");
-			prevLinkDiv.css("height","20px");
-			prevLinkDiv.css("margin-top",prevLinkDivMarginTop+stepDivHeight+20+"px");
+			prevLinkDiv.css("height",traCrossVerDivHeight/2+"px");
+			prevLinkDiv.css("margin-top",prevLinkDivMarginTop+"px");
 			prevLinkDiv.css("margin-left",prevLinkDivMarginLeft+"px");
 
 			if(j==0){
 				andConvergenceHorDivWidthStartX=prevLinkDivMarginLeft;
-				andConvergenceHorDivMarginLeft=prevLinkDivMarginLeft;;
-				andConvergenceHorDivMarginTop=prevLinkDivMarginTop;
+				andConvergenceHorDivMarginLeft=prevLinkDivMarginLeft;
+				andConvergenceHorDivMarginTop=prevLinkDivMarginTop+traCrossVerDivHeight/2;
 
 			}
 			else if(j==prevElemIDListArrLength-1){
@@ -540,12 +545,17 @@ function drawAndConvergence(){
 		}
 		
 		if(nextElemIDListArrLength==1){
-			andConvergenceHorDiv.css("width",andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+"px");
-			andConvergenceHorDiv.css("margin-left",andConvergenceHorDivMarginLeft+"px");
-			andConvergenceHorDiv.css("margin-top",andConvergenceHorDivMarginTop+"px");
+			var andConvergenceHorDiv2MarginTop=andConvergenceHorDivMarginTop-andConvHorDivUpSpace;
+			andConvergenceHorDiv1.css("width",andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2+"px");
+			andConvergenceHorDiv1.css("margin-left",andConvergenceHorDivMarginLeft+andDivHorDivStartSpace+"px");
+			andConvergenceHorDiv1.css("margin-top",andConvergenceHorDivMarginTop+"px");
 			
-			//nextElem.crossVerDivMarginTop-andConvergence.marginTop
-			andConvergenceHorDiv.css("height","2px");
+			andConvergenceHorDiv2.css("width",andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2+"px");
+			andConvergenceHorDiv2.css("margin-left",andConvergenceHorDivMarginLeft+andConvHorDivStartSpace+"px");
+			andConvergenceHorDiv2.css("margin-top",andConvergenceHorDiv2MarginTop+"px");
+			
+			andConvergenceDiv.css("margin-top",andConvergenceHorDiv2MarginTop+"px");
+			andConvergenceDiv.css("height",nextElem.crossVerDivMarginTop-andConvergenceHorDiv2MarginTop+"px");
 		}
 	}
 }
