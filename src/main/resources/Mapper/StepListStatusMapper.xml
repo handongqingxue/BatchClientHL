@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batchClientHL.dao.StepListStatusMapper">
+	<insert id="addFromList" parameterType="com.batchClientHL.entity.StepListStatus">
+		insert into StepListStatus (FormulaId,ElemID,ElemName,SP88Type,KeyPName,KeyValue,State,Mode,
+		UnitName,Control,[Index],Paused,Msg,Rqst,Fail,ParmList,RepParmList,OwnerID,OwnerName) values
+		<foreach collection="slsList" item="sls" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<choose>
+					<when test="sls.formulaId!=null">
+						#{sls.formulaId},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.elemID!=null">
+						#{sls.elemID},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.elemName!=null">
+						#{sls.elemName},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.sP88Type!=null">
+						#{sls.sP88Type},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.keyPName!=null">
+						#{sls.keyPName},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.keyValue!=null">
+						#{sls.keyValue},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.state!=null">
+						#{sls.state},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.mode!=null">
+						#{sls.mode},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.unitName!=null">
+						#{sls.unitName},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.control!=null">
+						#{sls.control},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.index!=null">
+						#{sls.index},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.paused!=null">
+						#{sls.paused},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.msg!=null">
+						#{sls.msg},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.rqst!=null">
+						#{sls.rqst},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.fail!=null">
+						#{sls.fail},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.parmList!=null">
+						#{sls.parmList},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.repParmList!=null">
+						#{sls.repParmList},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.ownerID!=null">
+						#{sls.ownerID},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="sls.ownerName!=null">
+						#{sls.ownerName},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+			</trim>
+		</foreach>
+	</insert>
+</mapper>
