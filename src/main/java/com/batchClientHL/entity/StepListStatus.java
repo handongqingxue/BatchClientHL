@@ -9,6 +9,12 @@ public class StepListStatus {
 	public void setID(Integer iD) {
 		ID = iD;
 	}
+	public String getCreateID() {
+		return CreateID;
+	}
+	public void setCreateID(String createID) {
+		CreateID = createID;
+	}
 	public String getFormulaId() {
 		return FormulaId;
 	}
@@ -123,6 +129,7 @@ public class StepListStatus {
 	public void setOwnerName(String ownerName) {
 		OwnerName = ownerName;
 	}
+	private String CreateID;
 	private String FormulaId;
 	private String ElemID;
 	private String ElemName;

@@ -51,6 +51,7 @@ public class APIUtil {
 	
 	public static final String RECIPE_LIST="RecipeList";
 	public static final String PROCEDURE_ID_DATA="ProcedureIDData";
+	public static final String CREATE_ID_BATCH_STEP_DATA_LIST="CreateIDBatchStepDataList";
 	
 	public static String getItemVal(String key, int rowNumber) throws JSONException {
 		//val = BLKey_x("key",rowNumber);
@@ -116,6 +117,11 @@ public class APIUtil {
 				List<ProcedureData> procedureDataList=convertItemDataToProcedureDataList(itemData);
 				jsonMap.put("status", "ok");
 				jsonMap.put("procedureDataList", procedureDataList);
+			}
+			else if(CREATE_ID_BATCH_STEP_DATA_LIST.equals(itemName)) {
+				List<StepListStatus> stepListStatusList=convertItemDataToStepListStatusList(itemData);
+				jsonMap.put("status", "ok");
+				jsonMap.put("stepListStatusList", stepListStatusList);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -358,6 +364,36 @@ public class APIUtil {
 		
 		
 		return procedureDataList;
+	}
+	
+	public static List<StepListStatus> convertItemDataToStepListStatusList(String itemData){
+		
+		List<StepListStatus> stepListStatusList=new ArrayList<StepListStatus>();
+		
+		StepListStatus stepListStatus=null;
+		
+		String[] itemArr = itemData.split(BatchView.DOUBLE_CRLF_SPACE_SIGN);
+		for (String item : itemArr) {
+			int parmTLoc = getLocBySpaceSign(item,"$PARM"+BatchView.DOUBLE_T_SPACE_SIGN);
+			String preAttrsStr = substringByEndLoc(item,parmTLoc);
+			String[] preAttrArr = preAttrsStr.split(BatchView.DOUBLE_T_SPACE_SIGN);
+			String elemID = preAttrArr[0];
+			String elemName = preAttrArr[1];
+			int sP88Type = Integer.valueOf(preAttrArr[2]);
+			String keyPName = preAttrArr[3];
+			//String id = preAttrArr[0];
+			
+			System.out.println("elemID="+elemID);
+			System.out.println("elemName="+elemName);
+			System.out.println("sP88Type="+sP88Type);
+			System.out.println("keyPName="+keyPName);
+			
+			String otherAttrsStr = getOtherAttrsStr(parmTLoc,"$PARM"+BatchView.DOUBLE_T_SPACE_SIGN,item);
+			int tEndLoc = getLocBySpaceSign(otherAttrsStr,BatchView.DOUBLE_T_SPACE_SIGN+"$END");
+			String parmListStr = substringByEndLoc(otherAttrsStr,tEndLoc);
+		}
+		
+		return stepListStatusList;
 	}
 	
 	public static int getLocBySpaceSign(String str, String spaceSign) {

@@ -23,6 +23,8 @@ public class BatchController {
 	private RecipeHeaderService recipeHeaderService;
 	@Autowired
 	private ProcedureDataService procedureDataService;
+	@Autowired
+	private StepListStatusService stepListStatusService;
 	
 	@RequestMapping(value="/initRecipeHeader")
 	@ResponseBody
@@ -66,6 +68,39 @@ public class BatchController {
 			e.printStackTrace();
 			jsonMap.put("message", "no");
 			jsonMap.put("info", "添加过程信息失败");
+		}
+		finally {
+			return jsonMap;
+		}
+	}
+	
+	@RequestMapping(value="/initStepListStatus")
+	@ResponseBody
+	public Map<String, Object> initStepListStatus(String createID) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+
+		try {	
+			createID=APIUtil.CREATE_ID_BATCH_STEP_DATA_LIST.replaceAll("CreateID", createID);
+			JSONObject createIDBatchStepDataListJO = APIUtil.getItemJO(createID);
+			String createIDBatchStepDataListStr = createIDBatchStepDataListJO.getString("data");
+			Map<String, Object> resultMap = APIUtil.convertItemDataToEntity(APIUtil.CREATE_ID_BATCH_STEP_DATA_LIST,createIDBatchStepDataListStr);
+			List<StepListStatus> stepListStatusList = (List<StepListStatus>)resultMap.get("stepListStatusList");
+			if(stepListStatusList.size()==0) {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "暂无步序状态信息");
+			}
+			else {
+				stepListStatusService.addFromList(stepListStatusList);
+
+				jsonMap.put("message", "ok");
+				jsonMap.put("info", "添加步序状态信息成功");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "添加步序状态信息失败");
 		}
 		finally {
 			return jsonMap;
