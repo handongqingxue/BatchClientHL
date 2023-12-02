@@ -374,7 +374,7 @@ public class APIUtil {
 		
 		String[] itemArr = itemData.split(BatchView.DOUBLE_CRLF_SPACE_SIGN);
 		for (String item : itemArr) {
-			int parmTLoc = getLocBySpaceSign(item,"$PARM"+BatchView.DOUBLE_T_SPACE_SIGN);
+			int parmTLoc = getLocBySpaceSign(item,"$PARM"+BatchView.SINGLE_T_SPACE_SIGN);
 			String preAttrsStr = substringByEndLoc(item,parmTLoc);
 			String[] preAttrArr = preAttrsStr.split(BatchView.DOUBLE_T_SPACE_SIGN);
 			String elemID = preAttrArr[0];
@@ -389,8 +389,9 @@ public class APIUtil {
 			System.out.println("keyPName="+keyPName);
 			
 			String otherAttrsStr = getOtherAttrsStr(parmTLoc,"$PARM"+BatchView.DOUBLE_T_SPACE_SIGN,item);
-			int tEndLoc = getLocBySpaceSign(otherAttrsStr,BatchView.DOUBLE_T_SPACE_SIGN+"$END");
+			int tEndLoc = getLocBySpaceSign(otherAttrsStr,BatchView.SINGLE_T_SPACE_SIGN+"$END");
 			String parmListStr = substringByEndLoc(otherAttrsStr,tEndLoc);
+			System.out.println("parmListStr="+parmListStr);
 		}
 		
 		return stepListStatusList;
