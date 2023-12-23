@@ -41,8 +41,8 @@
 					</otherwise>
 				</choose>
 				<choose>
-					<when test="sls.sP88Type!=null">
-						#{sls.sP88Type},
+					<when test="sls.SP88Type!=null">
+						#{sls.SP88Type},
 					</when>
 					<otherwise>
 						'',
@@ -186,7 +186,7 @@
 		</foreach>
 	</update>
 	<select id="getExistElemIDList" resultType="java.lang.String">
-		select ElemID from StepListStatus where CreateID=#{CreateID} and
+		select ElemID from StepListStatus where CreateID=#{createID} and
 		<foreach collection="elemIDList" item="elemID" open=" cast(ElemID as char) in (" separator="," close=")">
 		#{elemID}
 		</foreach>
