@@ -110,6 +110,33 @@ public class BatchController {
 		}
 	}
 	
+	@RequestMapping(value="/getStepListStatus")
+	@ResponseBody
+	public Map<String, Object> getStepListStatus(String createID) {
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+
+		try {	
+			List<StepListStatus> stepListStatusList = stepListStatusService.getByCreateID(createID);
+			if(stepListStatusList.size()==0) {
+				jsonMap.put("message", "no");
+				jsonMap.put("info", "暂无步序状态信息");
+			}
+			else {
+				jsonMap.put("message", "ok");
+				jsonMap.put("stepListStatusList", stepListStatusList);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonMap.put("message", "no");
+			jsonMap.put("info", "获取步序状态信息失败");
+		}
+		finally {
+			return jsonMap;
+		}
+	}
+	
 	@RequestMapping(value="/getDrawProSFCData")
 	@ResponseBody
 	public Map<String, Object> getDrawProSFCData(String recpID) {

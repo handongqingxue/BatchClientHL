@@ -13,4 +13,6 @@ public interface StepListStatusMapper {
 	int editFromList(@Param("slsList") List<StepListStatus> slsList);
 
 	List<String> getExistElemIDList(@Param("createID") String createID, @Param("elemIDList") List<String> elemIDList);
+
+	List<StepListStatus> getByCreateID(@Param("createID") String createID);
 }

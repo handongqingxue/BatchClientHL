@@ -55,4 +55,10 @@ public class StepListStatusServiceImpl implements StepListStatusService {
 		count=insertCount+updateCount;
 		return count;
 	}
+
+	@Override
+	public List<StepListStatus> getByCreateID(String createID) {
+		// TODO Auto-generated method stub
+		return stepListStatusDao.getByCreateID(createID);
+	}
 }

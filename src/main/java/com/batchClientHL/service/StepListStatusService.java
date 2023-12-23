@@ -8,4 +8,6 @@ public interface StepListStatusService {
 
 	int addFromList(List<StepListStatus> slsList);
 
+	List<StepListStatus> getByCreateID(String createID);
+
 }

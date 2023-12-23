@@ -91,6 +91,41 @@ function getDrawProSFCData(){
 			drawLink();
 			drawAndDivergence();
 			drawAndConvergence();
+			
+			getStepListStatus();
+		}
+	,"json");
+}
+
+function getStepListStatus(){
+	$.post(path+"batch/getStepListStatus",
+		{createID:101},
+		function(result){
+			if(result.message=="ok"){
+				var stepListStatusList=result.stepListStatusList;
+				for(var i=0;i<stepListStatusList.length;i++){
+					var stepListStatus=stepListStatusList[i];
+					//console.log("ElemID="+stepListStatus.elemID);
+					for(var j=0;j<regularStepList.length;j++){
+						var regularStep=regularStepList[j];
+						if(stepListStatus.elemID==regularStep.elemID){
+							//console.log(stepListStatus);
+							console.log("ElemID111="+stepListStatus.elemID+",SP88Type="+stepListStatus.sp88Type);
+							if(stepListStatus.sp88Type==2){
+								var regStepDiv=$("#up_div #content_div #reg_step_div"+stepListStatus.elemID);
+								var nameDiv=regStepDiv.find("#name_div"+stepListStatus.elemID);
+								var unitNameDiv=regStepDiv.find("#unitName_div"+stepListStatus.elemID);
+								unitNameDiv.text(stepListStatus.unitName);
+								regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
+								regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
+								nameDiv.css("color","#fff");
+								unitNameDiv.css("color","#fff");
+								regStepDiv.css("background-color","#84853E");
+							}
+						}
+					}
+				}
+			}
 		}
 	,"json");
 }
@@ -129,12 +164,16 @@ function drawRegularStep(){
 		var drawYCord=regularStep.drawYCord;
 		
 		var regularStepStr="<div class=\"reg_step_div\" id=\"reg_step_div"+elemID+"\">";
-				regularStepStr+="<div class=\"name_div\">";
+				regularStepStr+="<div class=\"name_div\" id=\"name_div"+elemID+"\">";
 					regularStepStr+=elemName;
 				regularStepStr+="</div>";
-				regularStepStr+="<div class=\"unitName_div\">";
-					regularStepStr+="WP_FREEZER1";
+				regularStepStr+="<div class=\"unitName_div\" id=\"unitName_div"+elemID+"\">";
+					//regularStepStr+="WP_FREEZER1";
 				regularStepStr+="</div>";
+				regularStepStr+="<div class=\"state_div\" id=\"state_div"+elemID+"\">";
+					regularStepStr+="<span id=\"state_span\"></span>";
+					regularStepStr+="<span id=\"mode_span\"></span>";
+			regularStepStr+="</div>";
 		   regularStepStr+="</div>";
 		contentDiv.append(regularStepStr);
 	

@@ -191,4 +191,7 @@
 		#{elemID}
 		</foreach>
 	</select>
+	<select id="getByCreateID" resultType="com.batchClientHL.entity.StepListStatus">
+		select * from StepListStatus where CreateID=#{createID}
+	</select>
 </mapper>
