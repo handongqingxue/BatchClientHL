@@ -81,8 +81,8 @@ public class BatchController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 
 		try {	
-			createID=APIUtil.CREATE_ID_BATCH_STEP_DATA_LIST.replaceAll("CreateID", createID);
-			JSONObject createIDBatchStepDataListJO = APIUtil.getItemJO(createID);
+			String requestParam = APIUtil.CREATE_ID_BATCH_STEP_DATA_LIST.replaceAll("CreateID", createID);
+			JSONObject createIDBatchStepDataListJO = APIUtil.getItemJO(requestParam);
 			String createIDBatchStepDataListStr = createIDBatchStepDataListJO.getString("data");
 			Map<String, Object> resultMap = APIUtil.convertItemDataToEntity(APIUtil.CREATE_ID_BATCH_STEP_DATA_LIST,createIDBatchStepDataListStr);
 			List<StepListStatus> stepListStatusList = (List<StepListStatus>)resultMap.get("stepListStatusList");
