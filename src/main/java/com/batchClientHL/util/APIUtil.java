@@ -397,14 +397,33 @@ public class APIUtil {
 		return stepListStatusList;
 	}
 	
+	/**
+	 * 获取字符串里分隔符位置
+	 * @param str
+	 * @param spaceSign
+	 * @return
+	 */
 	public static int getLocBySpaceSign(String str, String spaceSign) {
 		return str.indexOf(spaceSign);
 	}
 	
+	/**
+	 * 截取结束位置之前的字符串
+	 * @param str
+	 * @param endLoc
+	 * @return
+	 */
 	public static String substringByEndLoc(String str, int endLoc) {
 		return str.substring(0, endLoc);
 	}
 	
+	/**
+	 * 截取分隔符后面剩余的字符串
+	 * @param startLoc
+	 * @param spaceSign
+	 * @param attrsStr
+	 * @return
+	 */
 	public static String getOtherAttrsStr(int startLoc, String spaceSign,String attrsStr) {
 		return attrsStr.substring(startLoc+spaceSign.length(), attrsStr.length());
 	}
