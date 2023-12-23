@@ -387,7 +387,7 @@ public class APIUtil {
 			String unitName = preAttrArr[7];
 			String control = preAttrArr[8];
 			String index = preAttrArr[9];
-			String paused = preAttrArr[10];
+			int paused = Integer.valueOf(preAttrArr[10]);
 			String msg = preAttrArr[11];
 			String rqst = preAttrArr[12];
 			String fail = preAttrArr[13];
@@ -431,6 +431,28 @@ public class APIUtil {
 			System.out.println("ownerID="+ownerID);
 			System.out.println("ownerName="+ownerName);
 			System.out.println("cmdMask="+cmdMask);
+			
+			stepListStatus=new StepListStatus();
+			stepListStatus.setElemID(elemID);
+			stepListStatus.setElemName(elemName);
+			stepListStatus.setSP88Type(sP88Type);
+			stepListStatus.setKeyPName(keyPName);
+			stepListStatus.setKeyValue(keyValue);
+			stepListStatus.setState(state);
+			stepListStatus.setMode(mode);
+			stepListStatus.setUnitName(unitName);
+			stepListStatus.setControl(control);
+			stepListStatus.setIndex(index);
+			stepListStatus.setPaused(paused);
+			stepListStatus.setMsg(msg);
+			stepListStatus.setRqst(rqst);
+			stepListStatus.setFail(fail);
+			stepListStatus.setParmList(parmListStr);
+			stepListStatus.setRepParmList(parmListStr);
+			stepListStatus.setOwnerID(ownerID);
+			stepListStatus.setOwnerName(ownerName);
+			
+			stepListStatusList.add(stepListStatus);
 		}
 		
 		return stepListStatusList;

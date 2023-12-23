@@ -171,4 +171,24 @@
 			</trim>
 		</foreach>
 	</insert>
+	<update id="editFromList">
+		update StepListStatus set 
+		<trim suffixOverrides=",">
+			State=case
+			<foreach collection="slsList" item="sls">
+				when ElemID=#{sls.elemID} then #{sls.state}
+			</foreach>
+			else State end,
+		 </trim>
+		 where CreateID=#{slsList[0].createID} and
+		<foreach collection="slsList" item="sls" open=" cast(ElemID as char) in (" separator="," close=")">
+		#{sls.elemID}
+		</foreach>
+	</update>
+	<select id="getExistElemIDList" resultType="java.lang.String">
+		select ElemID from StepListStatus where CreateID=#{CreateID} and
+		<foreach collection="elemIDList" item="elemID" open=" cast(ElemID as char) in (" separator="," close=")">
+		#{elemID}
+		</foreach>
+	</select>
 </mapper>

@@ -91,6 +91,9 @@ public class BatchController {
 				jsonMap.put("info", "暂无步序状态信息");
 			}
 			else {
+				for (StepListStatus stepListStatus : stepListStatusList) {
+					stepListStatus.setCreateID(createID);
+				}
 				stepListStatusService.addFromList(stepListStatusList);
 
 				jsonMap.put("message", "ok");
