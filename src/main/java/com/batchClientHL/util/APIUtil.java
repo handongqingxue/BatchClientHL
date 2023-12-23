@@ -381,17 +381,56 @@ public class APIUtil {
 			String elemName = preAttrArr[1];
 			int sP88Type = Integer.valueOf(preAttrArr[2]);
 			String keyPName = preAttrArr[3];
-			//String id = preAttrArr[0];
+			String keyValue = preAttrArr[4];
+			String state = preAttrArr[5];
+			String mode = preAttrArr[6];
+			String unitName = preAttrArr[7];
+			String control = preAttrArr[8];
+			String index = preAttrArr[9];
+			String paused = preAttrArr[10];
+			String msg = preAttrArr[11];
+			String rqst = preAttrArr[12];
+			String fail = preAttrArr[13];
 			
 			System.out.println("elemID="+elemID);
 			System.out.println("elemName="+elemName);
 			System.out.println("sP88Type="+sP88Type);
 			System.out.println("keyPName="+keyPName);
+			System.out.println("keyValue="+keyValue);
+			System.out.println("state="+state);
+			System.out.println("mode="+mode);
+			System.out.println("unitName="+unitName);
+			System.out.println("control="+control);
+			System.out.println("index="+index);
+			System.out.println("paused="+paused);
+			System.out.println("msg="+msg);
+			System.out.println("rqst="+rqst);
+			System.out.println("fail="+fail);
 			
 			String otherAttrsStr = getOtherAttrsStr(parmTLoc,"$PARM"+BatchView.DOUBLE_T_SPACE_SIGN,item);
 			int tEndLoc = getLocBySpaceSign(otherAttrsStr,BatchView.SINGLE_T_SPACE_SIGN+"$END");
 			String parmListStr = substringByEndLoc(otherAttrsStr,tEndLoc);
 			System.out.println("parmListStr="+parmListStr);
+
+			int reportTLoc = getLocBySpaceSign(otherAttrsStr,"$REPORT"+BatchView.SINGLE_T_SPACE_SIGN);
+			otherAttrsStr = getOtherAttrsStr(reportTLoc,"$REPORT"+BatchView.DOUBLE_T_SPACE_SIGN,otherAttrsStr);
+			tEndLoc = getLocBySpaceSign(otherAttrsStr,BatchView.SINGLE_T_SPACE_SIGN+"$END");
+			String reportListStr = substringByEndLoc(otherAttrsStr,tEndLoc);
+			System.out.println("reportListStr="+reportListStr);
+			
+			otherAttrsStr=getOtherAttrsStr(tEndLoc,BatchView.SINGLE_T_SPACE_SIGN+"$END",otherAttrsStr);
+			int lastTSpaceSignLoc = getLocBySpaceSign(otherAttrsStr,BatchView.SINGLE_T_SPACE_SIGN);
+			String nextAttrsStr = getOtherAttrsStr(lastTSpaceSignLoc,BatchView.SINGLE_T_SPACE_SIGN,otherAttrsStr);
+			System.out.println("nextAttrsStr="+nextAttrsStr);
+			String[] nextAttrArr = nextAttrsStr.split(BatchView.DOUBLE_T_SPACE_SIGN);
+			System.out.println("nextAttrArrLength="+nextAttrArr.length);
+			String ownerID = nextAttrArr[0];
+			String ownerName = nextAttrArr[1];
+			String cmdMask = nextAttrArr[2];
+			
+			System.out.println("ownerID="+ownerID);
+			System.out.println("ownerName="+ownerName);
+			System.out.println("cmdMask="+cmdMask);
 		}
 		
 		return stepListStatusList;
