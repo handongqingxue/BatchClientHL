@@ -62,6 +62,9 @@ public class BatchController {
 			String procedureIDData = procedureIDDataJO.getString("data");
 			Map<String, Object> resultMap = APIUtil.convertItemDataToEntity(APIUtil.PROCEDURE_ID_DATA,procedureIDData);
 			List<ProcedureData> procedureDataList = (List<ProcedureData>)resultMap.get("procedureDataList");
+			for (ProcedureData procedureData : procedureDataList) {
+				procedureData.setProcedureID(procedureIDData);
+			}
 			procedureDataService.addFromList(procedureDataList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
