@@ -9,5 +9,7 @@ public interface ProcedureDataService {
 
 	int addFromList(List<ProcedureData> pdList);
 
-	Map<String, Object> getDrawSFCMapByRecpID(String recpID);
+	Map<String, Object> getDrawSFCMapByProcedureID(String procedureID);
+
+	int getCountByProcedureID(String procedureID);
 }

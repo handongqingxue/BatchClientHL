@@ -74,13 +74,14 @@ var regularStepList;//常规步序对象集合
 var transitionList;//状态改变步序对象集合
 var terminalStep;//终点步序对象
 
+var createID=108;
 $(function(){
 	getDrawProSFCData();
 });
 
 function getDrawProSFCData(){
 	$.post(path+"batch/getDrawProSFCData",
-		{recpID:"CLS_FRENCHVANILLA"},
+		{createID:createID,recpID:"CLS_FRENCHVANILLA"},//CLS_FRENCHVANILLA  CLS_SWEETCREAM_UP  CLS_SWEETCREAM_OP
 		function(result){
 			drawSFCMap=result.drawSFCMap;
 			console.log(initialStepText)
@@ -99,7 +100,7 @@ function getDrawProSFCData(){
 
 function getStepListStatus(){
 	$.post(path+"batch/getStepListStatus",
-		{createID:101},
+		{createID:createID},
 		function(result){
 			if(result.message=="ok"){
 				var stepListStatusList=result.stepListStatusList;
@@ -110,17 +111,59 @@ function getStepListStatus(){
 						var regularStep=regularStepList[j];
 						if(stepListStatus.elemID==regularStep.elemID){
 							//console.log(stepListStatus);
-							console.log("ElemID111="+stepListStatus.elemID+",SP88Type="+stepListStatus.sp88Type);
-							if(stepListStatus.sp88Type==2){
-								var regStepDiv=$("#up_div #content_div #reg_step_div"+stepListStatus.elemID);
-								var nameDiv=regStepDiv.find("#name_div"+stepListStatus.elemID);
+							var slsSp88Type=stepListStatus.sp88Type;
+							//console.log("ElemID111="+stepListStatus.elemID+",SP88Type="+slsSp88Type);
+							var regStepDiv=$("#up_div #content_div #reg_step_div"+stepListStatus.elemID);
+							var nameDiv=regStepDiv.find("#name_div"+stepListStatus.elemID);
+							if(slsSp88Type==2){
 								var unitNameDiv=regStepDiv.find("#unitName_div"+stepListStatus.elemID);
+								unitNameDiv.css("display","block");
 								unitNameDiv.text(stepListStatus.unitName);
-								regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
-								regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
-								nameDiv.css("color","#fff");
-								unitNameDiv.css("color","#fff");
-								regStepDiv.css("background-color","#84853E");
+								if(stepListStatus.state=="HELD"){
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
+									
+									regStepDiv.addClass("up_held_div");
+									nameDiv.addClass("up_name_held_div");
+									unitNameDiv.addClass("up_unit_name_held_div");
+								}
+							}
+							else if(slsSp88Type==4){
+								var keyValueDiv=regStepDiv.find("#keyValue_div"+stepListStatus.elemID);
+								keyValueDiv.css("display","block");
+								keyValueDiv.text(stepListStatus.keyValue);
+								if(stepListStatus.state==""){
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
+									
+									regStepDiv.removeClass();
+									nameDiv.removeClass();
+									keyValueDiv.removeClass();
+								}
+								else if(stepListStatus.state=="RUNNING"){
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
+									
+									regStepDiv.addClass("up_running_div");
+									nameDiv.addClass("up_name_running_div");
+									keyValueDiv.addClass("up_key_value_running_div");
+								}
+								else if(stepListStatus.state=="HELD"){
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
+									
+									regStepDiv.addClass("up_held_div");
+									nameDiv.addClass("up_name_held_div");
+									keyValueDiv.addClass("up_key_value_held_div");
+								}
+								else if(stepListStatus.state=="COMPLETE"){
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
+									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
+									
+									regStepDiv.addClass("up_complete_div");
+									nameDiv.addClass("up_name_complete_div");
+									keyValueDiv.addClass("up_key_value_complete_div");
+								}
 							}
 						}
 					}
@@ -169,6 +212,9 @@ function drawRegularStep(){
 				regularStepStr+="</div>";
 				regularStepStr+="<div class=\"unitName_div\" id=\"unitName_div"+elemID+"\">";
 					//regularStepStr+="WP_FREEZER1";
+				regularStepStr+="</div>";
+				regularStepStr+="<div class=\"keyValue_div\" id=\"keyValue_div"+elemID+"\">";
+					//regularStepStr+="200 KG";
 				regularStepStr+="</div>";
 				regularStepStr+="<div class=\"state_div\" id=\"state_div"+elemID+"\">";
 					regularStepStr+="<span id=\"state_span\"></span>";
@@ -742,6 +788,38 @@ function convertNumToPx(num){
 .up_div .tra_cross_ver_div{
 	background-color: #000;
 	position: absolute;
+}
+
+.reg_step_div .unitName_div,
+..reg_step_div .keyValue_div{
+	display: none;;
+}
+
+.up_ready_div{
+	background-color:#fff;
+}
+.up_running_div{
+	background-color:#46A758;
+}
+.up_held_div{
+	background-color:#84853E;
+}
+.up_complete_div{
+	background-color:#676A71;
+}
+
+.up_name_ready_div,
+.up_unit_name_ready_div{
+	color:#000;
+}
+.up_name_running_div,
+.up_name_held_div,
+.up_name_complete_div,
+.up_unit_name_held_div,
+.up_key_value_running_div,
+.up_key_value_held_div,
+.up_key_value_complete_div{
+	color:#fff;
 }
 </style>
 </head>

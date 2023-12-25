@@ -10,5 +10,7 @@ public interface ProcedureDataMapper {
 
 	int addFromList(@Param("pdList") List<ProcedureData> pdList);
 
-	List<ProcedureData> getListByRecpID(@Param("recpID") String recpID);
+	List<ProcedureData> getListByProcedureID(@Param("procedureID") String procedureID);
+
+	int getCountByProcedureID(@Param("procedureID") String procedureID);
 }

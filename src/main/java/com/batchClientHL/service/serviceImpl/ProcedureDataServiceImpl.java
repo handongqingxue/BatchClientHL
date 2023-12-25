@@ -25,11 +25,11 @@ public class ProcedureDataServiceImpl implements ProcedureDataService {
 	}
 
 	@Override
-	public Map<String, Object> getDrawSFCMapByRecpID(String recpID) {
+	public Map<String, Object> getDrawSFCMapByProcedureID(String procedureID) {
 		// TODO Auto-generated method stub
 		Map<String, Object> drawSFCMap=new HashMap<String, Object>();
 		
-		List<ProcedureData> proDataList=procedureDataDao.getListByRecpID(recpID);
+		List<ProcedureData> proDataList=procedureDataDao.getListByProcedureID(procedureID);
 		for (ProcedureData proData : proDataList) {
 			Integer elemType = proData.getElemType();
 			String elemID = proData.getElemID();
@@ -161,5 +161,11 @@ public class ProcedureDataServiceImpl implements ProcedureDataService {
 			}
 		}
 		return drawSFCMap;
+	}
+
+	@Override
+	public int getCountByProcedureID(String procedureID) {
+		// TODO Auto-generated method stub
+		return procedureDataDao.getCountByProcedureID(procedureID);
 	}
 }

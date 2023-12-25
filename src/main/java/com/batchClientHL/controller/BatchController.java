@@ -139,11 +139,14 @@ public class BatchController {
 	
 	@RequestMapping(value="/getDrawProSFCData")
 	@ResponseBody
-	public Map<String, Object> getDrawProSFCData(String recpID) {
+	public Map<String, Object> getDrawProSFCData(String procedureID) {
 
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
-		Map<String,Object> drawSFCMap=procedureDataService.getDrawSFCMapByRecpID(recpID);
+		int procedureDataCount = procedureDataService.getCountByProcedureID(procedureID);
+		if(procedureDataCount==0)
+			initProcedureData(procedureID);
+		Map<String,Object> drawSFCMap=procedureDataService.getDrawSFCMapByProcedureID(procedureID);
 
 		jsonMap.put("drawSFCMap", drawSFCMap);
 		

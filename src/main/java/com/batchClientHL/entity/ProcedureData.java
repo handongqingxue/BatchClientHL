@@ -29,6 +29,12 @@ public class ProcedureData {
 	public void setID(Integer iD) {
 		ID = iD;
 	}
+	public String getProcedureID() {
+		return ProcedureID;
+	}
+	public void setProcedureID(String procedureID) {
+		ProcedureID = procedureID;
+	}
 	public String getRecpID() {
 		return RecpID;
 	}
@@ -125,6 +131,7 @@ public class ProcedureData {
 	public void setRemark(String remark) {
 		Remark = remark;
 	}
+	private String ProcedureID;
 	private String RecpID;
 	private String RecpName;
 	private Integer BoundUnitID;
