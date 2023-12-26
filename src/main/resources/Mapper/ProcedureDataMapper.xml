@@ -150,7 +150,7 @@
 	<select id="getListByProcedureID" resultType="com.batchClientHL.entity.ProcedureData">
 		select * from ProcedureData where ProcedureID=#{procedureID}
 	</select>
-	<select id="getCountByProcedureID">
+	<select id="getCountByProcedureID" resultType="java.lang.Integer">
 		select count(*) from ProcedureData where ProcedureID=#{procedureID}
 	</select>
 </mapper>

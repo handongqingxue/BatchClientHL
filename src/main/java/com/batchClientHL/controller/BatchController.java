@@ -57,13 +57,13 @@ public class BatchController {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		
 		try {	
-			procedureID=APIUtil.PROCEDURE_ID_DATA.replaceAll("ProcedureID", procedureID.replaceAll(BatchView.T_SIGN,BatchView.SINGLE_T_SPACE_SIGN));
-			JSONObject procedureIDDataJO = APIUtil.getItemJO(procedureID);
+			String requestParam=APIUtil.PROCEDURE_ID_DATA.replaceAll("ProcedureID", procedureID.replaceAll(BatchView.T_SIGN,BatchView.SINGLE_T_SPACE_SIGN));
+			JSONObject procedureIDDataJO = APIUtil.getItemJO(requestParam);
 			String procedureIDData = procedureIDDataJO.getString("data");
 			Map<String, Object> resultMap = APIUtil.convertItemDataToEntity(APIUtil.PROCEDURE_ID_DATA,procedureIDData);
 			List<ProcedureData> procedureDataList = (List<ProcedureData>)resultMap.get("procedureDataList");
 			for (ProcedureData procedureData : procedureDataList) {
-				procedureData.setProcedureID(procedureIDData);
+				procedureData.setProcedureID(procedureID);
 			}
 			procedureDataService.addFromList(procedureDataList);
 		} catch (Exception e) {

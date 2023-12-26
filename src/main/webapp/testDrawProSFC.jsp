@@ -74,14 +74,17 @@ var regularStepList;//常规步序对象集合
 var transitionList;//状态改变步序对象集合
 var terminalStep;//终点步序对象
 
-var createID=108;
+var createID=116;
+//var procedureID=createID;
+//var procedureID=createID+"tCLS_SWEETCREAM_UP:1";
+var procedureID=createID+"tCLS_SWEETCREAM_UP:1tCLS_SWEETCREAM_OP:1";
 $(function(){
 	getDrawProSFCData();
 });
 
 function getDrawProSFCData(){
 	$.post(path+"batch/getDrawProSFCData",
-		{createID:createID,recpID:"CLS_FRENCHVANILLA"},//CLS_FRENCHVANILLA  CLS_SWEETCREAM_UP  CLS_SWEETCREAM_OP
+		{procedureID:procedureID},//CLS_FRENCHVANILLA  CLS_SWEETCREAM_UP  CLS_SWEETCREAM_OP
 		function(result){
 			drawSFCMap=result.drawSFCMap;
 			console.log(initialStepText)
@@ -93,7 +96,19 @@ function getDrawProSFCData(){
 			drawAndDivergence();
 			drawAndConvergence();
 			
-			getStepListStatus();
+			setInterval(function(){
+				initStepListStatus();
+				getStepListStatus();
+			},"2000")
+		}
+	,"json");
+}
+
+function initStepListStatus(){
+	$.post(path+"batch/initStepListStatus",
+		{createID:createID},
+		function(result){
+			
 		}
 	,"json");
 }
@@ -106,63 +121,133 @@ function getStepListStatus(){
 				var stepListStatusList=result.stepListStatusList;
 				for(var i=0;i<stepListStatusList.length;i++){
 					var stepListStatus=stepListStatusList[i];
-					//console.log("ElemID="+stepListStatus.elemID);
+					var slsSp88Type=stepListStatus.sp88Type;
+					var slsState=stepListStatus.state;
+					var slsElemID=stepListStatus.elemID;
+					var slsUnitName=stepListStatus.unitName;
+					var slsState=stepListStatus.state;
+					var slsMode=stepListStatus.mode;
+					//console.log("ElemID="+slsElemID);
 					for(var j=0;j<regularStepList.length;j++){
 						var regularStep=regularStepList[j];
-						if(stepListStatus.elemID==regularStep.elemID){
+						if(slsElemID==regularStep.elemID){
 							//console.log(stepListStatus);
-							var slsSp88Type=stepListStatus.sp88Type;
 							//console.log("ElemID111="+stepListStatus.elemID+",SP88Type="+slsSp88Type);
-							var regStepDiv=$("#up_div #content_div #reg_step_div"+stepListStatus.elemID);
-							var nameDiv=regStepDiv.find("#name_div"+stepListStatus.elemID);
+							var regStepDiv=$("#up_div #content_div #reg_step_div"+slsElemID);
+							var nameDiv=regStepDiv.find("#name_div"+slsElemID);
 							if(slsSp88Type==2){
-								var unitNameDiv=regStepDiv.find("#unitName_div"+stepListStatus.elemID);
+								var unitNameDiv=regStepDiv.find("#unitName_div"+slsElemID);
 								unitNameDiv.css("display","block");
-								unitNameDiv.text(stepListStatus.unitName);
-								if(stepListStatus.state=="HELD"){
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
-									
-									regStepDiv.addClass("up_held_div");
-									nameDiv.addClass("up_name_held_div");
-									unitNameDiv.addClass("up_unit_name_held_div");
+								unitNameDiv.text(slsUnitName);
+								if(slsState==" "){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text("");
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text("");
+
+									regStepDiv.css("background-color","#fff");
+									nameDiv.css("color","#000");
+									unitNameDiv.css("color","#000");
+								}
+								else if(slsState=="RUNNING"||
+										slsState=="RESTART"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
+
+									regStepDiv.css("background-color","#46A758");
+									nameDiv.css("color","#fff");
+									unitNameDiv.css("color","#fff");
+								}
+								else if(slsState=="HOLDING"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
+
+									regStepDiv.css("background-color","yellow");
+									nameDiv.css("color","#fff");
+									unitNameDiv.css("color","#fff");
+								}
+								else if(slsState=="HELD"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
+
+									regStepDiv.css("background-color","#84853E");
+									nameDiv.css("color","#fff");
+									unitNameDiv.css("color","#fff");
+								}
+							}
+							if(slsSp88Type==3){
+								if(slsState==" "){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text("");
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text("");
+
+									regStepDiv.css("background-color","#fff");
+									nameDiv.css("color","#000");
+								}
+								else if(slsState=="RUNNING"||
+										slsState=="RESTART"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
+
+									regStepDiv.css("background-color","#46A758");
+									nameDiv.css("color","#fff");
+								}
+								else if(slsState=="HOLDING"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
+
+									regStepDiv.css("background-color","yellow");
+									nameDiv.css("color","#fff");
+								}
+								else if(slsState=="HELD"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
+
+									regStepDiv.css("background-color","#84853E");
+									nameDiv.css("color","#fff");
 								}
 							}
 							else if(slsSp88Type==4){
-								var keyValueDiv=regStepDiv.find("#keyValue_div"+stepListStatus.elemID);
+								var keyValueDiv=regStepDiv.find("#keyValue_div"+slsElemID);
 								keyValueDiv.css("display","block");
 								keyValueDiv.text(stepListStatus.keyValue);
-								if(stepListStatus.state==""){
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
-									
-									regStepDiv.removeClass();
-									nameDiv.removeClass();
-									keyValueDiv.removeClass();
+								if(slsState==" "){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text("");
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text("");
+
+									regStepDiv.css("background-color","#fff");
+									nameDiv.css("color","#000");
+									keyValueDiv.css("color","#000");
 								}
-								else if(stepListStatus.state=="RUNNING"){
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
+								else if(slsState=="RUNNING"||
+										slsState=="RESTART"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
 									
-									regStepDiv.addClass("up_running_div");
-									nameDiv.addClass("up_name_running_div");
-									keyValueDiv.addClass("up_key_value_running_div");
+									regStepDiv.css("background-color","#46A758");
+									nameDiv.css("color","#fff");
+									keyValueDiv.css("color","#fff");
 								}
-								else if(stepListStatus.state=="HELD"){
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
+								else if(slsState=="HOLDING"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
 									
-									regStepDiv.addClass("up_held_div");
-									nameDiv.addClass("up_name_held_div");
-									keyValueDiv.addClass("up_key_value_held_div");
+									regStepDiv.css("background-color","yellow");
+									nameDiv.css("color","#fff");
+									keyValueDiv.css("color","#fff");
 								}
-								else if(stepListStatus.state=="COMPLETE"){
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#state_span").text(stepListStatus.state);
-									regStepDiv.find("#state_div"+stepListStatus.elemID).find("#mode_span").text(stepListStatus.mode);
+								else if(slsState=="HELD"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
 									
-									regStepDiv.addClass("up_complete_div");
-									nameDiv.addClass("up_name_complete_div");
-									keyValueDiv.addClass("up_key_value_complete_div");
+									regStepDiv.css("background-color","#84853E");
+									nameDiv.css("color","#fff");
+									keyValueDiv.css("color","#fff");
+								}
+								else if(slsState=="COMPLETE"){
+									regStepDiv.find("#state_div"+slsElemID).find("#state_span").text(slsState);
+									regStepDiv.find("#state_div"+slsElemID).find("#mode_span").text(slsMode);
+									
+									regStepDiv.css("background-color","#676A71");
+									nameDiv.css("color","#fff");
+									keyValueDiv.css("color","#fff");
 								}
 							}
 						}
@@ -443,204 +528,208 @@ function drawLink(){
 //绘制发散线
 function drawAndDivergence(){
 	var andDivergenceList=drawSFCMap[andDivergenceText];
-	for(var i=0;i<andDivergenceList.length;i++){
-		var andDivergence=andDivergenceList[i];
-		var elemType=andDivergence.elemType;
-		var elemID=andDivergence.elemID;
-		
-		var prevElemIDListStr=andDivergence.prevElemIDList;
-		var prevElemIDListArr=prevElemIDListStr.split(tSign);
-		var prevElemIDListArrLength=prevElemIDListArr.length;
-		
-		var nextElemIDListStr=andDivergence.nextElemIDList;
-		var nextElemIDListArr=nextElemIDListStr.split(tSign);
-		var nextElemIDListArrLength=nextElemIDListArr.length;
-		//console.log("elemType="+elemType+",elemID="+elemID+",prevElemIDListStr="+prevElemIDListStr+",nextElemIDListStr="+nextElemIDListStr);
-		
-		var andDivergenceHorDiv1;
-		var andDivergenceHorDiv2;
-		var andDivergenceVerDiv;
-		var prevElemCrossVerDivMarginTop;
-		if(prevElemIDListArrLength==1){//在上一个节点元素是1个的情况下
-			var contentDiv=$("#up_div #content_div");
-			var andDivergenceVerDivStr="<div class=\"and_divergence_ver_div\" id=\"and_divergence_ver_div"+elemID+"\">";
-			contentDiv.append(andDivergenceVerDivStr);
+	if(andDivergenceList!=undefined){
+		for(var i=0;i<andDivergenceList.length;i++){
+			var andDivergence=andDivergenceList[i];
+			var elemType=andDivergence.elemType;
+			var elemID=andDivergence.elemID;
 			
-			andDivergenceVerDiv=$("#and_divergence_ver_div"+elemID);
+			var prevElemIDListStr=andDivergence.prevElemIDList;
+			var prevElemIDListArr=prevElemIDListStr.split(tSign);
+			var prevElemIDListArrLength=prevElemIDListArr.length;
 			
-			var prevElem=getTraFromListByID(prevElemIDListStr);
-			//console.log(prevElem);
-			prevElemCrossVerDivMarginTop=prevElem.crossVerDivMarginTop;
-			var andDivergenceMarginTop=prevElemCrossVerDivMarginTop+traCrossVerDivHeight;
-			var andDivergenceMarginLeft=prevElem.crossHorDivMarginLeft+traCrossHorDivWidth/2;
+			var nextElemIDListStr=andDivergence.nextElemIDList;
+			var nextElemIDListArr=nextElemIDListStr.split(tSign);
+			var nextElemIDListArrLength=nextElemIDListArr.length;
+			//console.log("elemType="+elemType+",elemID="+elemID+",prevElemIDListStr="+prevElemIDListStr+",nextElemIDListStr="+nextElemIDListStr);
 			
-			andDivergenceVerDiv.css("width",convertNumToPx(linkDivWidth));
-			andDivergenceVerDiv.css("margin-top",convertNumToPx(andDivergenceMarginTop));
-			andDivergenceVerDiv.css("margin-left",convertNumToPx(andDivergenceMarginLeft));
-			
-			andDivergence.marginTop=andDivergenceMarginTop;
-			andDivergence.marginLeft=andDivergenceMarginLeft;
-
-			var andDivergenceHorDiv1Str="<div class=\"and_divergence_hor_div\" id=\"and_divergence_hor_div1"+elemID+"\">";
-			contentDiv.append(andDivergenceHorDiv1Str);
-			
-			andDivergenceHorDiv1=$("#and_divergence_hor_div1"+elemID);
-			andDivergenceHorDiv1.css("height",convertNumToPx(traCrossHorDivHeight));
-
-			var andDivergenceHorDiv2Str="<div class=\"and_divergence_hor_div\" id=\"and_divergence_hor_div2"+elemID+"\">";
-			contentDiv.append(andDivergenceHorDiv2Str);
-			
-			andDivergenceHorDiv2=$("#and_divergence_hor_div2"+elemID);
-			andDivergenceHorDiv2.css("height",convertNumToPx(traCrossHorDivHeight));
-		}
-		
-		
-		var andDivergenceHorDivWidthStartX;
-		var andDivergenceHorDivWidthEndX;
-		var andDivergenceHorDivMarginLeft;
-		var andDivergenceHorDivMarginTop;
-		for (var j = 0; j < nextElemIDListArrLength; j++) {
-			var nextElemID=nextElemIDListArr[j];
-			//console.log(nextElemID);
-			var nextReg=getRegFromListByID(nextElemID);
-			//console.log(nextReg);
-			
-			var nextLinkDivMarginTop=nextReg.drawYCordScale-traCrossVerDivHeight/2;
-			var nextLinkDivMarginLeft=nextReg.drawXCordScale+stepDivWidth/2;
-
-			var contentDiv=$("#up_div #content_div");
-			var nextLinkDivStr="<div class=\"next_link_div\" id=\"next_link_div"+nextElemID+"\">";
-			contentDiv.append(nextLinkDivStr);
-			
-			var nextLinkDiv=$("#next_link_div"+nextElemID);
-			
-			nextLinkDiv.css("width",convertNumToPx(linkDivWidth));
-			nextLinkDiv.css("height",convertNumToPx(traCrossVerDivHeight/2));
-			nextLinkDiv.css("margin-top",convertNumToPx(nextLinkDivMarginTop));
-			nextLinkDiv.css("margin-left",convertNumToPx(nextLinkDivMarginLeft));
-
-			if(j==0){
-				andDivergenceHorDivWidthStartX=nextLinkDivMarginLeft;
-				andDivergenceHorDivMarginLeft=nextLinkDivMarginLeft;;
-				andDivergenceHorDivMarginTop=nextLinkDivMarginTop;
-
+			var andDivergenceHorDiv1;
+			var andDivergenceHorDiv2;
+			var andDivergenceVerDiv;
+			var prevElemCrossVerDivMarginTop;
+			if(prevElemIDListArrLength==1){//在上一个节点元素是1个的情况下
+				var contentDiv=$("#up_div #content_div");
+				var andDivergenceVerDivStr="<div class=\"and_divergence_ver_div\" id=\"and_divergence_ver_div"+elemID+"\">";
+				contentDiv.append(andDivergenceVerDivStr);
+				
+				andDivergenceVerDiv=$("#and_divergence_ver_div"+elemID);
+				
+				var prevElem=getTraFromListByID(prevElemIDListStr);
+				//console.log(prevElem);
+				prevElemCrossVerDivMarginTop=prevElem.crossVerDivMarginTop;
+				var andDivergenceMarginTop=prevElemCrossVerDivMarginTop+traCrossVerDivHeight;
+				var andDivergenceMarginLeft=prevElem.crossHorDivMarginLeft+traCrossHorDivWidth/2;
+				
+				andDivergenceVerDiv.css("width",convertNumToPx(linkDivWidth));
+				andDivergenceVerDiv.css("margin-top",convertNumToPx(andDivergenceMarginTop));
+				andDivergenceVerDiv.css("margin-left",convertNumToPx(andDivergenceMarginLeft));
+				
+				andDivergence.marginTop=andDivergenceMarginTop;
+				andDivergence.marginLeft=andDivergenceMarginLeft;
+	
+				var andDivergenceHorDiv1Str="<div class=\"and_divergence_hor_div\" id=\"and_divergence_hor_div1"+elemID+"\">";
+				contentDiv.append(andDivergenceHorDiv1Str);
+				
+				andDivergenceHorDiv1=$("#and_divergence_hor_div1"+elemID);
+				andDivergenceHorDiv1.css("height",convertNumToPx(traCrossHorDivHeight));
+	
+				var andDivergenceHorDiv2Str="<div class=\"and_divergence_hor_div\" id=\"and_divergence_hor_div2"+elemID+"\">";
+				contentDiv.append(andDivergenceHorDiv2Str);
+				
+				andDivergenceHorDiv2=$("#and_divergence_hor_div2"+elemID);
+				andDivergenceHorDiv2.css("height",convertNumToPx(traCrossHorDivHeight));
 			}
-			else if(j==nextElemIDListArrLength-1){
-				andDivergenceHorDivWidthEndX=nextLinkDivMarginLeft;
+			
+			
+			var andDivergenceHorDivWidthStartX;
+			var andDivergenceHorDivWidthEndX;
+			var andDivergenceHorDivMarginLeft;
+			var andDivergenceHorDivMarginTop;
+			for (var j = 0; j < nextElemIDListArrLength; j++) {
+				var nextElemID=nextElemIDListArr[j];
+				//console.log(nextElemID);
+				var nextReg=getRegFromListByID(nextElemID);
+				//console.log(nextReg);
+				
+				var nextLinkDivMarginTop=nextReg.drawYCordScale-traCrossVerDivHeight/2;
+				var nextLinkDivMarginLeft=nextReg.drawXCordScale+stepDivWidth/2;
+	
+				var contentDiv=$("#up_div #content_div");
+				var nextLinkDivStr="<div class=\"next_link_div\" id=\"next_link_div"+nextElemID+"\">";
+				contentDiv.append(nextLinkDivStr);
+				
+				var nextLinkDiv=$("#next_link_div"+nextElemID);
+				
+				nextLinkDiv.css("width",convertNumToPx(linkDivWidth));
+				nextLinkDiv.css("height",convertNumToPx(traCrossVerDivHeight/2));
+				nextLinkDiv.css("margin-top",convertNumToPx(nextLinkDivMarginTop));
+				nextLinkDiv.css("margin-left",convertNumToPx(nextLinkDivMarginLeft));
+	
+				if(j==0){
+					andDivergenceHorDivWidthStartX=nextLinkDivMarginLeft;
+					andDivergenceHorDivMarginLeft=nextLinkDivMarginLeft;;
+					andDivergenceHorDivMarginTop=nextLinkDivMarginTop;
+	
+				}
+				else if(j==nextElemIDListArrLength-1){
+					andDivergenceHorDivWidthEndX=nextLinkDivMarginLeft;
+				}
 			}
-		}
-		
-		if(prevElemIDListArrLength==1){
-			andDivergenceHorDiv1.css("width",convertNumToPx(andDivergenceHorDivWidthEndX-andDivergenceHorDivWidthStartX+andDivHorDivEndSpace*2));
-			andDivergenceHorDiv1.css("margin-left",convertNumToPx(andDivergenceHorDivMarginLeft+andDivHorDivStartSpace));
-			andDivergenceHorDiv1.css("margin-top",convertNumToPx(andDivergenceHorDivMarginTop));
 			
-			andDivergenceHorDiv2.css("width",convertNumToPx(andDivergenceHorDivWidthEndX-andDivergenceHorDivWidthStartX+andDivHorDivEndSpace*2));
-			andDivergenceHorDiv2.css("margin-left",convertNumToPx(andDivergenceHorDivMarginLeft+andDivHorDivStartSpace));
-			andDivergenceHorDiv2.css("margin-top",convertNumToPx(andDivergenceHorDivMarginTop+andDivHorDivUpSpace));
-			
-			andDivergenceVerDiv.css("height",convertNumToPx(andDivergenceHorDivMarginTop-prevElemCrossVerDivMarginTop-traCrossVerDivHeight+andDivHorDivUpSpace));
+			if(prevElemIDListArrLength==1){
+				andDivergenceHorDiv1.css("width",convertNumToPx(andDivergenceHorDivWidthEndX-andDivergenceHorDivWidthStartX+andDivHorDivEndSpace*2));
+				andDivergenceHorDiv1.css("margin-left",convertNumToPx(andDivergenceHorDivMarginLeft+andDivHorDivStartSpace));
+				andDivergenceHorDiv1.css("margin-top",convertNumToPx(andDivergenceHorDivMarginTop));
+				
+				andDivergenceHorDiv2.css("width",convertNumToPx(andDivergenceHorDivWidthEndX-andDivergenceHorDivWidthStartX+andDivHorDivEndSpace*2));
+				andDivergenceHorDiv2.css("margin-left",convertNumToPx(andDivergenceHorDivMarginLeft+andDivHorDivStartSpace));
+				andDivergenceHorDiv2.css("margin-top",convertNumToPx(andDivergenceHorDivMarginTop+andDivHorDivUpSpace));
+				
+				andDivergenceVerDiv.css("height",convertNumToPx(andDivergenceHorDivMarginTop-prevElemCrossVerDivMarginTop-traCrossVerDivHeight+andDivHorDivUpSpace));
+			}
 		}
 	}
 }
 
 function drawAndConvergence(){
 	var andConvergenceList=drawSFCMap[andConvergenceText];
-	for(var i=0;i<andConvergenceList.length;i++){
-		var andConvergence=andConvergenceList[i];
-		var elemType=andConvergence.elemType;
-		var elemID=andConvergence.elemID;
-		
-		var nextElemIDListStr=andConvergence.nextElemIDList;
-		var nextElemIDListArr=nextElemIDListStr.split(tSign);
-		var nextElemIDListArrLength=nextElemIDListArr.length;
-		
-		var prevElemIDListStr=andConvergence.prevElemIDList;
-		var prevElemIDListArr=prevElemIDListStr.split(tSign);
-		var prevElemIDListArrLength=prevElemIDListArr.length;
-		console.log("elemType="+elemType+",elemID="+elemID+",nextElemIDListStr="+nextElemIDListStr+",prevElemIDListStr="+prevElemIDListStr);
-
-		var andConvergenceDiv;
-		var andConvergenceHorDiv;
-		var nextElemCrossVerDivMarginTop;
-		var nextElem;
-		if(nextElemIDListArrLength==1){
-			var contentDiv=$("#up_div #content_div");
-			var andConvergenceDivStr="<div class=\"and_convergence_div\" id=\"and_convergence_div"+elemID+"\">";
-			contentDiv.append(andConvergenceDivStr);
+	if(andConvergenceList!=undefined){
+		for(var i=0;i<andConvergenceList.length;i++){
+			var andConvergence=andConvergenceList[i];
+			var elemType=andConvergence.elemType;
+			var elemID=andConvergence.elemID;
 			
-			andConvergenceDiv=$("#and_convergence_div"+elemID);
+			var nextElemIDListStr=andConvergence.nextElemIDList;
+			var nextElemIDListArr=nextElemIDListStr.split(tSign);
+			var nextElemIDListArrLength=nextElemIDListArr.length;
 			
-			nextElem=getTraFromListByID(nextElemIDListStr);
-			console.log(nextElem);
-			var andConvergenceMarginLeft=nextElem.crossHorDivMarginLeft+traCrossHorDivWidth/2;
-			
-			andConvergenceDiv.css("width",convertNumToPx(linkDivWidth));
-			andConvergenceDiv.css("margin-left",convertNumToPx(andConvergenceMarginLeft));
-			
-			andConvergence.marginLeft=andConvergenceMarginLeft;
-		}
-		
-		var andConvergenceHorDivWidthStartX;
-		var andConvergenceHorDivWidthEndX;
-		var andConvergenceHorDivMarginLeft;
-		var andConvergenceHorDivMarginTop;
-
-		var andConvergenceHorDiv1Str="<div class=\"and_convergence_hor_div\" id=\"and_convergence_hor_div1"+elemID+"\">";
-		contentDiv.append(andConvergenceHorDiv1Str);
-		
-		andConvergenceHorDiv1=$("#and_convergence_hor_div1"+elemID);
-		andConvergenceHorDiv1.css("height",convertNumToPx(traCrossHorDivHeight));
-
-		var andConvergenceHorDiv2Str="<div class=\"and_convergence_hor_div\" id=\"and_convergence_hor_div2"+elemID+"\">";
-		contentDiv.append(andConvergenceHorDiv2Str);
-		
-		andConvergenceHorDiv2=$("#and_convergence_hor_div2"+elemID);
-		andConvergenceHorDiv2.css("height",convertNumToPx(traCrossHorDivHeight));
-		
-		for (var j = 0; j < prevElemIDListArrLength; j++) {
-			var prevElemID=prevElemIDListArr[j];
-			console.log(prevElemID);
-			var prevReg=getRegFromListByID(prevElemID);
-			console.log(prevReg);
-			
-			var prevLinkDivMarginTop=prevReg.drawYCordScale+stepDivHeight;
-			var prevLinkDivMarginLeft=prevReg.drawXCordScale+stepDivWidth/2;
-
-			var contentDiv=$("#up_div #content_div");
-			var prevLinkDivStr="<div class=\"prev_link_div\" id=\"prev_link_div"+prevElemID+"\">";
-			contentDiv.append(prevLinkDivStr);
-			
-			var prevLinkDiv=$("#prev_link_div"+prevElemID);
-			
-			prevLinkDiv.css("width",convertNumToPx(linkDivWidth));
-			prevLinkDiv.css("height",convertNumToPx(traCrossVerDivHeight/2));
-			prevLinkDiv.css("margin-top",convertNumToPx(prevLinkDivMarginTop));
-			prevLinkDiv.css("margin-left",convertNumToPx(prevLinkDivMarginLeft));
-
-			if(j==0){
-				andConvergenceHorDivWidthStartX=prevLinkDivMarginLeft;
-				andConvergenceHorDivMarginLeft=prevLinkDivMarginLeft;
-				andConvergenceHorDivMarginTop=prevLinkDivMarginTop+traCrossVerDivHeight/2;
-
+			var prevElemIDListStr=andConvergence.prevElemIDList;
+			var prevElemIDListArr=prevElemIDListStr.split(tSign);
+			var prevElemIDListArrLength=prevElemIDListArr.length;
+			console.log("elemType="+elemType+",elemID="+elemID+",nextElemIDListStr="+nextElemIDListStr+",prevElemIDListStr="+prevElemIDListStr);
+	
+			var andConvergenceDiv;
+			var andConvergenceHorDiv;
+			var nextElemCrossVerDivMarginTop;
+			var nextElem;
+			if(nextElemIDListArrLength==1){
+				var contentDiv=$("#up_div #content_div");
+				var andConvergenceDivStr="<div class=\"and_convergence_div\" id=\"and_convergence_div"+elemID+"\">";
+				contentDiv.append(andConvergenceDivStr);
+				
+				andConvergenceDiv=$("#and_convergence_div"+elemID);
+				
+				nextElem=getTraFromListByID(nextElemIDListStr);
+				console.log(nextElem);
+				var andConvergenceMarginLeft=nextElem.crossHorDivMarginLeft+traCrossHorDivWidth/2;
+				
+				andConvergenceDiv.css("width",convertNumToPx(linkDivWidth));
+				andConvergenceDiv.css("margin-left",convertNumToPx(andConvergenceMarginLeft));
+				
+				andConvergence.marginLeft=andConvergenceMarginLeft;
 			}
-			else if(j==prevElemIDListArrLength-1){
-				andConvergenceHorDivWidthEndX=prevLinkDivMarginLeft;
+			
+			var andConvergenceHorDivWidthStartX;
+			var andConvergenceHorDivWidthEndX;
+			var andConvergenceHorDivMarginLeft;
+			var andConvergenceHorDivMarginTop;
+	
+			var andConvergenceHorDiv1Str="<div class=\"and_convergence_hor_div\" id=\"and_convergence_hor_div1"+elemID+"\">";
+			contentDiv.append(andConvergenceHorDiv1Str);
+			
+			andConvergenceHorDiv1=$("#and_convergence_hor_div1"+elemID);
+			andConvergenceHorDiv1.css("height",convertNumToPx(traCrossHorDivHeight));
+	
+			var andConvergenceHorDiv2Str="<div class=\"and_convergence_hor_div\" id=\"and_convergence_hor_div2"+elemID+"\">";
+			contentDiv.append(andConvergenceHorDiv2Str);
+			
+			andConvergenceHorDiv2=$("#and_convergence_hor_div2"+elemID);
+			andConvergenceHorDiv2.css("height",convertNumToPx(traCrossHorDivHeight));
+			
+			for (var j = 0; j < prevElemIDListArrLength; j++) {
+				var prevElemID=prevElemIDListArr[j];
+				console.log(prevElemID);
+				var prevReg=getRegFromListByID(prevElemID);
+				console.log(prevReg);
+				
+				var prevLinkDivMarginTop=prevReg.drawYCordScale+stepDivHeight;
+				var prevLinkDivMarginLeft=prevReg.drawXCordScale+stepDivWidth/2;
+	
+				var contentDiv=$("#up_div #content_div");
+				var prevLinkDivStr="<div class=\"prev_link_div\" id=\"prev_link_div"+prevElemID+"\">";
+				contentDiv.append(prevLinkDivStr);
+				
+				var prevLinkDiv=$("#prev_link_div"+prevElemID);
+				
+				prevLinkDiv.css("width",convertNumToPx(linkDivWidth));
+				prevLinkDiv.css("height",convertNumToPx(traCrossVerDivHeight/2));
+				prevLinkDiv.css("margin-top",convertNumToPx(prevLinkDivMarginTop));
+				prevLinkDiv.css("margin-left",convertNumToPx(prevLinkDivMarginLeft));
+	
+				if(j==0){
+					andConvergenceHorDivWidthStartX=prevLinkDivMarginLeft;
+					andConvergenceHorDivMarginLeft=prevLinkDivMarginLeft;
+					andConvergenceHorDivMarginTop=prevLinkDivMarginTop+traCrossVerDivHeight/2;
+	
+				}
+				else if(j==prevElemIDListArrLength-1){
+					andConvergenceHorDivWidthEndX=prevLinkDivMarginLeft;
+				}
 			}
-		}
-		
-		if(nextElemIDListArrLength==1){
-			var andConvergenceHorDiv2MarginTop=andConvergenceHorDivMarginTop-andConvHorDivUpSpace;
-			andConvergenceHorDiv1.css("width",convertNumToPx(andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2));
-			andConvergenceHorDiv1.css("margin-left",convertNumToPx(andConvergenceHorDivMarginLeft+andDivHorDivStartSpace));
-			andConvergenceHorDiv1.css("margin-top",convertNumToPx(andConvergenceHorDivMarginTop));
 			
-			andConvergenceHorDiv2.css("width",convertNumToPx(andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2));
-			andConvergenceHorDiv2.css("margin-left",convertNumToPx(andConvergenceHorDivMarginLeft+andConvHorDivStartSpace));
-			andConvergenceHorDiv2.css("margin-top",convertNumToPx(andConvergenceHorDiv2MarginTop));
-			
-			andConvergenceDiv.css("margin-top",convertNumToPx(andConvergenceHorDiv2MarginTop));
-			andConvergenceDiv.css("height",convertNumToPx(nextElem.crossVerDivMarginTop-andConvergenceHorDiv2MarginTop));
+			if(nextElemIDListArrLength==1){
+				var andConvergenceHorDiv2MarginTop=andConvergenceHorDivMarginTop-andConvHorDivUpSpace;
+				andConvergenceHorDiv1.css("width",convertNumToPx(andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2));
+				andConvergenceHorDiv1.css("margin-left",convertNumToPx(andConvergenceHorDivMarginLeft+andDivHorDivStartSpace));
+				andConvergenceHorDiv1.css("margin-top",convertNumToPx(andConvergenceHorDivMarginTop));
+				
+				andConvergenceHorDiv2.css("width",convertNumToPx(andConvergenceHorDivWidthEndX-andConvergenceHorDivWidthStartX+andConvHorDivEndSpace*2));
+				andConvergenceHorDiv2.css("margin-left",convertNumToPx(andConvergenceHorDivMarginLeft+andConvHorDivStartSpace));
+				andConvergenceHorDiv2.css("margin-top",convertNumToPx(andConvergenceHorDiv2MarginTop));
+				
+				andConvergenceDiv.css("margin-top",convertNumToPx(andConvergenceHorDiv2MarginTop));
+				andConvergenceDiv.css("height",convertNumToPx(nextElem.crossVerDivMarginTop-andConvergenceHorDiv2MarginTop));
+			}
 		}
 	}
 }
@@ -798,9 +887,11 @@ function convertNumToPx(num){
 .up_ready_div{
 	background-color:#fff;
 }
-.up_running_div{
+.up_running_div,
+.up_restart_div{
 	background-color:#46A758;
 }
+.up_holding_div,
 .up_held_div{
 	background-color:#84853E;
 }
@@ -813,10 +904,16 @@ function convertNumToPx(num){
 	color:#000;
 }
 .up_name_running_div,
+.up_name_restart_div,
+.up_name_holding_div,
 .up_name_held_div,
 .up_name_complete_div,
+.up_unit_name_running_div,
+.up_unit_name_restart_div,
+.up_unit_name_holding_div,
 .up_unit_name_held_div,
 .up_key_value_running_div,
+.up_key_value_holding_div,
 .up_key_value_held_div,
 .up_key_value_complete_div{
 	color:#fff;
