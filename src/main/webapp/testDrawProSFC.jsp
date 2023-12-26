@@ -883,41 +883,6 @@ function convertNumToPx(num){
 ..reg_step_div .keyValue_div{
 	display: none;;
 }
-
-.up_ready_div{
-	background-color:#fff;
-}
-.up_running_div,
-.up_restart_div{
-	background-color:#46A758;
-}
-.up_holding_div,
-.up_held_div{
-	background-color:#84853E;
-}
-.up_complete_div{
-	background-color:#676A71;
-}
-
-.up_name_ready_div,
-.up_unit_name_ready_div{
-	color:#000;
-}
-.up_name_running_div,
-.up_name_restart_div,
-.up_name_holding_div,
-.up_name_held_div,
-.up_name_complete_div,
-.up_unit_name_running_div,
-.up_unit_name_restart_div,
-.up_unit_name_holding_div,
-.up_unit_name_held_div,
-.up_key_value_running_div,
-.up_key_value_holding_div,
-.up_key_value_held_div,
-.up_key_value_complete_div{
-	color:#fff;
-}
 </style>
 </head>
 <body>
