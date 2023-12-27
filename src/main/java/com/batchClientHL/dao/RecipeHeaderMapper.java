@@ -10,4 +10,6 @@ public interface RecipeHeaderMapper {
 
 	int addFromList(@Param("rhList") List<RecipeHeader> rhList);
 
+	List<RecipeHeader> getList();
+
 }

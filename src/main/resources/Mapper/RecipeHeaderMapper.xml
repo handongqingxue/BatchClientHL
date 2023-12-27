@@ -91,4 +91,7 @@
 			</trim>
 		</foreach>
 	</insert>
+	<select id="getList" resultType="com.batchClientHL.entity.RecipeHeader">
+		select * from RecipeHeader where 1=1
+	</select>
 </mapper>

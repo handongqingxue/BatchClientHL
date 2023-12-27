@@ -9,4 +9,6 @@ import com.batchClientHL.entity.*;
 public interface RecipeHeaderService {
 
 	int addFromList(List<RecipeHeader> rhList);
+
+	List<RecipeHeader> getList();
 }

@@ -12,6 +12,7 @@
 <script type="text/javascript" src="<%=basePath %>js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 var path='<%=basePath %>';
+var homePath=path+'home/';
 $(function(){
 	var docHeight=$(document).height();
 	var bodyDiv=$("body");
@@ -32,7 +33,30 @@ $(function(){
 	var recipeHeaderListDiv=$("#recipe_header_list_div");
 	recipeHeaderListDiv.height(leftDivHeight-100);
 	recipeHeaderListDiv.css("margin-top",-leftDivHeight+topDivHeight+20+"px");
+	
+	getRecipeHeaderList();
 });
+
+function getRecipeHeaderList(){
+	$.post(homePath+"getRecipeHeaderList",
+		function(result){
+			var listDataDiv=$("#recipe_header_list_div #list_data_div");
+			listDataDiv.empty();
+			if(result.status=="ok"){
+				var recipeHeaderList=result.recipeHeaderList;
+				for(var i=0;i<recipeHeaderList.length;i++){
+					var recipeHeader=recipeHeaderList[i];
+					var itemStr="<div class=\"item_div\">";
+							itemStr+="<div class=\"name_div\">"+recipeHeader.recipeIDCName+"</div>";
+							itemStr+="<div class=\"version_div\">"+recipeHeader.version+"</div>";
+						itemStr+="</div>";
+						
+					listDataDiv.append(itemStr);
+				}
+			}
+		}
+	,"json");
+}
 </script>
 <style type="text/css">
 body{
@@ -289,15 +313,7 @@ body{
 		<div class="name_div">配方名称</div>
 		<div class="version_div">版本号</div>
 	</div>
-	<div class="list_data_div">
-		<div class="item_div">
-			<div class="name_div">嬲</div>
-			<div class="version_div">1.0</div>
-		</div>
-		<div class="item_div">
-			<div class="name_div">嬲</div>
-			<div class="version_div">1.0</div>
-		</div>
+	<div class="list_data_div" id="list_data_div">
 	</div>
 </div>
 </body>

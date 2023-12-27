@@ -15,6 +15,12 @@ public class RecipeHeader {
 	public void setRecipeID(String recipeID) {
 		RecipeID = recipeID;
 	}
+	public String getRecipeIDCName() {
+		return RecipeIDCName;
+	}
+	public void setRecipeIDCName(String recipeIDCName) {
+		RecipeIDCName = recipeIDCName;
+	}
 	public String getIdentifier() {
 		return Identifier;
 	}
@@ -88,6 +94,7 @@ public class RecipeHeader {
 		UnitID = unitID;
 	}
 	private String RecipeID;
+	private String RecipeIDCName;
 	private String Identifier;
 	private String Version;
 	private String CreatedDt;
