@@ -46,7 +46,7 @@ function getRecipeHeaderList(){
 				var recipeHeaderList=result.recipeHeaderList;
 				for(var i=0;i<recipeHeaderList.length;i++){
 					var recipeHeader=recipeHeaderList[i];
-					var itemStr="<div class=\"item_div\">";
+					var itemStr="<div class=\"item_div\" onmouseover=\"changeDivBgColor(this,true);\" onmouseout=\"changeDivBgColor(this,false);\" onclick=\"changeDivBgColor(this,true);\">";
 							itemStr+="<div class=\"name_div\">"+recipeHeader.recipeIDCName+"</div>";
 							itemStr+="<div class=\"version_div\">"+recipeHeader.version+"</div>";
 						itemStr+="</div>";
@@ -56,6 +56,21 @@ function getRecipeHeaderList(){
 			}
 		}
 	,"json");
+}
+
+function changeDivBgColor(o,flag){
+	var color;
+	var bgColor;
+	if(flag){
+		color="#fff";
+		bgColor="#4095E5"
+	}
+	else{
+		color="#000";
+		bgColor="#fff"
+	}
+	$(o).css("color",color);
+	$(o).css("background-color",bgColor);
 }
 </script>
 <style type="text/css">
