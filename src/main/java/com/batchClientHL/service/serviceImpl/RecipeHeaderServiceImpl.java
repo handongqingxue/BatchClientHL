@@ -2,6 +2,7 @@ package com.batchClientHL.service.serviceImpl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +30,22 @@ public class RecipeHeaderServiceImpl implements RecipeHeaderService {
 		List<RecipeHeader> recipeHeaderList = recipeHeaderDao.getList();
 		List<TrTable> trTableList=trTableDao.getList();
 		for (RecipeHeader recipeHeader : recipeHeaderList) {
-			String rHRecipeID = recipeHeader.getRecipeID();
+			String recipeID = recipeHeader.getRecipeID();
+			String productName=recipeHeader.getProductName();
 			for (TrTable trTable : trTableList) {
 				String eName = trTable.getEName();
-				if(rHRecipeID.equals(eName)) {
-					String cName = trTable.getCName();
+				String cName = trTable.getCName();
+				if(recipeID.equals(eName)) {
 					recipeHeader.setRecipeIDCName(cName);
+				}
+				if(productName.equals(eName)) {
+					recipeHeader.setProductNameCName(cName);
+				}
+				
+				String recipeIDCName = recipeHeader.getRecipeIDCName();
+				String productNameCName = recipeHeader.getProductNameCName();
+				if(!StringUtils.isEmpty(recipeIDCName)&&
+				   !StringUtils.isEmpty(productNameCName)) {
 					break;
 				}
 			}

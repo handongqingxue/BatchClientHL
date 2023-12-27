@@ -46,7 +46,7 @@ function getRecipeHeaderList(){
 				var recipeHeaderList=result.recipeHeaderList;
 				for(var i=0;i<recipeHeaderList.length;i++){
 					var recipeHeader=recipeHeaderList[i];
-					var itemStr="<div class=\"item_div\" onmouseover=\"changeDivBgColor(this,true);\" onmouseout=\"changeDivBgColor(this,false);\" onclick=\"changeDivBgColor(this,true);\">";
+					var itemStr="<div class=\"item_div\" onmouseover=\"changeDivBgColor(this,true);\" onmouseout=\"changeDivBgColor(this,false);\" onclick=\"getParamList(this,'"+recipeHeader.id+"','"+recipeHeader.productNameCName+"');\">";
 							itemStr+="<div class=\"name_div\">"+recipeHeader.recipeIDCName+"</div>";
 							itemStr+="<div class=\"version_div\">"+recipeHeader.version+"</div>";
 						itemStr+="</div>";
@@ -71,6 +71,10 @@ function changeDivBgColor(o,flag){
 	}
 	$(o).css("color",color);
 	$(o).css("background-color",bgColor);
+}
+
+function getParamList(o,id,productNameCName){
+	alert(productNameCName);
 }
 </script>
 <style type="text/css">

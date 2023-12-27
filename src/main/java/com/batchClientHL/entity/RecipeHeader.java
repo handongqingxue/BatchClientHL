@@ -57,6 +57,12 @@ public class RecipeHeader {
 	public void setProductName(String productName) {
 		ProductName = productName;
 	}
+	public String getProductNameCName() {
+		return ProductNameCName;
+	}
+	public void setProductNameCName(String productNameCName) {
+		ProductNameCName = productNameCName;
+	}
 	public String getProductDsc() {
 		return ProductDsc;
 	}
@@ -101,6 +107,7 @@ public class RecipeHeader {
 	private String Author;
 	private String ProductCode;
 	private String ProductName;
+	private String ProductNameCName;
 	private String ProductDsc;
 	private String ApproveUser;
 	private String ApproveDt;
