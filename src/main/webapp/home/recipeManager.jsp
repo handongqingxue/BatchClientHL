@@ -14,6 +14,7 @@
 var path='<%=basePath %>';
 var homePath=path+'home/';
 $(function(){
+	var docWidth=$(document).width();
 	var docHeight=$(document).height();
 	var bodyDiv=$("body");
 	var leftDiv=$("#left_div");
@@ -31,8 +32,18 @@ $(function(){
 
 	var leftDivHeight=leftDiv.height();
 	var recipeHeaderListDiv=$("#recipe_header_list_div");
-	recipeHeaderListDiv.height(leftDivHeight-100);
+	var recipeHeaderListDivHeight=leftDivHeight-100;
+	recipeHeaderListDiv.height(recipeHeaderListDivHeight);
 	recipeHeaderListDiv.css("margin-top",-leftDivHeight+topDivHeight+20+"px");
+	
+	var recipeHeaderDetailDiv=$("#recipe_header_detail_div");
+	recipeHeaderDetailDiv.height(recipeHeaderListDivHeight);
+	recipeHeaderDetailDiv.css("margin-top",-recipeHeaderListDivHeight+"px");
+	var recipeHeaderListDivMarginLeft=recipeHeaderListDiv.css("margin-left");
+	recipeHeaderListDivMarginLeft=parseInt(recipeHeaderListDivMarginLeft.substring(0,recipeHeaderListDivMarginLeft.length-2));
+	var recipeHeaderDetailDivMarginLeft=recipeHeaderListDivMarginLeft+recipeHeaderListDiv.width()+30;
+	recipeHeaderDetailDiv.css("margin-left",recipeHeaderDetailDivMarginLeft+"px");
+	recipeHeaderDetailDiv.width(docWidth-recipeHeaderDetailDivMarginLeft-30);
 	
 	getRecipeHeaderList();
 });
@@ -260,6 +271,14 @@ body{
 	text-align:center;
 	float: right;
 }
+.recipe_header_detail_div{
+	background-color: #0f0;
+}
+.recipe_header_detail_div .detail_div{
+	width: 1000px;
+	height: 80px;
+	background-color: #00f;
+}
 </style>
 <title>配方管理</title>
 </head>
@@ -333,6 +352,11 @@ body{
 		<div class="version_div">版本号</div>
 	</div>
 	<div class="list_data_div" id="list_data_div">
+	</div>
+</div>
+<div class="recipe_header_detail_div" id="recipe_header_detail_div">
+	<div class="detail_div">
+		<span style="margin-top: 10px;margin-left: 30px;position: absolute;">产品名称</span>
 	</div>
 </div>
 </body>
