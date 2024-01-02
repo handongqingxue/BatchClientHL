@@ -57,7 +57,7 @@ function getRecipeHeaderList(){
 				var recipeHeaderList=result.recipeHeaderList;
 				for(var i=0;i<recipeHeaderList.length;i++){
 					var recipeHeader=recipeHeaderList[i];
-					var itemStr="<div class=\"item_div\" onmouseover=\"changeDivBgColor(this,true);\" onmouseout=\"changeDivBgColor(this,false);\" onclick=\"getParamList(this,'"+recipeHeader.id+"','"+recipeHeader.productCode+"','"+recipeHeader.productNameCName+"','"+recipeHeader.productDscCName+"','"+recipeHeader.authorCName+"');\">";
+					var itemStr="<div class=\"item_div\" onmouseover=\"changeDivBgColor(this,true);\" onmouseout=\"changeDivBgColor(this,false);\" onclick=\"getParamList(this,'"+recipeHeader.id+"','"+recipeHeader.recipeID+"','"+recipeHeader.productCode+"','"+recipeHeader.productNameCName+"','"+recipeHeader.productDscCName+"','"+recipeHeader.authorCName+"');\">";
 							itemStr+="<div class=\"name_div\">"+recipeHeader.recipeIDCName+"</div>";
 							itemStr+="<div class=\"version_div\">"+recipeHeader.version+"</div>";
 						itemStr+="</div>";
@@ -84,13 +84,13 @@ function changeDivBgColor(o,flag){
 	$(o).css("background-color",bgColor);
 }
 
-function getParamList(o,id,productCode,productNameCName,productDscCName,authorCName){
+function getParamList(o,id,recipeID,productCode,productNameCName,productDscCName,authorCName){
 	clearRecipeDetail();
 	$("#product_code_val_span").text(productCode);
 	$("#product_name_val_span").text(productNameCName);
-	alert(productDscCName)
 	$("#product_dsc_val_span").text(productDscCName);
 	$("#author_val_span").text(authorCName);
+	loadParamListTab(recipeID);
 }
 
 function clearRecipeDetail(){
@@ -98,6 +98,33 @@ function clearRecipeDetail(){
 	$("#product_name_val_span").text("");
 	$("#product_dsc_val_span").text("");
 	$("#author_val_span").text("");
+}
+
+function loadParamListTab(recipeID){
+	var paramListTab=$("#param_list_tab");
+	paramListTab.find(".cont_tr").remove();
+	paramListTab.find(".no_data_tr").remove();
+	$.post(homePath+"getRecipePMListByRecipeID",
+		{recipeID:recipeID},
+		function(result){
+			if(result.status=="ok"){
+				var recipePMList=result.recipePMList;
+				for(var i=0;i<recipePMList.length;i++){
+					var recipePM=recipePMList[i];
+					var appendStr="<tr class=\"cont_tr\">";
+							appendStr+="<td>"+recipePM.cname+"</td>";
+							appendStr+="<td>"+recipePM.dosage+"</td>";
+							appendStr+="<td>90</td>";
+							appendStr+="<td>116</td>";
+							appendStr+="<td>"+recipePM.unit+"</td>";
+						appendStr+="</tr>";
+					paramListTab.append(appendStr);
+				}
+			}
+			else
+				paramListTab.append("<tr class=\"no_data_tr\"><td class=\"no_data_td\" colspan=\"5\">"+result.message+"</td></tr>");
+		}
+	,"json");
 }
 </script>
 <style type="text/css">
@@ -366,6 +393,10 @@ body{
 	padding-left: 15px;
 	border: #eee solid 1px;
 }
+.recipe_header_detail_div .param_list_tab .no_data_td{
+	height: 50px;
+	text-align:center;
+}
 </style>
 <title>配方管理</title>
 </head>
@@ -453,7 +484,7 @@ body{
 		<span class="val_span product_dsc_val_span" id="product_dsc_val_span"></span>
 	</div>
 	<div class="create_wo_but_div">创建工单</div>
-	<table class="param_list_tab" cellspacing="0">
+	<table class="param_list_tab" id="param_list_tab" cellspacing="0">
 		<tr class="tit_tr">
 			<td>参数名称</td>
 			<td>参数值</td>

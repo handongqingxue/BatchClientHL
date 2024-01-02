@@ -20,6 +20,8 @@ public class HomeController {
 
 	@Autowired
 	private RecipeHeaderService recipeHeaderService;
+	@Autowired
+	private RecipePMService recipePMService;
 	public static final String MODULE_NAME="home";
 	
 	@RequestMapping(value="/recipeManager")
@@ -43,6 +45,26 @@ public class HomeController {
 		else {
 			jsonMap.put("status", "ok");
 			jsonMap.put("recipeHeaderList", recipeHeaderList);
+		}
+		
+		return jsonMap;
+	}
+	
+	@RequestMapping(value="/getRecipePMListByRecipeID")
+	@ResponseBody
+	public Map<String, Object> getRecipePMListByRecipeID(String recipeID){
+
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		
+		List<RecipePM> recipePMList=recipePMService.getListByRecipeID(recipeID);
+		
+		if(recipePMList.size()==0) {
+			jsonMap.put("status", "no");
+			jsonMap.put("message", "暂无配方参数信息！");
+		}
+		else {
+			jsonMap.put("status", "ok");
+			jsonMap.put("recipePMList", recipePMList);
 		}
 		
 		return jsonMap;
