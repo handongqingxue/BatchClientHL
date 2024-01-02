@@ -57,7 +57,7 @@ function getRecipeHeaderList(){
 				var recipeHeaderList=result.recipeHeaderList;
 				for(var i=0;i<recipeHeaderList.length;i++){
 					var recipeHeader=recipeHeaderList[i];
-					var itemStr="<div class=\"item_div\" onmouseover=\"changeDivBgColor(this,true);\" onmouseout=\"changeDivBgColor(this,false);\" onclick=\"getParamList(this,'"+recipeHeader.id+"','"+recipeHeader.productNameCName+"');\">";
+					var itemStr="<div class=\"item_div\" onmouseover=\"changeDivBgColor(this,true);\" onmouseout=\"changeDivBgColor(this,false);\" onclick=\"getParamList(this,'"+recipeHeader.id+"','"+recipeHeader.productCode+"','"+recipeHeader.productNameCName+"','"+recipeHeader.productDscCName+"','"+recipeHeader.authorCName+"');\">";
 							itemStr+="<div class=\"name_div\">"+recipeHeader.recipeIDCName+"</div>";
 							itemStr+="<div class=\"version_div\">"+recipeHeader.version+"</div>";
 						itemStr+="</div>";
@@ -84,8 +84,20 @@ function changeDivBgColor(o,flag){
 	$(o).css("background-color",bgColor);
 }
 
-function getParamList(o,id,productNameCName){
-	alert(productNameCName);
+function getParamList(o,id,productCode,productNameCName,productDscCName,authorCName){
+	clearRecipeDetail();
+	$("#product_code_val_span").text(productCode);
+	$("#product_name_val_span").text(productNameCName);
+	alert(productDscCName)
+	$("#product_dsc_val_span").text(productDscCName);
+	$("#author_val_span").text(authorCName);
+}
+
+function clearRecipeDetail(){
+	$("#product_code_val_span").text("");
+	$("#product_name_val_span").text("");
+	$("#product_dsc_val_span").text("");
+	$("#author_val_span").text("");
 }
 </script>
 <style type="text/css">
@@ -272,12 +284,87 @@ body{
 	float: right;
 }
 .recipe_header_detail_div{
+	/*
 	background-color: #0f0;
+	*/
 }
 .recipe_header_detail_div .detail_div{
 	width: 1000px;
 	height: 80px;
+	/*
 	background-color: #00f;
+	*/
+}
+.recipe_header_detail_div .detail_div .key_span{
+	position: absolute;
+}
+.recipe_header_detail_div .detail_div .product_name_key_span{
+	margin-top: 10px;
+	margin-left: 30px;
+}
+.recipe_header_detail_div .detail_div .product_code_key_span{
+	margin-top: 10px;
+	margin-left: 330px;
+}
+.recipe_header_detail_div .detail_div .author_key_span{
+	margin-top: 10px;
+	margin-left: 630px;
+}
+.recipe_header_detail_div .detail_div .product_dsc_key_span{
+	margin-top: 50px;
+	margin-left: 30px;
+}
+.recipe_header_detail_div .detail_div .val_span{
+	color: #347CAF;
+	position: absolute;
+}
+.recipe_header_detail_div .detail_div .product_name_val_span{
+	margin-top: 10px;
+	margin-left: 130px;
+}
+.recipe_header_detail_div .detail_div .product_code_val_span{
+	margin-top: 10px;
+	margin-left: 430px;
+}
+.recipe_header_detail_div .detail_div .author_val_span{
+	margin-top: 10px;
+	margin-left: 730px;
+}
+.recipe_header_detail_div .detail_div .product_dsc_val_span{
+	margin-top: 50px;
+	margin-left: 130px;
+}
+.recipe_header_detail_div .create_wo_but_div{
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	margin-top:-120px;
+	color: #347CAF;
+	text-align:center;
+	background-color: #f7df07;
+	border-radius:5px;
+	cursor:pointer;
+	float: right; 
+}
+.recipe_header_detail_div .param_list_tab{
+	width: 100%;
+	margin-top:30px; 
+	border: #eee solid 1px;
+}
+.recipe_header_detail_div .param_list_tab .tit_tr{
+	height: 40px;
+}
+.recipe_header_detail_div .param_list_tab .tit_tr td{
+	font-weight:bold;
+	padding-left: 15px;
+	border: #eee solid 1px;
+}
+.recipe_header_detail_div .param_list_tab .cont_tr{
+	height: 50px;
+}
+.recipe_header_detail_div .param_list_tab .cont_tr td{
+	padding-left: 15px;
+	border: #eee solid 1px;
 }
 </style>
 <title>配方管理</title>
@@ -356,8 +443,32 @@ body{
 </div>
 <div class="recipe_header_detail_div" id="recipe_header_detail_div">
 	<div class="detail_div">
-		<span style="margin-top: 10px;margin-left: 30px;position: absolute;">产品名称</span>
+		<span class="key_span product_name_key_span">产品名称</span>
+		<span class="val_span product_name_val_span" id="product_name_val_span"></span>
+		<span class="key_span product_code_key_span">产品编码</span>
+		<span class="val_span product_code_val_span" id="product_code_val_span"></span>
+		<span class="key_span author_key_span">设计者</span>
+		<span class="val_span author_val_span" id="author_val_span"></span>
+		<span class="key_span product_dsc_key_span">配方描述</span>
+		<span class="val_span product_dsc_val_span" id="product_dsc_val_span"></span>
 	</div>
+	<div class="create_wo_but_div">创建工单</div>
+	<table class="param_list_tab" cellspacing="0">
+		<tr class="tit_tr">
+			<td>参数名称</td>
+			<td>参数值</td>
+			<td>参数下限</td>
+			<td>参数上限</td>
+			<td>单位</td>
+		</tr>
+		<tr class="cont_tr">
+			<td>嬲</td>
+			<td>100</td>
+			<td>90</td>
+			<td>116</td>
+			<td>kg</td>
+		</tr>
+	</table>
 </div>
 </body>
 </html>

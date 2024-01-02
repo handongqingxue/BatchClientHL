@@ -32,6 +32,8 @@ public class RecipeHeaderServiceImpl implements RecipeHeaderService {
 		for (RecipeHeader recipeHeader : recipeHeaderList) {
 			String recipeID = recipeHeader.getRecipeID();
 			String productName=recipeHeader.getProductName();
+			String author = recipeHeader.getAuthor();
+			String productDsc = recipeHeader.getProductDsc();
 			for (TrTable trTable : trTableList) {
 				String eName = trTable.getEName();
 				String cName = trTable.getCName();
@@ -41,11 +43,21 @@ public class RecipeHeaderServiceImpl implements RecipeHeaderService {
 				if(productName.equals(eName)) {
 					recipeHeader.setProductNameCName(cName);
 				}
+				if(author.equals(eName)) {
+					recipeHeader.setAuthorCName(cName);
+				}
+				if(productDsc.equals(eName)) {
+					recipeHeader.setProductDscCName(cName);
+				}
 				
 				String recipeIDCName = recipeHeader.getRecipeIDCName();
 				String productNameCName = recipeHeader.getProductNameCName();
+				String authorCName = recipeHeader.getAuthorCName();
+				String productDscCName = recipeHeader.getProductDscCName();
 				if(!StringUtils.isEmpty(recipeIDCName)&&
-				   !StringUtils.isEmpty(productNameCName)) {
+				   !StringUtils.isEmpty(productNameCName)&&
+				   !StringUtils.isEmpty(authorCName)&&
+				   !StringUtils.isEmpty(productDscCName)) {
 					break;
 				}
 			}

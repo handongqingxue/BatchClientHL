@@ -45,6 +45,12 @@ public class RecipeHeader {
 	public void setAuthor(String author) {
 		Author = author;
 	}
+	public String getAuthorCName() {
+		return AuthorCName;
+	}
+	public void setAuthorCName(String authorCName) {
+		AuthorCName = authorCName;
+	}
 	public String getProductCode() {
 		return ProductCode;
 	}
@@ -68,6 +74,12 @@ public class RecipeHeader {
 	}
 	public void setProductDsc(String productDsc) {
 		ProductDsc = productDsc;
+	}
+	public String getProductDscCName() {
+		return ProductDscCName;
+	}
+	public void setProductDscCName(String productDscCName) {
+		ProductDscCName = productDscCName;
 	}
 	public String getApproveUser() {
 		return ApproveUser;
@@ -105,10 +117,12 @@ public class RecipeHeader {
 	private String Version;
 	private String CreatedDt;
 	private String Author;
+	private String AuthorCName;
 	private String ProductCode;
 	private String ProductName;
 	private String ProductNameCName;
 	private String ProductDsc;
+	private String ProductDscCName;
 	private String ApproveUser;
 	private String ApproveDt;
 	private Float Dev1;
