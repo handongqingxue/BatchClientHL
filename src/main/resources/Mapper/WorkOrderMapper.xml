@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batchClientHL.dao.WorkOrderMapper">
+	<insert id="add" parameterType="com.batchClientHL.entity.WorkOrder">
+		insert into WorkOrder
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ID!=null">
+				ID,
+			</if>
+			<if test="WorkOrderID!=null">
+				WorkOrderID,
+			</if>
+			<if test="ProductCode!=null">
+				ProductCode,
+			</if>
+			<if test="ProductName!=null">
+				ProductName,
+			</if>
+			<if test="TotalOutput!=null">
+				TotalOutput,
+			</if>
+			<if test="RecipeID!=null">
+				RecipeID,
+			</if>
+			<if test="Identifier!=null">
+				Identifier,
+			</if>
+			<if test="FormulaId!=null">
+				FormulaId,
+			</if>
+			<if test="State!=null">
+				State,
+			</if>
+				CreateTime,
+			<if test="UnitID!=null">
+				UnitID,
+			</if>
+			<if test="LotNo!=null">
+				LotNo,
+			</if>
+			<if test="WorkcenterId!=null">
+				WorkcenterId,
+			</if>
+			<if test="FormulaIdMes!=null">
+				FormulaIdMes,
+			</if>
+				ClearFault,
+			<if test="CreateType!=null">
+				CreateType,
+			</if>
+			<if test="BatchCreated!=null">
+				BatchCreated,
+			</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ID!=null">
+				#{ID},
+			</if>
+			<if test="WorkOrderID!=null">
+				#{WorkOrderID},
+			</if>
+			<if test="ProductCode!=null">
+				#{ProductCode},
+			</if>
+			<if test="ProductName!=null">
+				#{ProductName},
+			</if>
+			<if test="TotalOutput!=null">
+				#{TotalOutput},
+			</if>
+			<if test="RecipeID!=null">
+				#{RecipeID},
+			</if>
+			<if test="Identifier!=null">
+				#{Identifier},
+			</if>
+			<if test="FormulaId!=null">
+				#{FormulaId},
+			</if>
+			<if test="State!=null">
+				#{State},
+			</if>
+				GETDATE(),
+			<if test="UnitID!=null">
+				#{UnitID},
+			</if>
+			<if test="LotNo!=null">
+				#{LotNo},
+			</if>
+			<if test="WorkcenterId!=null">
+				#{WorkcenterId},
+			</if>
+			<if test="FormulaIdMes!=null">
+				#{FormulaIdMes},
+			</if>
+				0,
+			<if test="CreateType!=null">
+				#{CreateType},
+			</if>
+			<if test="BatchCreated!=null">
+				#{BatchCreated},
+			</if>
+		</trim>
+	</insert>
+	<select id="getMaxFormulaIdNumByFormulaIdDate" resultType="java.lang.String">
+		select substring(MAX(FormulaId),19,3) from WorkOrder where FormulaId like #{formulaIdDate}+'%'
+	</select>
+</mapper>

@@ -12,4 +12,11 @@ public interface RecipeHeaderMapper {
 
 	List<RecipeHeader> getList();
 
+	/**
+	 * 根据配方id查询配方头表信息
+	 * @param recipeID
+	 * @return
+	 */
+	RecipeHeader getByRecipeID(@Param("recipeID") String recipeID);
+
 }

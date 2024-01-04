@@ -64,4 +64,10 @@ public class RecipeHeaderServiceImpl implements RecipeHeaderService {
 		}
 		return recipeHeaderList;
 	}
+
+	@Override
+	public RecipeHeader getByRecipeID(String recipeID) {
+		// TODO Auto-generated method stub
+		return recipeHeaderDao.getByRecipeID(recipeID);
+	}
 }

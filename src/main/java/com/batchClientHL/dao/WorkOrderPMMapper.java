@@ -6,8 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.batchClientHL.entity.*;
 
-public interface RecipePMMapper {
+public interface WorkOrderPMMapper {
 
-	List<RecipePM> getListByRecipeID(@Param("recipeID") String recipeID);
-
+	int addFromList(@Param("woPMList") List<WorkOrderPM> woPMList);
 }

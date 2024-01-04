@@ -39,6 +39,18 @@ public class RecipePM {
 	public void setUnit(String unit) {
 		Unit = unit;
 	}
+	public String getHLimit() {
+		return HLimit;
+	}
+	public void setHLimit(String hLimit) {
+		HLimit = hLimit;
+	}
+	public String getLLimit() {
+		return LLimit;
+	}
+	public void setLLimit(String lLimit) {
+		LLimit = lLimit;
+	}
 	public Integer getPMType() {
 		return PMType;
 	}
@@ -57,12 +69,28 @@ public class RecipePM {
 	public void setCName(String cName) {
 		CName = cName;
 	}
+	public String getHH() {
+		return HH;
+	}
+	public void setHH(String hH) {
+		HH = hH;
+	}
+	public String getLL() {
+		return LL;
+	}
+	public void setLL(String lL) {
+		LL = lL;
+	}
 	private String PMCode;
 	private String PMName;
 	private String Lot;
 	private Float Dosage;
 	private String Unit;
+  	private String HLimit;
+  	private String LLimit;
 	private Integer PMType;
 	private String RecipeID;
 	private String CName;
+	private String HH;
+	private String LL;
 }

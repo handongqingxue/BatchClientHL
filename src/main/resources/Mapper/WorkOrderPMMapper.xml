@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batchClientHL.dao.WorkOrderPMMapper">
+	<insert id="addFromList">
+		insert into WorkOrderPM(PMCode,PMName,Lot,Dosage,Unit,HLimit,LLimit,PMType,WorkOrderID,
+		CName,HH,LL,CNameMes) values
+		<foreach collection="woPMList" item="woPM" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<choose>
+					<when test="woPM.PMCode!=null">
+						#{woPM.PMCode},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.PMName!=null">
+						#{woPM.PMName},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.lot!=null">
+						#{woPM.lot},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.dosage!=null">
+						#{woPM.dosage},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.unit!=null">
+						#{woPM.unit},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.HLimit!=null">
+						#{woPM.HLimit},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.LLimit!=null">
+						#{woPM.LLimit},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.PMType!=null">
+						#{woPM.PMType},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.workOrderID!=null">
+						#{woPM.workOrderID},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.CName!=null">
+						#{woPM.CName},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.HH!=null">
+						#{woPM.HH},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.LL!=null">
+						#{woPM.LL},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="woPM.CNameMes!=null">
+						#{woPM.CNameMes},
+					</when>
+					<otherwise>
+						'',
+					</otherwise>
+				</choose>
+			</trim>
+		</foreach>
+	</insert>
+</mapper>

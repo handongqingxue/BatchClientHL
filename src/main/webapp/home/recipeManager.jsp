@@ -74,6 +74,7 @@ function changeDivBgColor(o,flag){
 
 function getParamList(o,id,recipeID,productCode,productNameCName,productDscCName,authorCName){
 	clearRecipeDetail();
+	$("#recipeID_hid").val(recipeID);
 	$("#product_code_val_span").text(productCode);
 	$("#product_name_val_span").text(productNameCName);
 	$("#product_dsc_val_span").text(productDscCName);
@@ -82,6 +83,7 @@ function getParamList(o,id,recipeID,productCode,productNameCName,productDscCName
 }
 
 function clearRecipeDetail(){
+	$("#recipeID_hid").val("");
 	$("#product_code_val_span").text("");
 	$("#product_name_val_span").text("");
 	$("#product_dsc_val_span").text("");
@@ -111,6 +113,16 @@ function loadParamListTab(recipeID){
 			}
 			else
 				paramListTab.append("<tr class=\"no_data_tr\"><td class=\"no_data_td\" colspan=\"5\">"+result.message+"</td></tr>");
+		}
+	,"json");
+}
+
+function handCreateWO(){
+	var recipeID=$("#recipeID_hid").val();
+	$.post(homePath+"handCreateWO",
+		{recipeID:recipeID},
+		function(result){
+			alert(result.state);
 		}
 	,"json");
 }
@@ -263,6 +275,7 @@ function loadParamListTab(recipeID){
 </div>
 <div class="recipe_header_detail_div" id="recipe_header_detail_div">
 	<div class="detail_div">
+		<input type="hidden" id="recipeID_hid"/>
 		<span class="key_span product_name_key_span">产品名称</span>
 		<span class="val_span product_name_val_span" id="product_name_val_span"></span>
 		<span class="key_span product_code_key_span">产品编码</span>
@@ -272,7 +285,7 @@ function loadParamListTab(recipeID){
 		<span class="key_span product_dsc_key_span">配方描述</span>
 		<span class="val_span product_dsc_val_span" id="product_dsc_val_span"></span>
 	</div>
-	<div class="create_wo_but_div">创建工单</div>
+	<div class="create_wo_but_div" onclick="handCreateWO()">创建工单</div>
 	<table class="param_list_tab" id="param_list_tab" cellspacing="0">
 		<tr class="tit_tr">
 			<td>参数名称</td>

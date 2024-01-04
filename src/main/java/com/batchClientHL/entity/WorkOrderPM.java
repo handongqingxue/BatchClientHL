@@ -39,6 +39,18 @@ public class WorkOrderPM {
 	public void setUnit(String unit) {
 		Unit = unit;
 	}
+	public String getHLimit() {
+		return HLimit;
+	}
+	public void setHLimit(String hLimit) {
+		HLimit = hLimit;
+	}
+	public String getLLimit() {
+		return LLimit;
+	}
+	public void setLLimit(String lLimit) {
+		LLimit = lLimit;
+	}
 	public Integer getPMType() {
 		return PMType;
 	}
@@ -57,12 +69,35 @@ public class WorkOrderPM {
 	public void setCName(String cName) {
 		CName = cName;
 	}
+	public String getHH() {
+		return HH;
+	}
+	public void setHH(String hH) {
+		HH = hH;
+	}
+	public String getLL() {
+		return LL;
+	}
+	public void setLL(String lL) {
+		LL = lL;
+	}
+	public String getCNameMes() {
+		return CNameMes;
+	}
+	public void setCNameMes(String cNameMes) {
+		CNameMes = cNameMes;
+	}
 	private String PMCode;
 	private String PMName;
 	private String Lot;
 	private Float Dosage;
 	private String Unit;
+  	private String HLimit;
+  	private String LLimit;
 	private Integer PMType;
 	private String WorkOrderID;
 	private String CName;
+	private String HH;
+	private String LL;
+	private String CNameMes;
 }
